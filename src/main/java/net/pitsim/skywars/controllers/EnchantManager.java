@@ -1,6 +1,5 @@
 package net.pitsim.skywars.controllers;
 
-import com.sun.istack.internal.NotNull;
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTList;
@@ -451,8 +450,7 @@ public class EnchantManager implements Listener {
 		return getEnchantsOnItem(itemStack, new HashMap<>());
 	}
 
-	@org.jetbrains.annotations.NotNull
-	public static Map<PitEnchant, Integer> getEnchantsOnItem(ItemStack itemStack, @NotNull Map<PitEnchant, Integer> currentEnchantMap) {
+	public static Map<PitEnchant, Integer> getEnchantsOnItem(ItemStack itemStack, Map<PitEnchant, Integer> currentEnchantMap) {
 
 		Map<PitEnchant, Integer> itemEnchantMap = new HashMap<>();
 		if(itemStack == null || itemStack.getType() == Material.AIR) return itemEnchantMap;
