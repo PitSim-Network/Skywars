@@ -21,6 +21,9 @@ import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.enchants.*;
+import net.pitsim.skywars.game.KillManager;
+import net.pitsim.skywars.game.QueueManager;
+import net.pitsim.skywars.game.SpectatorManager;
 import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
@@ -178,6 +181,9 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new AFKManager(), this);
 		getServer().getPluginManager().registerEvents(new EnchantManager(), this);
 		getServer().getPluginManager().registerEvents(new SpawnNPCs(), this);
+		getServer().getPluginManager().registerEvents(new QueueManager(), this);
+		getServer().getPluginManager().registerEvents(new KillManager(), this);
+		getServer().getPluginManager().registerEvents(new SpectatorManager(), this);
 	}
 
 	private void loadConfig() {

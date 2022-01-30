@@ -254,7 +254,6 @@ public class DamageManager implements Listener {
 		Misc.multiKill(killer);
 
 		Location spawnLoc = Bukkit.getWorld("lobby").getSpawnLocation();
-		dead.teleport(spawnLoc);
 		for(PotionEffect potionEffect : dead.getActivePotionEffects()) {
 			dead.removePotionEffect(potionEffect.getType());
 		}
@@ -301,7 +300,6 @@ public class DamageManager implements Listener {
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(dead);
 
 		Location spawnLoc = Bukkit.getWorld("lobby").getSpawnLocation();
-		dead.teleport(spawnLoc);
 
 		PitPlayer pitDefender = PitPlayer.getPitPlayer(dead);
 
