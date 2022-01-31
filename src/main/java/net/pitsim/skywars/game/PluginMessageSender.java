@@ -1,9 +1,11 @@
 package net.pitsim.skywars.game;
 
+import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.pitsim.skywars.PitSim;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -12,6 +14,7 @@ import java.io.IOException;
 public class PluginMessageSender {
 
 	public static void sendStart() {
+		System.out.println("TEST");
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
 		if(id == null) return;
 
@@ -35,7 +38,9 @@ public class PluginMessageSender {
 		out.writeShort(msgbytes.toByteArray().length);
 		out.write(msgbytes.toByteArray());
 
-		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+		Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+		assert p != null;
+		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
 
 	public static void sendEnd() {
@@ -62,6 +67,8 @@ public class PluginMessageSender {
 		out.writeShort(msgbytes.toByteArray().length);
 		out.write(msgbytes.toByteArray());
 
-		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+		Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+		assert p != null;
+		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
 }
