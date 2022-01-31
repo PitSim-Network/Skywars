@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.misc.Sounds;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,10 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class QueueManager implements Listener {
-	public static BukkitTask countdown;
+	public static BukkitTask countdown = null;
 
 	public static int maxPlayers = 16;
-	public static int minPlayers = 3;
+	public static int minPlayers = 2;
 	public static int quickStartPlayers = 10;
 	public static int timerStartMinutes = 1;
 	public static int quickTimerStartSeconds = 10;
@@ -60,12 +61,13 @@ public class QueueManager implements Listener {
 
 	public void countdown() {
 		if(countdown == null) {
+			if(GameManager.players.size() < minPlayers) return;
 			minutes = timerStartMinutes;
 			seconds = 0;
 			countdown = new BukkitRunnable() {
 				@Override
 				public void run() {
-					if(minutes > 1) {
+					if(minutes > 0) {
 						if(seconds == 0) AOutput.broadcast("&eThe game is starting in &a" + minutes + " &eminutes!");
 					} else {
 						if(countdownAnnouncements.contains(seconds)) AOutput.broadcast("&eThe game is starting in &a" + seconds + " &eseconds!");
@@ -74,7 +76,11 @@ public class QueueManager implements Listener {
 						if(minutes != 0) {
 							minutes--;
 							seconds = 60;
-						} else GameManager.startGame();
+						} else {
+							GameManager.startGame();
+							this.cancel();
+							countdown = null;
+						}
 					}
 					seconds--;
 				}
@@ -92,4 +98,12 @@ public class QueueManager implements Listener {
 			}
 		}
 	}
+
+//	@EventHandler
+//	public void onActiveLeave(PlayerQuitEvent event) {
+//		System.out.println(GameManager.status);
+//		if(GameManager.status != GameStatus.ACTIVE) return;
+//
+//		if(Bukkit.getOnlinePlayers().size() == 1) PluginMessageSender.sendEnd();
+//	}
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class PluginMessageSender {
 
-	public void sendStart() {
+	public static void sendStart() {
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
 		if(id == null) return;
 
@@ -38,7 +38,7 @@ public class PluginMessageSender {
 		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
 
-	public void sendEnd() {
+	public static void sendEnd() {
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
 		if(id == null) return;
 

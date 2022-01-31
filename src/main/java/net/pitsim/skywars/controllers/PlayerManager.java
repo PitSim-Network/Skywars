@@ -123,7 +123,7 @@ public class PlayerManager implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				event.getPlayer().teleport(Bukkit.getWorld("lobby").getSpawnLocation());
+				event.getPlayer().teleport(Bukkit.getWorld("game").getSpawnLocation());
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10L);
 
@@ -163,7 +163,7 @@ public class PlayerManager implements Listener {
 	public void onJoin(PlayerSpawnLocationEvent event) {
 		Player player = event.getPlayer();
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-		Location spawnLoc = Bukkit.getWorld("lobby").getSpawnLocation();
+		Location spawnLoc = Bukkit.getWorld("world").getSpawnLocation();
 		player.teleport(spawnLoc);
 
 		new BukkitRunnable() {

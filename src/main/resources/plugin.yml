@@ -1,10 +1,10 @@
-name: Sync
+name: Skywars
 authors:
   - Kyro
   - Wiji
 version: 1.0.0
-main: dev.kyro.pitsim.PitSim
-description: Sync Pit Gamemode
+main: net.pitsim.skywars.PitSim
+description: PitSim Skywars Gamemode
 depend:
   - Citizens
   - Vault
@@ -50,3 +50,4 @@ commands:
   lightning:
   stat:
   captcha:
+  skywars:

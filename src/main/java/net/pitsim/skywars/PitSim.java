@@ -21,6 +21,7 @@ import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.enchants.*;
+import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.KillManager;
 import net.pitsim.skywars.game.QueueManager;
 import net.pitsim.skywars.game.SpectatorManager;
@@ -64,8 +65,13 @@ public class PitSim extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		INSTANCE = this;
+		getCommand("skywars").setExecutor(new SkywarsCommand());
+	}
+
+	public void onInit() {
+
+		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 		if (provider != null) {
@@ -122,6 +128,8 @@ public class PitSim extends JavaPlugin {
 		registerEnchants();
 		registerCommands();
 		registerListeners();
+
+		GameManager.init();
 	}
 
 	@Override
