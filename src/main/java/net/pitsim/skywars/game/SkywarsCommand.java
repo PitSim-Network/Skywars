@@ -1,6 +1,7 @@
-package net.pitsim.skywars;
+package net.pitsim.skywars.game;
 
 import dev.kyro.arcticapi.misc.AOutput;
+import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.CombatManager;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.SpawnManager;

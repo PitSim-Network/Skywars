@@ -163,15 +163,7 @@ public class PlayerManager implements Listener {
 	public void onJoin(PlayerSpawnLocationEvent event) {
 		Player player = event.getPlayer();
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-		Location spawnLoc = Bukkit.getWorld("world").getSpawnLocation();
-		player.teleport(spawnLoc);
 
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				Bukkit.getServer().dispatchCommand(player, "spawn");
-			}
-		}.runTaskLater(PitSim.INSTANCE,  10L);
 	}
 
 	@EventHandler

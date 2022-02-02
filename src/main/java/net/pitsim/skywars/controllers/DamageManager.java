@@ -95,7 +95,6 @@ public class DamageManager implements Listener {
 		if(nonHitCooldownList.contains(defender) && !Regularity.toReg.contains(defender.getUniqueId()) &&
 				!(event.getDamager() instanceof Arrow)) {
 			event.setCancelled(true);
-			Bukkit.broadcastMessage("1");
 			return;
 		}
 //		Regular player to player hit
@@ -105,7 +104,6 @@ public class DamageManager implements Listener {
 
 		if(Regularity.regCooldown.contains(defender.getUniqueId()) && !Regularity.toReg.contains(defender.getUniqueId())) {
 			event.setCancelled(true);
-			Bukkit.broadcastMessage("3");
 			return;
 		}
 

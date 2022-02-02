@@ -71,4 +71,13 @@ public class PluginMessageSender {
 		assert p != null;
 		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
+
+	public static void sendToLobby() {
+
+		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		out.writeUTF("Connect"); // So BungeeCord knows to forward it
+		out.writeUTF("lobby");
+
+		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+	}
 }

@@ -21,10 +21,7 @@ import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.enchants.*;
-import net.pitsim.skywars.game.GameManager;
-import net.pitsim.skywars.game.KillManager;
-import net.pitsim.skywars.game.QueueManager;
-import net.pitsim.skywars.game.SpectatorManager;
+import net.pitsim.skywars.game.*;
 import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
@@ -112,6 +109,8 @@ public class PitSim extends JavaPlugin {
 			NoteBlockAPI = false;
 			return;
 		}
+
+		MapManager.onPluginStart();
 
 		registerPerks();
 
