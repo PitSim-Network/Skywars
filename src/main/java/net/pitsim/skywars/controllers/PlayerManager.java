@@ -7,6 +7,8 @@ import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.GameManager;
+import net.pitsim.skywars.game.GameStatus;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -196,17 +198,15 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
-		if(!event.getPlayer().isOp()) return;
-		if(toggledPlayers.contains(event.getPlayer())) return;
-		event.setCancelled(true);
-		AOutput.error(event.getPlayer(), "&CBlock breaking disabled, run /pitsim bypass to toggle");
+		if(GameManager.status == GameStatus.QUEUE) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler
 	public void onBreak(BlockPlaceEvent event) {
-		if(!event.getPlayer().isOp()) return;
-		if(toggledPlayers.contains(event.getPlayer())) return;
-		event.setCancelled(true);
-		AOutput.error(event.getPlayer(), "&CBlock placing disabled, run /pitsim bypass to toggle");
+		if(GameManager.status == GameStatus.QUEUE) {
+			event.setCancelled(true);
+		}
 	}
 }
