@@ -33,9 +33,50 @@ public class EnchantManager implements Listener {
 
 	public static List<PitEnchant> pitEnchants = new ArrayList<>();
 
-	public static void registerEnchant(PitEnchant pitEnchant) {
+	public static List<PitEnchant> swordCommon = new ArrayList<>();
+	public static List<PitEnchant> swordUncommon = new ArrayList<>();
+	public static List<PitEnchant> swordRare = new ArrayList<>();
 
+	public static List<PitEnchant> bowCommon = new ArrayList<>();
+	public static List<PitEnchant> bowUncommon = new ArrayList<>();
+	public static List<PitEnchant> bowRare = new ArrayList<>();
+
+	public static List<PitEnchant> pantsCommon = new ArrayList<>();
+	public static List<PitEnchant> pantsUncommon = new ArrayList<>();
+	public static List<PitEnchant> pantsRare = new ArrayList<>();
+
+	public static List<PitEnchant> allCommon = new ArrayList<>();
+	public static List<PitEnchant> allUncommon = new ArrayList<>();
+	public static List<PitEnchant> allRare = new ArrayList<>();
+
+
+	public static void registerEnchant(PitEnchant pitEnchant) {
 		pitEnchants.add(pitEnchant);
+
+		if(pitEnchant.applyType == ApplyType.SWORDS) {
+			if(pitEnchant.isRare) swordRare.add(pitEnchant);
+			else if(pitEnchant.isUncommonEnchant) swordUncommon.add(pitEnchant);
+			else swordCommon.add(pitEnchant);
+		}
+
+		if(pitEnchant.applyType == ApplyType.BOWS) {
+			if(pitEnchant.isRare) bowRare.add(pitEnchant);
+			else if(pitEnchant.isUncommonEnchant) bowUncommon.add(pitEnchant);
+			else bowCommon.add(pitEnchant);
+		}
+
+		if(pitEnchant.applyType == ApplyType.PANTS) {
+			if(pitEnchant.isRare) pantsRare.add(pitEnchant);
+			else if(pitEnchant.isUncommonEnchant) pantsUncommon.add(pitEnchant);
+			else pantsCommon.add(pitEnchant);
+		}
+
+		if(pitEnchant.applyType == ApplyType.ALL) {
+			if(pitEnchant.isRare) allRare.add(pitEnchant);
+			else if(pitEnchant.isUncommonEnchant) allUncommon.add(pitEnchant);
+			else allCommon.add(pitEnchant);
+		}
+
 		PitSim.INSTANCE.getServer().getPluginManager().registerEvents(pitEnchant, PitSim.INSTANCE);
 	}
 

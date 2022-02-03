@@ -21,5 +21,5 @@ public abstract class GameMap {
 
 	public abstract Map<Integer, Location> getSpawnLocations();
 
-	public abstract Map<Integer, Location> getChests();
+	public abstract Map<Location, Integer> getChests();
 }

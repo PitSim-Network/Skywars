@@ -42,7 +42,87 @@ public class Murilun extends GameMap {
 	}
 
 	@Override
-	public Map<Integer, Location> getChests() {
-		return null;
+	public Map<Location, Integer> getChests() {
+		Map<Location, Integer> chests = new HashMap<>();
+
+		chests.put(new Location(MapManager.getWorld(), -29, 57, -50), 1);
+		chests.put(new Location(MapManager.getWorld(), -27, 61, -49), 1);
+		chests.put(new Location(MapManager.getWorld(), -28, 52, -49), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -1, 57, -84), 1);
+		chests.put(new Location(MapManager.getWorld(), -2, 61, -82), 1);
+		chests.put(new Location(MapManager.getWorld(), -2, 52, -83), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 29, 57, -52), 1);
+		chests.put(new Location(MapManager.getWorld(), 27, 61, -53), 1);
+		chests.put(new Location(MapManager.getWorld(), 28, 52, -53), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 1, 56, -55), 2);
+		chests.put(new Location(MapManager.getWorld(), 1, 49, -49), 2);
+		chests.put(new Location(MapManager.getWorld(), 3, 50, -40), 2);
+
+
+
+		chests.put(new Location(MapManager.getWorld(), 50, 57, -29), 1);
+		chests.put(new Location(MapManager.getWorld(), 49, 61, -27), 1);
+		chests.put(new Location(MapManager.getWorld(), 49, 52, -28), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 84, 57, -1), 1);
+		chests.put(new Location(MapManager.getWorld(), 82, 61, -2), 1);
+		chests.put(new Location(MapManager.getWorld(), 83, 52, -2), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 52, 57, 29), 1);
+		chests.put(new Location(MapManager.getWorld(), 53, 61, 27), 1);
+		chests.put(new Location(MapManager.getWorld(), 53, 52, 28), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 55, 56, 1), 2);
+		chests.put(new Location(MapManager.getWorld(), 49, 49, 1), 2);
+		chests.put(new Location(MapManager.getWorld(), 40, 50, 3), 2);
+
+
+
+		chests.put(new Location(MapManager.getWorld(), 29, 57, 50), 1);
+		chests.put(new Location(MapManager.getWorld(), 27, 61, 49), 1);
+		chests.put(new Location(MapManager.getWorld(), 28, 52, 49), 1);
+
+		chests.put(new Location(MapManager.getWorld(), 1, 57, 84), 1);
+		chests.put(new Location(MapManager.getWorld(), 2, 61, 82), 1);
+		chests.put(new Location(MapManager.getWorld(), 2, 52, 83), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -29, 57, 52), 1);
+		chests.put(new Location(MapManager.getWorld(), -27, 61, 53), 1);
+		chests.put(new Location(MapManager.getWorld(), -28, 52, 53), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -1, 56, 55), 2);
+		chests.put(new Location(MapManager.getWorld(), -1, 49, 49), 2);
+		chests.put(new Location(MapManager.getWorld(), -3, 50, 40), 2);
+
+
+
+		chests.put(new Location(MapManager.getWorld(), -50, 57, 29), 1);
+		chests.put(new Location(MapManager.getWorld(), -49, 61, 27), 1);
+		chests.put(new Location(MapManager.getWorld(), -49, 52, 28), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -84, 57, 1), 1);
+		chests.put(new Location(MapManager.getWorld(), -82, 61, 2), 1);
+		chests.put(new Location(MapManager.getWorld(), -83, 52, 2), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -52, 57, -29), 1);
+		chests.put(new Location(MapManager.getWorld(), -53, 61, -27), 1);
+		chests.put(new Location(MapManager.getWorld(), -53, 52, -28), 1);
+
+		chests.put(new Location(MapManager.getWorld(), -55, 56, -1), 2);
+		chests.put(new Location(MapManager.getWorld(), -49, 49, -1), 2);
+		chests.put(new Location(MapManager.getWorld(), -40, 50, -3), 2);
+
+
+
+		chests.put(new Location(MapManager.getWorld(), 6, 52, -11), 3);
+		chests.put(new Location(MapManager.getWorld(), -2, 52, 11), 3);
+		chests.put(new Location(MapManager.getWorld(), 3, 56, -3), 3);
+		chests.put(new Location(MapManager.getWorld(), -3, 56, 3), 3);
+
+
+		return chests;
 	}
 }

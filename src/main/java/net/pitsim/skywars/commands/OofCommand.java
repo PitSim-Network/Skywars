@@ -1,13 +1,16 @@
 package net.pitsim.skywars.commands;
 
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.CombatManager;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.SpawnManager;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.events.OofEvent;
+import net.pitsim.skywars.game.MysticFactory;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -29,38 +32,47 @@ public class OofCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player player = (Player) sender;
 
-        if(SpawnManager.isInSpawn(player.getLocation())) {
+        String itemType = args[0];
 
-            AOutput.send(player, "&c&lNOPE! &7Cant /oof in spawn!");
-            Sounds.ERROR.play(player);
-        } else {
-
-            if(!CombatManager.taggedPlayers.containsKey(player.getUniqueId())) {
-                DamageManager.death(player);
-                OofEvent oofEvent = new OofEvent(player);
-                Bukkit.getPluginManager().callEvent(oofEvent);
-                return false;
-            }
-
-            PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-            UUID attackerUUID = pitPlayer.lastHitUUID;
-            for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if(onlinePlayer.getUniqueId().equals(attackerUUID)) {
-
-                    Map<PitEnchant, Integer> attackerEnchant = new HashMap<>();
-                    Map<PitEnchant, Integer> defenderEnchant = new HashMap<>();
-                    EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(onlinePlayer, player, EntityDamageEvent.DamageCause.CUSTOM, 0);
-                    AttackEvent attackEvent = new AttackEvent(ev, attackerEnchant, defenderEnchant, false);
+        if(itemType.equals("sword")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.SWORD, 1));
+        else if(itemType.equals("bow")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.BOW, 1));
+        else AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.PANTS, 1))
 
 
-                    DamageManager.kill(attackEvent, onlinePlayer, player, false);
-                    return false;
-                }
-            }
-            DamageManager.death(player);
-            OofEvent oofEvent = new OofEvent(player);
-            Bukkit.getPluginManager().callEvent(oofEvent);
-        }
+        ;
+
+//        if(SpawnManager.isInSpawn(player.getLocation())) {
+//
+//            AOutput.send(player, "&c&lNOPE! &7Cant /oof in spawn!");
+//            Sounds.ERROR.play(player);
+//        } else {
+//
+//            if(!CombatManager.taggedPlayers.containsKey(player.getUniqueId())) {
+//                DamageManager.death(player);
+//                OofEvent oofEvent = new OofEvent(player);
+//                Bukkit.getPluginManager().callEvent(oofEvent);
+//                return false;
+//            }
+//
+//            PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+//            UUID attackerUUID = pitPlayer.lastHitUUID;
+//            for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+//                if(onlinePlayer.getUniqueId().equals(attackerUUID)) {
+//
+//                    Map<PitEnchant, Integer> attackerEnchant = new HashMap<>();
+//                    Map<PitEnchant, Integer> defenderEnchant = new HashMap<>();
+//                    EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(onlinePlayer, player, EntityDamageEvent.DamageCause.CUSTOM, 0);
+//                    AttackEvent attackEvent = new AttackEvent(ev, attackerEnchant, defenderEnchant, false);
+//
+//
+//                    DamageManager.kill(attackEvent, onlinePlayer, player, false);
+//                    return false;
+//                }
+//            }
+//            DamageManager.death(player);
+//            OofEvent oofEvent = new OofEvent(player);
+//            Bukkit.getPluginManager().callEvent(oofEvent);
+//        }
         return false;
     }
 }
