@@ -156,7 +156,7 @@ public class PlayerManager implements Listener {
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
 
 		FeatherBoardAPI.resetDefaultScoreboard(event.getPlayer());
-		FeatherBoardAPI.showScoreboard(event.getPlayer(), "default");
+		FeatherBoardAPI.showScoreboard(event.getPlayer(), "queue");
 	}
 
 

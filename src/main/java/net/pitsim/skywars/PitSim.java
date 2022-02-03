@@ -25,7 +25,7 @@ import net.pitsim.skywars.game.*;
 import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
-import net.pitsim.skywars.placeholders.PrefixPlaceholder;
+import net.pitsim.skywars.placeholders.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -114,8 +114,16 @@ public class PitSim extends JavaPlugin {
 
 		registerPerks();
 
-		ArcticAPI.setupPlaceholderAPI("sync");
+		ArcticAPI.setupPlaceholderAPI("skywars");
 		AHook.registerPlaceholder(new PrefixPlaceholder());
+		AHook.registerPlaceholder(new MapPlaceholder());
+		AHook.registerPlaceholder(new ModePlaceholder());
+		AHook.registerPlaceholder(new QueuePlayersPlaceholder());
+		AHook.registerPlaceholder(new QueueTimePlaceholder());
+		AHook.registerPlaceholder(new ServerPlaceholder());
+		AHook.registerPlaceholder(new GameTimePlaceholder());
+		AHook.registerPlaceholder(new PlayersLeftPlaceholder());
+		AHook.registerPlaceholder(new KillsPlaceholder());
 
 		loadConfig();
 

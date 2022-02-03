@@ -76,8 +76,8 @@ public class QueueManager implements Listener {
 		countdown();
 	}
 
-	private int minutes;
-	private int seconds;
+	private static int minutes;
+	private static int seconds;
 	private boolean isQuickStart = false;
 
 	public void countdown() {
@@ -89,11 +89,16 @@ public class QueueManager implements Listener {
 				@Override
 				public void run() {
 					if(minutes > 0) {
-						if(seconds == 0) AOutput.broadcast("&eThe game is starting in &a" + minutes + " &eminutes!");
-						for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+						if(seconds == 0) {
+							AOutput.broadcast("&eThe game is starting in &a" + minutes + " &eminutes!");
+							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+						}
 					} else {
-						if(countdownAnnouncements.contains(seconds)) AOutput.broadcast("&eThe game is starting in &a" + seconds + " &eseconds!");
-						for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+						if(countdownAnnouncements.contains(seconds)) {
+							AOutput.broadcast("&eThe game is starting in &a" + seconds + " &eseconds!");
+							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+						}
+
 					}
 					if(seconds == 0) {
 						if(minutes != 0) {
@@ -133,6 +138,14 @@ public class QueueManager implements Listener {
 			playerCages.put(player, cage);
 			return;
 		}
+	}
+
+	public static int getMinutes() {
+		return minutes;
+	}
+
+	public static int getSeconds() {
+		return seconds;
 	}
 
 //	@EventHandler

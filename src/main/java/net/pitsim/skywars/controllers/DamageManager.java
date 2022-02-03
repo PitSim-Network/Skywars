@@ -251,7 +251,6 @@ public class DamageManager implements Listener {
 
 		Misc.multiKill(killer);
 
-		Location spawnLoc = Bukkit.getWorld("lobby").getSpawnLocation();
 		for(PotionEffect potionEffect : dead.getActivePotionEffects()) {
 			dead.removePotionEffect(potionEffect.getType());
 		}
