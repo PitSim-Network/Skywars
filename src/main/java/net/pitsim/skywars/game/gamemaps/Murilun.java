@@ -1,11 +1,13 @@
 package net.pitsim.skywars.game.gamemaps;
 
 import net.pitsim.skywars.game.MapManager;
+import net.pitsim.skywars.game.objects.SkywarsChest;
 import net.pitsim.skywars.game.objects.GameMap;
 import org.bukkit.Location;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Murilun extends GameMap {
@@ -42,87 +44,87 @@ public class Murilun extends GameMap {
 	}
 
 	@Override
-	public Map<Location, Integer> getChests() {
+	public List<SkywarsChest> getChests() {
 		Map<Location, Integer> chests = new HashMap<>();
 
-		chests.put(new Location(MapManager.getWorld(), -29, 57, -50), 1);
-		chests.put(new Location(MapManager.getWorld(), -27, 61, -49), 1);
-		chests.put(new Location(MapManager.getWorld(), -28, 52, -49), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -29, 57, -50), 1, 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -27, 61, -49), 1, 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -28, 52, -49), 1, 1);
 
-		chests.put(new Location(MapManager.getWorld(), -1, 57, -84), 1);
-		chests.put(new Location(MapManager.getWorld(), -2, 61, -82), 1);
-		chests.put(new Location(MapManager.getWorld(), -2, 52, -83), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -1, 57, -84), 1, 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), -2, 61, -82), 1, 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), -2, 52, -83), 1, 2);
 
-		chests.put(new Location(MapManager.getWorld(), 29, 57, -52), 1);
-		chests.put(new Location(MapManager.getWorld(), 27, 61, -53), 1);
-		chests.put(new Location(MapManager.getWorld(), 28, 52, -53), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 29, 57, -52), 1, 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 27, 61, -53), 1, 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 28, 52, -53), 1, 3);
 
-		chests.put(new Location(MapManager.getWorld(), 1, 56, -55), 2);
-		chests.put(new Location(MapManager.getWorld(), 1, 49, -49), 2);
-		chests.put(new Location(MapManager.getWorld(), 3, 50, -40), 2);
-
-
-
-		chests.put(new Location(MapManager.getWorld(), 50, 57, -29), 1);
-		chests.put(new Location(MapManager.getWorld(), 49, 61, -27), 1);
-		chests.put(new Location(MapManager.getWorld(), 49, 52, -28), 1);
-
-		chests.put(new Location(MapManager.getWorld(), 84, 57, -1), 1);
-		chests.put(new Location(MapManager.getWorld(), 82, 61, -2), 1);
-		chests.put(new Location(MapManager.getWorld(), 83, 52, -2), 1);
-
-		chests.put(new Location(MapManager.getWorld(), 52, 57, 29), 1);
-		chests.put(new Location(MapManager.getWorld(), 53, 61, 27), 1);
-		chests.put(new Location(MapManager.getWorld(), 53, 52, 28), 1);
-
-		chests.put(new Location(MapManager.getWorld(), 55, 56, 1), 2);
-		chests.put(new Location(MapManager.getWorld(), 49, 49, 1), 2);
-		chests.put(new Location(MapManager.getWorld(), 40, 50, 3), 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 1, 56, -55), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 1, 49, -49), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 3, 50, -40), 2, -1);
 
 
 
-		chests.put(new Location(MapManager.getWorld(), 29, 57, 50), 1);
-		chests.put(new Location(MapManager.getWorld(), 27, 61, 49), 1);
-		chests.put(new Location(MapManager.getWorld(), 28, 52, 49), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 50, 57, -29), 1, 4);
+		new SkywarsChest(new Location(MapManager.getWorld(), 49, 61, -27), 1, 4);
+		new SkywarsChest(new Location(MapManager.getWorld(), 49, 52, -28), 1, 4);
 
-		chests.put(new Location(MapManager.getWorld(), 1, 57, 84), 1);
-		chests.put(new Location(MapManager.getWorld(), 2, 61, 82), 1);
-		chests.put(new Location(MapManager.getWorld(), 2, 52, 83), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 84, 57, -1), 1, 5);
+		new SkywarsChest(new Location(MapManager.getWorld(), 82, 61, -2), 1, 5);
+		new SkywarsChest(new Location(MapManager.getWorld(), 83, 52, -2), 1, 5);
 
-		chests.put(new Location(MapManager.getWorld(), -29, 57, 52), 1);
-		chests.put(new Location(MapManager.getWorld(), -27, 61, 53), 1);
-		chests.put(new Location(MapManager.getWorld(), -28, 52, 53), 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 52, 57, 29), 1, 6);
+		new SkywarsChest(new Location(MapManager.getWorld(), 53, 61, 27), 1, 6);
+		new SkywarsChest(new Location(MapManager.getWorld(), 53, 52, 28), 1, 6);
 
-		chests.put(new Location(MapManager.getWorld(), -1, 56, 55), 2);
-		chests.put(new Location(MapManager.getWorld(), -1, 49, 49), 2);
-		chests.put(new Location(MapManager.getWorld(), -3, 50, 40), 2);
-
-
-
-		chests.put(new Location(MapManager.getWorld(), -50, 57, 29), 1);
-		chests.put(new Location(MapManager.getWorld(), -49, 61, 27), 1);
-		chests.put(new Location(MapManager.getWorld(), -49, 52, 28), 1);
-
-		chests.put(new Location(MapManager.getWorld(), -84, 57, 1), 1);
-		chests.put(new Location(MapManager.getWorld(), -82, 61, 2), 1);
-		chests.put(new Location(MapManager.getWorld(), -83, 52, 2), 1);
-
-		chests.put(new Location(MapManager.getWorld(), -52, 57, -29), 1);
-		chests.put(new Location(MapManager.getWorld(), -53, 61, -27), 1);
-		chests.put(new Location(MapManager.getWorld(), -53, 52, -28), 1);
-
-		chests.put(new Location(MapManager.getWorld(), -55, 56, -1), 2);
-		chests.put(new Location(MapManager.getWorld(), -49, 49, -1), 2);
-		chests.put(new Location(MapManager.getWorld(), -40, 50, -3), 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 55, 56, 1), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 49, 49, 1), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), 40, 50, 3), 2, -1);
 
 
 
-		chests.put(new Location(MapManager.getWorld(), 6, 52, -11), 3);
-		chests.put(new Location(MapManager.getWorld(), -2, 52, 11), 3);
-		chests.put(new Location(MapManager.getWorld(), 3, 56, -3), 3);
-		chests.put(new Location(MapManager.getWorld(), -3, 56, 3), 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 29, 57, 50), 1, 7);
+		new SkywarsChest(new Location(MapManager.getWorld(), 27, 61, 49), 1, 7);
+		new SkywarsChest(new Location(MapManager.getWorld(), 28, 52, 49), 1, 7);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), 1, 57, 84), 1, 8);
+		new SkywarsChest(new Location(MapManager.getWorld(), 2, 61, 82), 1, 8);
+		new SkywarsChest(new Location(MapManager.getWorld(), 2, 52, 83), 1, 8);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -29, 57, 52), 1, 9);
+		new SkywarsChest(new Location(MapManager.getWorld(), -27, 61, 53), 1, 9);
+		new SkywarsChest(new Location(MapManager.getWorld(), -28, 52, 53), 1, 9);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -1, 56, 55), 2,  -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -1, 49, 49), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -3, 50, 40), 2, -1);
 
 
-		return chests;
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -50, 57, 29), 1, 10);
+		new SkywarsChest(new Location(MapManager.getWorld(), -49, 61, 27), 1, 10);
+		new SkywarsChest(new Location(MapManager.getWorld(), -49, 52, 28), 1, 10);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -84, 57, 1), 1, 11);
+		new SkywarsChest(new Location(MapManager.getWorld(), -82, 61, 2), 1, 11);
+		new SkywarsChest(new Location(MapManager.getWorld(), -83, 52, 2), 1, 11);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -52, 57, -29), 1, 12);
+		new SkywarsChest(new Location(MapManager.getWorld(), -53, 61, -27), 1, 12);
+		new SkywarsChest(new Location(MapManager.getWorld(), -53, 52, -28), 1, 12);
+
+		new SkywarsChest(new Location(MapManager.getWorld(), -55, 56, -1), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -49, 49, -1), 2, -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -40, 50, -3), 2, -1);
+
+
+
+		new SkywarsChest(new Location(MapManager.getWorld(), 6, 52, -11), 3, -2);
+		new SkywarsChest(new Location(MapManager.getWorld(), -2, 52, 11), 3, -2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 3, 56, -3), 3, -2);
+		new SkywarsChest(new Location(MapManager.getWorld(), -3, 56, 3), 3, -2);
+
+
+		return SkywarsChest.chests;
 	}
 }

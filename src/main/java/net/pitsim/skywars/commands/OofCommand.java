@@ -33,10 +33,11 @@ public class OofCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         String itemType = args[0];
+        int tier = Integer.parseInt(args[1]);
 
-        if(itemType.equals("sword")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.SWORD, 1));
-        else if(itemType.equals("bow")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.BOW, 1));
-        else AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.PANTS, 1))
+        if(itemType.equals("sword")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.SWORD, tier));
+        else if(itemType.equals("bow")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.BOW, tier));
+        else AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.PANTS, tier))
 
 
         ;

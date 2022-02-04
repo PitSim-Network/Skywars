@@ -31,9 +31,12 @@ public class GameManager {
 		}
 
 		MapManager.onGameStart();
+
+
 	}
 
 	public static void endGame() {
+		status = GameStatus.ENDING;
 		Player winner = alivePlayers.get(0);
 		Misc.sendTitle(winner, "&6&lVICTORY!", 100);
 		Misc.sendSubTitle(winner, "&7You won the game!", 100);

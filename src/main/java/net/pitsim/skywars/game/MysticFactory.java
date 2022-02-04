@@ -12,13 +12,23 @@ public class MysticFactory {
 
 	public static ItemStack createItem(MysticType type, int chestTier) {
 
-		ItemStack fresh;
+		ItemStack fresh = null;
 
 		if(type == MysticType.SWORD) fresh = FreshCommand.getFreshItem("sword");
 		else if(type == MysticType.BOW) fresh = FreshCommand.getFreshItem("bow");
-		else fresh = FreshCommand.getFreshItem("blue");
+		else {
+			double rand = Math.random();
+			if(rand <= 0.2) fresh = FreshCommand.getFreshItem("blue");
+			else if(rand <= 0.4) fresh = FreshCommand.getFreshItem("yellow");
+			else if(rand <= 0.6) fresh = FreshCommand.getFreshItem("red");
+			else if(rand <= 0.8) fresh = FreshCommand.getFreshItem("green");
+			else if(rand <= 1.0) fresh = FreshCommand.getFreshItem("orange");
+			else fresh = FreshCommand.getFreshItem("blue");
+		}
 
 		if(chestTier == 1) return createTier1Item(fresh);
+		else if(chestTier == 2) return createTier2Item(fresh);
+		else if(chestTier == 3) return createTier3Item(fresh);
 		else return fresh;
 	}
 
@@ -42,9 +52,8 @@ public class MysticFactory {
 			else if(tokensRand <= 0.5) tokens = 4;
 			else if(tokens <= 1.0) tokens = 3;
 		} else if(enchants == 3) {
-			if(tokensRand <= 0.1) tokens = 7;
-			else if(tokensRand <= 0.25) tokens = 6;
-			else if(tokens <= 1.0) tokens = 5;
+			if(tokensRand <= 0.25) tokens = 6;
+			else if(tokensRand <= 1.0) tokens = 5;
 		}
 
 		List<PitEnchant> itemEnchants = new ArrayList<>();
@@ -56,9 +65,9 @@ public class MysticFactory {
 			double rarityRand = Math.random();
 			String rarity = null;
 
-			if(enchantRand <= 0.35) {
+			if(rarityRand <= 0.35) {
 				rarity = "UNCOMMON";
-			} else if(enchantRand <= 1.0) {
+			} else if(rarityRand <= 1.0) {
 				rarity = "COMMON";
 			}
 
@@ -75,6 +84,152 @@ public class MysticFactory {
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
 				applicableEnchants.addAll(EnchantManager.allCommon);
+			}
+
+			Random applicableRand = new Random();
+			PitEnchant randEnchant = applicableEnchants.get(applicableRand.nextInt(applicableEnchants.size()));
+			if(itemEnchants.contains(randEnchant)) {
+				enchants++;
+				continue;
+			}
+			itemEnchants.add(randEnchant);
+
+		}
+
+		return applyEnchants(mystic, itemEnchants, tokens);
+
+	}
+
+	public static ItemStack createTier2Item(ItemStack mystic) {
+		double enchantRand = Math.random();
+		int enchants = 0;
+
+		if(enchantRand <= 0.25) enchants = 3;
+		else if(enchantRand <= 0.5) enchants = 1;
+		else if(enchantRand <= 1.0) enchants = 2;
+
+
+		double tokensRand = Math.random();
+		int tokens = 0;
+
+		if(enchants == 1) {
+			tokens = 3;
+		} else if(enchants == 2) {
+			if(tokensRand <= 0.2) tokens = 5;
+			else if(tokensRand <= 0.5) tokens = 3;
+			else if(tokens <= 1.0) tokens = 4;
+		} else if(enchants == 3) {
+			if(tokensRand <= 0.1) tokens = 7;
+			else if(tokensRand <= 0.35) tokens = 6;
+			else if(tokens <= 1.0) tokens = 5;
+		}
+
+		List<PitEnchant> itemEnchants = new ArrayList<>();
+		String type = EnchantManager.getMysticType(mystic);
+
+		for(int i = 0; i < enchants; i++) {
+			List<PitEnchant> applicableEnchants = new ArrayList<>();
+
+			double rarityRand = Math.random();
+			String rarity = null;
+
+			if(rarityRand <= 0.2) {
+				rarity = "RARE";
+			} else if(rarityRand <= 0.5) {
+				rarity = "COMMON";
+			} else if(rarityRand <= 1.0) {
+				rarity = "UNCOMMON";
+			}
+
+			assert rarity != null;
+			assert type != null;
+
+			if(rarity.equals("UNCOMMON")) {
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordUncommon);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
+				applicableEnchants.addAll(EnchantManager.allUncommon);
+			} else if(rarity.equals("COMMON")){
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
+				applicableEnchants.addAll(EnchantManager.allCommon);
+			} else {
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordRare);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsRare);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowRare);
+				applicableEnchants.addAll(EnchantManager.allRare);
+			}
+
+			Random applicableRand = new Random();
+			PitEnchant randEnchant = applicableEnchants.get(applicableRand.nextInt(applicableEnchants.size()));
+			if(itemEnchants.contains(randEnchant)) {
+				enchants++;
+				continue;
+			}
+			itemEnchants.add(randEnchant);
+
+		}
+
+		return applyEnchants(mystic, itemEnchants, tokens);
+
+	}
+
+	public static ItemStack createTier3Item(ItemStack mystic) {
+		double enchantRand = Math.random();
+		int enchants = 0;
+
+		if(enchantRand <= 0.35) enchants = 2;
+		else if(enchantRand <= 1.0) enchants = 3;
+
+		double tokensRand = Math.random();
+		int tokens = 0;
+
+		 if(enchants == 2) {
+			if(tokensRand <= 0.2) tokens = 3;
+			else if(tokensRand <= 0.5) tokens = 5;
+			else if(tokens <= 1.0) tokens = 4;
+		} else if(enchants == 3) {
+			if(tokensRand <= 0.15) tokens = 7;
+			else if(tokensRand <= 0.5) tokens = 6;
+			else if(tokens <= 1.0) tokens = 5;
+		}
+
+		List<PitEnchant> itemEnchants = new ArrayList<>();
+		String type = EnchantManager.getMysticType(mystic);
+
+		for(int i = 0; i < enchants; i++) {
+			List<PitEnchant> applicableEnchants = new ArrayList<>();
+
+			double rarityRand = Math.random();
+			String rarity = null;
+
+			if(rarityRand <= 0.2) {
+				rarity = "COMMON";
+			} else if(rarityRand <= 0.55) {
+				rarity = "RARE";
+			} else if(rarityRand <= 1.0) {
+				rarity = "UNCOMMON";
+			}
+
+			assert rarity != null;
+			assert type != null;
+
+			if(rarity.equals("UNCOMMON")) {
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordUncommon);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
+				applicableEnchants.addAll(EnchantManager.allUncommon);
+			} else if(rarity.equals("COMMON")){
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
+				applicableEnchants.addAll(EnchantManager.allCommon);
+			} else {
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordRare);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsRare);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowRare);
+				applicableEnchants.addAll(EnchantManager.allRare);
 			}
 
 			Random applicableRand = new Random();

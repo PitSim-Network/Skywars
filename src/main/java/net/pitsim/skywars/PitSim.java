@@ -23,10 +23,12 @@ import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.enchants.*;
 import net.pitsim.skywars.game.*;
 import net.pitsim.skywars.misc.SpawnNPCs;
+import net.pitsim.skywars.misc.YummyBread;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
 import net.pitsim.skywars.placeholders.*;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
@@ -136,6 +138,8 @@ public class PitSim extends JavaPlugin {
 		registerCommands();
 		registerListeners();
 
+		ChestManager.onGameStart();
+
 		GameManager.init();
 	}
 
@@ -199,6 +203,8 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new QueueManager(), this);
 		getServer().getPluginManager().registerEvents(new KillManager(), this);
 		getServer().getPluginManager().registerEvents(new SpectatorManager(), this);
+		getServer().getPluginManager().registerEvents(new YummyBread(), this);
+
 	}
 
 	private void loadConfig() {

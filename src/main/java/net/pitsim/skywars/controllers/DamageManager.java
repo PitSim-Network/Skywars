@@ -10,6 +10,7 @@ import net.pitsim.skywars.enchants.Telebow;
 import net.pitsim.skywars.enchants.WolfPack;
 import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.events.KillEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
@@ -296,8 +297,6 @@ public class DamageManager implements Listener {
 
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(dead);
 
-		Location spawnLoc = Bukkit.getWorld("lobby").getSpawnLocation();
-
 		PitPlayer pitDefender = PitPlayer.getPitPlayer(dead);
 
 		for(PotionEffect potionEffect : dead.getActivePotionEffects()) {
@@ -306,6 +305,8 @@ public class DamageManager implements Listener {
 		AOutput.send(dead, "&c&lDEATH!");
 		String message = "%luckperms_prefix%";
 
+		DeathEvent event = new DeathEvent(dead);
+		Bukkit.getPluginManager().callEvent(event);
 	}
 
 	public static void fakeKill(AttackEvent attackEvent, Player killer, Player dead, boolean exeDeath) {

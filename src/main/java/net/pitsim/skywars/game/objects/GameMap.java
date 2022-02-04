@@ -3,6 +3,7 @@ package net.pitsim.skywars.game.objects;
 import org.bukkit.Location;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public abstract class GameMap {
@@ -21,5 +22,5 @@ public abstract class GameMap {
 
 	public abstract Map<Integer, Location> getSpawnLocations();
 
-	public abstract Map<Location, Integer> getChests();
+	public abstract List<SkywarsChest> getChests();
 }
