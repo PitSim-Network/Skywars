@@ -113,6 +113,7 @@ public class Sounds {
 	public static final SoundEffect CTF_FLAG_SCORE = new SoundEffect(Sound.LEVEL_UP, 2, 0.5F);
 	public static final SoundEffect JUGGERNAUT_EXPLOSION = new SoundEffect(Sound.EXPLODE, 1, 2);
 	public static final SoundEffect JUGGERNAUT_END = new SoundEffect(Sound.ENDERDRAGON_DEATH, 1, 2);
+	public static final SoundEffect CHEST_REFILL = new SoundEffect(Sound.CHEST_OPEN, 1, 1);
 
 //	Kill / Death Effects
 	public static final SoundEffect DEATH_GHAST_SCREAM = new SoundEffect(Sound.GHAST_SCREAM, 1, 1);

@@ -5,12 +5,15 @@ import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.game.objects.GameMap;
 import net.pitsim.skywars.game.objects.SkywarsChest;
 import net.pitsim.skywars.misc.Misc;
+import net.pitsim.skywars.misc.Sounds;
 import net.pitsim.skywars.misc.YummyBread;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -179,6 +182,9 @@ public class ChestManager {
 	}
 
 	public static void refillChests() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Sounds.CHEST_REFILL.play(player);
+		}
 		GameMap map = MapManager.map;
 
 		for (SkywarsChest chest : map.getChests()) {
