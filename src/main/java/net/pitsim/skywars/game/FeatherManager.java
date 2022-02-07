@@ -40,10 +40,17 @@ public class FeatherManager implements Listener {
         Player player = event.getPlayer();
 
         if(player.getLocation().getY() < 20) {
-            //TODO: Add Funky Feathers and make them teleport to last location if player falls into the void.
-            boolean feather = false;
+            boolean feather = FunkyFeather.useFeather(player, false);
 
-            if(!feather) DamageManager.death(event.getPlayer());
+            if(!feather) {
+                DamageManager.death(player);
+                return;
+            }
+            if(!lastLocation.containsKey(player)) {
+                DamageManager.death(player);
+                return;
+            }
+            player.teleport(lastLocation.get(player));
         }
     }
 }
