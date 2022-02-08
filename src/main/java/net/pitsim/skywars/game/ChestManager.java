@@ -148,6 +148,26 @@ public class ChestManager {
 		}
 	}
 
+	public static void distributeBlocks() {
+		List<SkywarsChest> blockChests = new ArrayList<>(SkywarsChest.getChests(-1));
+
+		for(SkywarsChest blockChest : blockChests) {
+			Chest chestBlock = (Chest) blockChest.location.getBlock().getState();
+			int randSlot = getRandomNumber();
+			for(int k = 0; k < 1; k++) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					k--;
+					randSlot = getRandomNumber();
+				}
+			}
+			double blockTypeRand = Math.random();
+			if(blockTypeRand <= 0.5) {
+				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.STONE, 64));
+			} else chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.WOOD, 64));
+
+		}
+	}
+
 
 
 	public static int getRandomNumber() {
