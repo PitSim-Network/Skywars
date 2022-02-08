@@ -6,6 +6,7 @@ import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.events.KillEvent;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,7 +54,7 @@ public class KillManager implements Listener {
 
 	@EventHandler
 	public void onDeath(DeathEvent event) {
-		if(GameManager.status == GameStatus.QUEUE)  event.getPlayer().kickPlayer("&cExploit detected!");
+		if(GameManager.status == GameStatus.QUEUE)  event.getPlayer().kickPlayer(ChatColor.RED + "Exploit detected!");
 		if(GameManager.status == GameStatus.ENDING) return;
 		Player dead = event.getPlayer();
 

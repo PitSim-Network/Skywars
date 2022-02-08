@@ -5,10 +5,12 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -148,11 +150,20 @@ public class QueueManager implements Listener {
 		return seconds;
 	}
 
-//	@EventHandler
-//	public void onActiveLeave(PlayerQuitEvent event) {
-//		System.out.println(GameManager.status);
-//		if(GameManager.status != GameStatus.ACTIVE) return;
-//
-//		if(Bukkit.getOnlinePlayers().size() == 1) PluginMessageSender.sendEnd();
-//	}
+	@EventHandler
+	public void onWrongWorldJoin(PlayerJoinEvent event) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(event.getPlayer().getWorld() != MapManager.getWorld()) {
+					int cage = playerCages.getOrDefault(event.getPlayer(), 0);
+					if(cage == 0) {
+						event.getPlayer().kickPlayer(ChatColor.RED + "There was an error while loading your client.");
+						return;
+					}
+					event.getPlayer().teleport(MapManager.map.getSpawnLocations().get(cage));
+				}
+			}
+		}.runTaskLater(PitSim.INSTANCE, 10L);
+	}
 }

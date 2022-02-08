@@ -5,12 +5,15 @@ import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.game.objects.GameMap;
 import net.pitsim.skywars.game.objects.SkywarsChest;
 import net.pitsim.skywars.misc.Misc;
+import net.pitsim.skywars.misc.Sounds;
 import net.pitsim.skywars.misc.YummyBread;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -56,6 +59,7 @@ public class ChestManager {
 		}
 		distributeArmor();
 		distributeProt();
+		distributeFeathers();
 	}
 
 	public static void distributeArmor() {
@@ -78,6 +82,8 @@ public class ChestManager {
 
 			armor.add(new ItemStack(Material.WOOD, 16));
 			armor.add(new ItemStack(Material.STONE, 16));
+
+			armor.add(FunkyFeather.getFeather(1));
 
 			double toolRand = Math.random();
 			if(toolRand <= 0.5) armor.add(new ItemStack(Material.DIAMOND_PICKAXE));
@@ -168,6 +174,80 @@ public class ChestManager {
 		}
 	}
 
+	public static void distributeFeathers() {
+		List<SkywarsChest> featherChests = new ArrayList<>(SkywarsChest.getChests(-2));
+
+		List<ItemStack> feathers = new ArrayList<>();
+		feathers.add(FunkyFeather.getFeather(1));
+		feathers.add(FunkyFeather.getFeather(1));
+		feathers.add(FunkyFeather.getFeather(1));
+		feathers.add(FunkyFeather.getFeather(1));
+		feathers.add(FunkyFeather.getFeather(1));
+
+		for(int j = 0; j < 5; j++) {
+			Random randChest = new Random();
+			SkywarsChest pickedChest = featherChests.get(randChest.nextInt(featherChests.size()));
+			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+
+			int randSlot = getRandomNumber();
+			for(int k = 0; k < 1; k++) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					k--;
+					randSlot = getRandomNumber();
+				}
+			}
+			chestBlock.getInventory().setItem(randSlot, feathers.get(0));
+			feathers.remove(0);
+		}
+	}
+
+	public static void refillChests() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Sounds.CHEST_REFILL.play(player);
+		}
+		GameMap map = MapManager.map;
+
+		for (SkywarsChest chest : map.getChests()) {
+			Location location = chest.location;
+			Block block = location.getBlock();
+			Chest chestBlock = (Chest) block.getState();
+			chestBlock.getInventory().clear();
+		}
+
+		for(SkywarsChest chest : map.getChests()) {
+
+			Location location = chest.location;
+			int tier = chest.tier;
+
+			Block block = location.getBlock();
+			Chest chestBlock = (Chest) block.getState();
+
+			for(int i = 0; i < 6; i++) {
+				int randSlot = getRandomNumber();
+
+				for(int j = 0; j < 1; j++) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+						j--;
+						randSlot = getRandomNumber();
+					}
+				}
+
+				if(i == 0 || i == 1) {
+					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
+				} if(i == 2 || i == 3) {
+					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.BOW, tier));
+				} if(i == 4 || i == 5) {
+					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.PANTS, tier));
+				}
+
+			}
+
+
+		}
+		distributeArmor();
+		distributeProt();
+		distributeFeathers();
+	}
 
 
 	public static int getRandomNumber() {

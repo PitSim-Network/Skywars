@@ -27,8 +27,8 @@ public class GameClock {
 							AOutput.broadcast("&cThe game is ending in " + minutes + " &cminutes!");
 							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.ERROR.play(onlinePlayer); }
 						}
-
 						if(minutes != 0) {
+							if(minutes == 5) ChestManager.refillChests();
 							minutes--;
 							seconds = 60;
 						} else {

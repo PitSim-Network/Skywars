@@ -3,12 +3,15 @@ package net.pitsim.skywars.controllers;
 import be.maximvdw.featherboard.api.FeatherBoardAPI;
 import de.tr7zw.nbtapi.NBTItem;
 import dev.kyro.arcticapi.misc.AOutput;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.GameStatus;
+import net.pitsim.skywars.game.MapManager;
+import net.pitsim.skywars.game.SpectatorManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -25,6 +28,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -132,13 +136,6 @@ public class PlayerManager implements Listener {
 	}
 
 	@EventHandler
-	public void onMove(PlayerMoveEvent event) {
-		if(event.getPlayer().getLocation().getY() < 20)  {
-			DamageManager.death(event.getPlayer());
-		}
-	}
-
-	@EventHandler
 	public void onItemDamage(PlayerItemDamageEvent event) {
 		event.setCancelled(true);
 	}
@@ -192,6 +189,27 @@ public class PlayerManager implements Listener {
 				Bukkit.dispatchCommand(player, "buzz exempt");
 			}
 		}.runTaskLater(PitSim.INSTANCE, 1L);
+	}
+
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		if(!GameManager.alivePlayers.contains(player)) return;
+		GameManager.alivePlayers.remove(player);
+		String playerName = "%luckperms_prefix%" + player.getDisplayName();
+		AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+
+		Bukkit.getWorld("game").strikeLightningEffect(player.getLocation());
+		Location loc = player.getLocation().clone();
+		Inventory inv = player.getInventory();
+		for (ItemStack item : inv.getContents()) {
+			if (item != null) {
+				loc.getWorld().dropItemNaturally(loc, item.clone());
+			}
+		}
+		inv.clear();
+
+		if(GameManager.alivePlayers.size() <= 1) GameManager.endGame();
 	}
 
 	public static List<Player> toggledPlayers = new ArrayList<>();
