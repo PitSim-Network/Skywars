@@ -60,6 +60,7 @@ public class ChestManager {
 		distributeArmor();
 		distributeProt();
 		distributeFeathers();
+		distributeBlocks();
 	}
 
 	public static void distributeArmor() {
@@ -247,6 +248,7 @@ public class ChestManager {
 		distributeArmor();
 		distributeProt();
 		distributeFeathers();
+		distributeBlocks();
 	}
 
 
