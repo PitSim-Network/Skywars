@@ -23,6 +23,14 @@ public class KillManager implements Listener {
 
 	@EventHandler
 	public void onKill(KillEvent event) {
+		if(GameManager.status == GameStatus.QUEUE) {
+			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.dead));
+			event.dead.teleport(loc);
+			return;
+		} else if(GameManager.status == GameStatus.ENDING) {
+			event.dead.teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			return;
+		}
 		Player killer = event.killer;
 		Player dead = event.dead;
 
@@ -54,8 +62,14 @@ public class KillManager implements Listener {
 
 	@EventHandler
 	public void onDeath(DeathEvent event) {
-		if(GameManager.status == GameStatus.QUEUE)  event.getPlayer().kickPlayer(ChatColor.RED + "Exploit detected!");
-		if(GameManager.status == GameStatus.ENDING) return;
+		if(GameManager.status == GameStatus.QUEUE) {
+			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.getPlayer()));
+			event.getPlayer().teleport(loc);
+			return;
+		} else if(GameManager.status == GameStatus.ENDING) {
+			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			return;
+		}
 		Player dead = event.getPlayer();
 
 		Bukkit.getWorld("game").strikeLightningEffect(dead.getLocation());

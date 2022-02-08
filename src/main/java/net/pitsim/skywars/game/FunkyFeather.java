@@ -27,8 +27,8 @@ public class FunkyFeather {
         meta.setDisplayName(ChatColor.DARK_AQUA + "Funky Feather");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.YELLOW + "Special item");
-        lore.add(ChatColor.GRAY + "protects your inventory but");
-        lore.add(ChatColor.GRAY + "gets consumed on death if");
+        lore.add(ChatColor.GRAY + "teleports you to a safe location,");
+        lore.add(ChatColor.GRAY + "but gets consumed on void death if");
         lore.add(ChatColor.GRAY + "in your hotbar.");
         meta.setLore(lore);
         feather.setItemMeta(meta);

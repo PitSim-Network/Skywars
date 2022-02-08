@@ -106,11 +106,13 @@ public class GameManager {
 		if(killer3 != null) killer3Name = "%luckperms_prefix%" + killer3.getDisplayName();
 
 		AOutput.broadcast("&8&m--------------------------");
-		AOutput.broadcast("&e&lWinner: " + PlaceholderAPI.setPlaceholders(winner, winnerName));
+		AOutput.broadcast("&6&lGAME ENDED");
 		AOutput.broadcast("");
-		if(killer1Name != null) AOutput.broadcast("&lFirst Killer: " + PlaceholderAPI.setPlaceholders(killer1, killer1Name));
-		if(killer2Name != null) AOutput.broadcast("&6Second Killer: " + PlaceholderAPI.setPlaceholders(killer2, killer2Name));
-		if(killer3Name != null) AOutput.broadcast("&cThird Killer: " + PlaceholderAPI.setPlaceholders(killer3, killer3Name));
+		AOutput.broadcast("&e&lWinner: &r" + PlaceholderAPI.setPlaceholders(winner, winnerName));
+		AOutput.broadcast("");
+		if(killer1Name != null) AOutput.broadcast("&fFirst Killer: &r" + PlaceholderAPI.setPlaceholders(killer1, killer1Name));
+		if(killer2Name != null) AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name));
+		if(killer3Name != null) AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name));
 		AOutput.broadcast("&8&m--------------------------");
 
 		new BukkitRunnable() {
@@ -122,7 +124,28 @@ public class GameManager {
 	}
 
 	public static void endTieGame() {
+		status = GameStatus.ENDING;
+		for (Player alivePlayer : GameManager.alivePlayers) {
+			Sounds.LEVEL_UP.play(alivePlayer);
+		}
+		AOutput.broadcast("&8&m--------------------------");
+		AOutput.broadcast("&6&lTIE GAME");
+		AOutput.broadcast("");
+		StringBuilder tieString = new StringBuilder();
+		tieString.append(PlaceholderAPI.setPlaceholders(GameManager.alivePlayers.get(0), "%luckperms_prefix%" + GameManager.alivePlayers.get(0).getDisplayName()));
+		for (Player alivePlayer : GameManager.alivePlayers) {
+			if(alivePlayer == GameManager.alivePlayers.get(0)) continue;
+			tieString.append(PlaceholderAPI.setPlaceholders(alivePlayer, " &e, %luckperms_prefix%" + alivePlayer.getDisplayName()));
+		}
+		AOutput.broadcast("&e&lWinners: &r" + tieString);
+		AOutput.broadcast("&8&m--------------------------");
 
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				PluginMessageSender.sendToLobby();
+			}
+		}.runTaskLater(PitSim.INSTANCE, 10 * 20L);
 	}
 
 
