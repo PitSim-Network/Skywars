@@ -284,6 +284,23 @@ public class DamageManager implements Listener {
 	}
 
 	public static void death(Player dead) {
+
+		PitPlayer pitPlayer = PitPlayer.getPitPlayer(dead);
+		UUID attackerUUID = pitPlayer.lastHitUUID;
+		for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+			if(onlinePlayer.getUniqueId().equals(attackerUUID)) {
+
+				Map<PitEnchant, Integer> attackerEnchant = new HashMap<>();
+				Map<PitEnchant, Integer> defenderEnchant = new HashMap<>();
+				EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(onlinePlayer, dead, EntityDamageEvent.DamageCause.CUSTOM, 0);
+				AttackEvent attackEvent = new AttackEvent(ev, attackerEnchant, defenderEnchant, false);
+
+
+				DamageManager.kill(attackEvent, onlinePlayer, dead, false);
+				return;
+			}
+		}
+
 		Telebow.teleShots.removeIf(teleShot -> teleShot.getShooter().equals(dead));
 
 		dead.setHealth(dead.getMaxHealth());
@@ -294,8 +311,6 @@ public class DamageManager implements Listener {
 		Sounds.DEATH_FALL.play(dead);
 		Regularity.toReg.remove(dead.getUniqueId());
 		CombatManager.taggedPlayers.remove(dead.getUniqueId());
-
-		PitPlayer pitPlayer = PitPlayer.getPitPlayer(dead);
 
 		PitPlayer pitDefender = PitPlayer.getPitPlayer(dead);
 
