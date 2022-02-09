@@ -193,6 +193,7 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
+		if(!(GameManager.status == GameStatus.ACTIVE)) return;
 		Player player = event.getPlayer();
 		if(!GameManager.alivePlayers.contains(player)) return;
 		GameManager.alivePlayers.remove(player);

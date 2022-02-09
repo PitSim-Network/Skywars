@@ -13,9 +13,10 @@ import java.util.List;
 
 public class GameClock {
 	public static BukkitTask countdown;
-	public static int minutes = 11;
+	public static int minutes = 5;
 	public static int seconds = 0;
 	public static List<Integer> countdownAnnouncements = Arrays.asList(5, 3, 2, 1);
+	public static boolean refill = false;
 
 	public static void countdown() {
 			countdown = new BukkitRunnable() {
@@ -28,13 +29,18 @@ public class GameClock {
 							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.ERROR.play(onlinePlayer); }
 						}
 						if(minutes != 0) {
-							if(minutes == 5) ChestManager.refillChests();
 							minutes--;
 							seconds = 60;
 						} else {
+							if(!refill) {
+								ChestManager.refillChests();
+								minutes = 5;
+								return;
+							}
 							GameManager.endTieGame();
 							this.cancel();
 							countdown = null;
+
 						}
 					}
 					seconds--;

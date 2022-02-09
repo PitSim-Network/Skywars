@@ -53,8 +53,6 @@ public class FunkyFeather {
                 if(itemStack.getAmount() > 1) itemStack.setAmount(itemStack.getAmount() - 1);
                 else player.getInventory().setItem(i, null);
                 Sounds.FUNKY_FEATHER.play(player);
-
-                PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
                 return true;
             }
         }

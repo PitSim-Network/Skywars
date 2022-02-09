@@ -32,7 +32,7 @@ public class FeatherManager implements Listener {
                     lastLocation.put(player, standingBlock.getLocation().add(0, 1, 0));
                 }
             }
-        }.runTaskTimer(PitSim.INSTANCE, 60L, 40L);
+        }.runTaskTimer(PitSim.INSTANCE, 60L, 10L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

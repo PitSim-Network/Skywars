@@ -19,7 +19,7 @@ public class GameTimePlaceholder implements APAPIPlaceholder {
 		int seconds = GameClock.seconds;
 
 		String title;
-		if(minutes > 4) title = ChatColor.GOLD + "Refill: ";
+		if(!GameClock.refill) title = ChatColor.GOLD + "Refill: ";
 		else title = ChatColor.GOLD + "Game end: ";
 
 		if(minutes > 0) {

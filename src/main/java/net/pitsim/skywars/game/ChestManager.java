@@ -1,5 +1,6 @@
 package net.pitsim.skywars.game;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.game.objects.GameMap;
@@ -206,13 +207,16 @@ public class ChestManager {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Sounds.CHEST_REFILL.play(player);
 		}
+		AOutput.broadcast("&aChests refilled!");
 		GameMap map = MapManager.map;
 
 		for (SkywarsChest chest : map.getChests()) {
 			Location location = chest.location;
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
-			chestBlock.getInventory().clear();
+			for(int i = 0; i < chestBlock.getInventory().getSize(); i++) {
+				chestBlock.getInventory().setItem(i, new ItemStack(Material.AIR));
+			}
 		}
 
 		for(SkywarsChest chest : map.getChests()) {
