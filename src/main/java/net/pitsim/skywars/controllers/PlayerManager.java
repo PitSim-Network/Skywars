@@ -196,6 +196,8 @@ public class PlayerManager implements Listener {
 		if(!(GameManager.status == GameStatus.ACTIVE)) return;
 		Player player = event.getPlayer();
 		if(!GameManager.alivePlayers.contains(player)) return;
+
+		DamageManager.death(player);
 		GameManager.alivePlayers.remove(player);
 		String playerName = "%luckperms_prefix%" + player.getDisplayName();
 		AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));

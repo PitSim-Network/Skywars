@@ -1,8 +1,12 @@
 package net.pitsim.skywars.game;
 
+import de.myzelyam.api.vanish.PlayerHideEvent;
+import de.myzelyam.api.vanish.PlayerShowEvent;
+import de.myzelyam.api.vanish.VanishAPI;
 import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
+import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,6 +17,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -37,6 +43,11 @@ public class QueueManager implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		if(GameManager.status != GameStatus.QUEUE) return;
 		Player player = event.getPlayer();
+		if(VanishAPI.isInvisible(player)) {
+			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
+			return;
+		}
 		player.getInventory().clear();
 		GameManager.alivePlayers.add(player);
 
@@ -67,6 +78,7 @@ public class QueueManager implements Listener {
 		if(GameManager.status != GameStatus.QUEUE) return;
 		Player player = event.getPlayer();
 		player.getInventory().clear();
+		if(VanishAPI.isInvisible(player)) return;
 		GameManager.alivePlayers.remove(player);
 
 		String name = "%luckperms_prefix%" + player.getDisplayName();
@@ -155,6 +167,12 @@ public class QueueManager implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+
+				if(VanishAPI.isInvisible(event.getPlayer())) {
+					event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+					return;
+				}
+
 				if(event.getPlayer().getWorld() != MapManager.getWorld()) {
 					int cage = playerCages.getOrDefault(event.getPlayer(), 0);
 					if(cage == 0) {
@@ -165,5 +183,75 @@ public class QueueManager implements Listener {
 				}
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10L);
+	}
+
+	@EventHandler
+	public void onUnvanish(PlayerShowEvent event) {
+		Player player = event.getPlayer();
+
+		if(GameManager.status == GameStatus.QUEUE) {
+			player.getInventory().clear();
+			GameManager.alivePlayers.add(player);
+
+			String name = "%luckperms_prefix%" + player.getDisplayName();
+			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, name) + " &ehas joined &7(&e" +
+					GameManager.alivePlayers.size() + "&7/&e" + maxPlayers + "&7)");
+
+
+			assignCage(player);
+			if(!playerCages.containsKey(player)) {
+				player.kickPlayer("&cThis game is currently full!");
+				return;
+			}
+			Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player));
+
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					player.teleport(spawnLocation);
+				}
+			}.runTaskLater(PitSim.INSTANCE, 1L);
+
+			countdown();
+		} else {
+			SpectatorManager.setSpectator(player);
+		}
+	}
+
+	@EventHandler
+	public void onVanish(PlayerHideEvent event) {
+		Player player = event.getPlayer();
+
+		if(GameManager.status == GameStatus.QUEUE) {
+			player.getInventory().clear();
+			GameManager.alivePlayers.remove(player);
+
+			String name = "%luckperms_prefix%" + player.getDisplayName();
+			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, name) + " &ehas left &7(&e" +
+					GameManager.alivePlayers.size() + "&7/&e" + maxPlayers + "&7)");
+
+			playerCages.remove(player);
+
+			countdown();
+		} else if(GameManager.status == GameStatus.ACTIVE) {
+			if(!GameManager.alivePlayers.contains(player)) return;
+
+			DamageManager.death(player);
+			GameManager.alivePlayers.remove(player);
+			String playerName = "%luckperms_prefix%" + player.getDisplayName();
+			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+
+			Bukkit.getWorld("game").strikeLightningEffect(player.getLocation());
+			Location loc = player.getLocation().clone();
+			Inventory inv = player.getInventory();
+			for (ItemStack item : inv.getContents()) {
+				if (item != null) {
+					loc.getWorld().dropItemNaturally(loc, item.clone());
+				}
+			}
+			inv.clear();
+
+			if(GameManager.alivePlayers.size() <= 1) GameManager.endGame();
+		}
 	}
 }
