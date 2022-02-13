@@ -1,7 +1,11 @@
 package net.pitsim.skywars.game;
 
+import de.myzelyam.api.vanish.VanishAPI;
+import dev.kyro.arcticapi.misc.AOutput;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 public class FeatherManager implements Listener {
 
@@ -42,7 +47,25 @@ public class FeatherManager implements Listener {
         if(player.getLocation().getY() < 20) {
             boolean feather = FunkyFeather.useFeather(player, false);
 
+            if(VanishAPI.isInvisible(player)) {
+                player.teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+                return;
+            }
+
+            if(GameManager.status == GameStatus.QUEUE) {
+                player.teleport(MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(player)));
+                return;
+            }
+
+            if(GameManager.status == GameStatus.ENDING) {
+                player.teleport(lastLocation.get(player));
+                return;
+            }
+
             if(!feather) {
+                String deadName = "%luckperms_prefix%" + player.getDisplayName();
+                PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+                if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player,deadName) + " &efell into the void.");
                 DamageManager.death(player);
                 return;
             }

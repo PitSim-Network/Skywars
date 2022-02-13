@@ -7,6 +7,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,9 +32,9 @@ public class QueueManager implements Listener {
 	public static BukkitTask countdown = null;
 
 	public static int maxPlayers = 12;
-	public static int minPlayers = 2;
+	public static int minPlayers = 3;
 	public static int quickStartPlayers = 10;
-	public static int timerStartMinutes = 1;
+	public static int timerStartMinutes = 2;
 	public static int quickTimerStartSeconds = 10;
 	public static List<Integer> countdownAnnouncements = Arrays.asList(60, 30, 20, 10, 5, 4, 3, 2, 1);
 
@@ -45,6 +46,8 @@ public class QueueManager implements Listener {
 		Player player = event.getPlayer();
 		if(VanishAPI.isInvisible(player)) {
 			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			player.setAllowFlight(true);
+			player.setFlying(true);
 			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
 			return;
 		}
@@ -231,27 +234,19 @@ public class QueueManager implements Listener {
 					GameManager.alivePlayers.size() + "&7/&e" + maxPlayers + "&7)");
 
 			playerCages.remove(player);
+			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			player.setAllowFlight(true);
+			player.setFlying(true);
 
 			countdown();
 		} else if(GameManager.status == GameStatus.ACTIVE) {
 			if(!GameManager.alivePlayers.contains(player)) return;
 
-			DamageManager.death(player);
-			GameManager.alivePlayers.remove(player);
 			String playerName = "%luckperms_prefix%" + player.getDisplayName();
-			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
-
-			Bukkit.getWorld("game").strikeLightningEffect(player.getLocation());
-			Location loc = player.getLocation().clone();
-			Inventory inv = player.getInventory();
-			for (ItemStack item : inv.getContents()) {
-				if (item != null) {
-					loc.getWorld().dropItemNaturally(loc, item.clone());
-				}
-			}
-			inv.clear();
-
-			if(GameManager.alivePlayers.size() <= 1) GameManager.endGame();
+			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+			if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+			DamageManager.death(player);
+			SpectatorManager.spectators.remove(player);
 		}
 	}
 }

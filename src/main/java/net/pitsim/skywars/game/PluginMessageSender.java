@@ -13,8 +13,8 @@ import java.io.IOException;
 
 public class PluginMessageSender {
 
+
 	public static void sendStart() {
-		System.out.println("TEST");
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
 		if(id == null) return;
 
@@ -76,7 +76,7 @@ public class PluginMessageSender {
 
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		out.writeUTF("Connect"); // So BungeeCord knows to forward it
-		out.writeUTF("lobby");
+		out.writeUTF("skywars");
 
 		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}

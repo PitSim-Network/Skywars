@@ -25,8 +25,10 @@ public class GameClock {
 
 					if(seconds == 0) {
 						if(countdownAnnouncements.contains(minutes)) {
-							AOutput.broadcast("&cThe game is ending in " + minutes + " &cminutes!");
-							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.ERROR.play(onlinePlayer); }
+							if(refill) {
+								AOutput.broadcast("&cThe game is ending in " + minutes + " &cminutes!");
+								for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.ERROR.play(onlinePlayer); }
+							}
 						}
 						if(minutes != 0) {
 							minutes--;

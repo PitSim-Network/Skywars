@@ -59,4 +59,6 @@ public class SpectatorManager implements Listener {
 		event.setCancelled(true);
 	}
 
+
+
 }

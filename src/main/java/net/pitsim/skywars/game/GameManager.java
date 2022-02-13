@@ -28,11 +28,10 @@ public class GameManager {
 		GameClock.countdown();
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			FeatherBoardAPI.showScoreboard(player, "game");
+			Sounds.GAME_START.play(player);
 		}
 
 		MapManager.onGameStart();
-
-
 	}
 
 	public static void endGame() {
@@ -41,10 +40,14 @@ public class GameManager {
 		Misc.sendTitle(winner, "&6&lVICTORY!", 100);
 		Misc.sendSubTitle(winner, "&7You won the game!", 100);
 		Sounds.LEVEL_UP.play(winner);
+		GameClock.countdown.cancel();
 
 		Player killer1 = null;
 		Player killer2 = null;
 		Player killer3 = null;
+		int kills1;
+		int kills2;
+		int kills3;
 
 		int highestValue = 0;
 		Player highestKey = null;
@@ -62,6 +65,7 @@ public class GameManager {
 			}
 		}
 		killer1 = highestKey;
+		kills1 = highestValue;
 		KillManager.kills.remove(highestKey);
 		highestKey = null;
 		highestValue = 0;
@@ -78,6 +82,7 @@ public class GameManager {
 			}
 		}
 		killer2 = highestKey;
+		kills2 = highestValue;
 		KillManager.kills.remove(highestKey);
 		highestKey = null;
 		highestValue = 0;
@@ -94,6 +99,7 @@ public class GameManager {
 			}
 		}
 		killer3 = highestKey;
+		kills3 = highestValue;
 		KillManager.kills.remove(highestKey);
 
 		String winnerName = "%luckperms_prefix%" + winner.getDisplayName();
@@ -110,9 +116,9 @@ public class GameManager {
 		AOutput.broadcast("");
 		AOutput.broadcast("&e&lWinner: &r" + PlaceholderAPI.setPlaceholders(winner, winnerName));
 		AOutput.broadcast("");
-		if(killer1Name != null) AOutput.broadcast("&fFirst Killer: &r" + PlaceholderAPI.setPlaceholders(killer1, killer1Name));
-		if(killer2Name != null) AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name));
-		if(killer3Name != null) AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name));
+		if(killer1Name != null) AOutput.broadcast("&fFirst Killer: &r" + PlaceholderAPI.setPlaceholders(killer1, killer1Name) + " &e" + kills1 + " kills");
+		if(killer2Name != null) AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name) + " &e" + kills2 + " kills");
+		if(killer3Name != null) AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name) + " &e" + kills2 + " kills");
 		AOutput.broadcast("&8&m--------------------------");
 
 		new BukkitRunnable() {
@@ -143,6 +149,7 @@ public class GameManager {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				PluginMessageSender.sendEnd();
 				PluginMessageSender.sendToLobby();
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10 * 20L);

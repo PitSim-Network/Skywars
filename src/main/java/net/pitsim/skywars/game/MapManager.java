@@ -31,7 +31,7 @@ public class MapManager {
 
 		File clear = new File("plugins/Skywars/schematics/skywarsClear.schematic");
 		loadSchematic(clear, new Location(getWorld(), 0, 65, 0));
-		loadSchematic(map.getSchematicFile(), new Location(getWorld(), 0, 65, 0));
+		loadSchematic(map.getSchematicFile(), new Location(getWorld(), 0, 76, 0));
 		File cage = new File("plugins/Skywars/schematics/cage.schematic");
 
 		for(Map.Entry<Integer, Location> entry : map.getSpawnLocations().entrySet()) {

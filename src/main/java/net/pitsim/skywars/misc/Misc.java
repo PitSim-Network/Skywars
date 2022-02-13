@@ -128,6 +128,7 @@ public class Misc {
 
 
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(titleLength);
 	}
 
 	public static void sendSubTitle(Player player, String message, int length) {

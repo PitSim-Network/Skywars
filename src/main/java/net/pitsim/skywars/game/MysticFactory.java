@@ -36,8 +36,8 @@ public class MysticFactory {
 		double enchantRand = Math.random();
 		int enchants = 0;
 
-		if(enchantRand <= 0.15) enchants = 3;
-		 else if(enchantRand <= 0.5) enchants = 2;
+		if(enchantRand <= 0.25) enchants = 3;
+		 else if(enchantRand <= 0.8) enchants = 2;
 		 else if(enchantRand <= 1.0) enchants = 1;
 
 
@@ -48,11 +48,13 @@ public class MysticFactory {
 			if(tokensRand <= 0.75) tokens = 2;
 			else if(tokensRand <= 1.0) tokens = 3;
 		} else if(enchants == 2) {
-			if(tokensRand <= 0.1) tokens = 5;
-			else if(tokensRand <= 0.5) tokens = 4;
+			if(tokensRand <= 0.05) tokens = 6;
+			else if(tokensRand <= 0.1) tokens = 5;
+			else if(tokens <= 0.6) tokens = 4;
 			else if(tokens <= 1.0) tokens = 3;
 		} else if(enchants == 3) {
-			if(tokensRand <= 0.25) tokens = 6;
+			if(tokensRand <= 0.1) tokens = 7;
+			else if(tokensRand <= 0.3) tokens = 6;
 			else if(tokensRand <= 1.0) tokens = 5;
 		}
 
@@ -65,7 +67,9 @@ public class MysticFactory {
 			double rarityRand = Math.random();
 			String rarity = null;
 
-			if(rarityRand <= 0.35) {
+			if(rarityRand <= 0.1) {
+				rarity = "RARE";
+			} else if(rarityRand <= 0.5) {
 				rarity = "UNCOMMON";
 			} else if(rarityRand <= 1.0) {
 				rarity = "COMMON";
@@ -79,11 +83,16 @@ public class MysticFactory {
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
 				applicableEnchants.addAll(EnchantManager.allUncommon);
-			} else {
+			} else if(rarity.equals("COMMON")){
 				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
 				applicableEnchants.addAll(EnchantManager.allCommon);
+			} else {
+				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordRare);
+				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsRare);
+				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowRare);
+				applicableEnchants.addAll(EnchantManager.allRare);
 			}
 
 			Random applicableRand = new Random();
@@ -271,7 +280,10 @@ public class MysticFactory {
 	}
 
 	public static List<Integer> tokenFormat(int enchants, int tokens) {
-		if(enchants == 1) return Collections.singletonList(1);
+		if(enchants == 1) {
+			if(tokens == 2) return Collections.singletonList(2);
+			else if(tokens == 3) return Collections.singletonList(3);
+		}
 		if(enchants == 2) {
 			if(tokens == 3) {
 				return Arrays.asList(1, 2);
@@ -281,6 +293,8 @@ public class MysticFactory {
 				else return Arrays.asList(1, 3);
 			} else if(tokens == 5) {
 				return Arrays.asList(3, 2);
+			} else if(tokens == 6) {
+				return Arrays.asList(3, 3);
 			}
 		} else if(enchants == 3) {
 			if(tokens == 5) {

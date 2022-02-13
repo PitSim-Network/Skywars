@@ -2,6 +2,8 @@ package net.pitsim.skywars.game;
 
 import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.pitsim.skywars.controllers.DamageManager;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.events.KillEvent;
 import net.pitsim.skywars.misc.Misc;
@@ -11,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -50,7 +53,7 @@ public class KillManager implements Listener {
 
 		String killerName = "%luckperms_prefix%" + killer.getDisplayName();
 		String deadName = "%luckperms_prefix%" + dead.getDisplayName();
-		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead,deadName) + " &ewas killed by " + PlaceholderAPI.setPlaceholders(killer,killerName) + "&e.");
+		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead,deadName) + " &ewas killed by &r" + PlaceholderAPI.setPlaceholders(killer,killerName) + "&e.");
 		GameManager.alivePlayers.remove(dead);
 		if(kills.containsKey(killer)) {
 			kills.put(killer, kills.get(killer) + 1);
@@ -85,13 +88,24 @@ public class KillManager implements Listener {
 		SpectatorManager.setSpectator(dead);
 		Misc.sendTitle(dead, "&c&lYOU DIED!", 100);
 		Misc.sendSubTitle(dead, "", 100);
-
-		String deadName = "%luckperms_prefix%" + dead.getDisplayName();
-		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead,deadName) + " &efell into the void.");
 		GameManager.alivePlayers.remove(dead);
 
 		if(GameManager.alivePlayers.size() <= 1) GameManager.endGame();
 
+	}
+
+	@EventHandler
+	public void onMove(PlayerMoveEvent event) {
+		if(GameManager.status != GameStatus.ACTIVE) return;
+		Player player = event.getPlayer();
+		Location location = event.getPlayer().getLocation();
+
+		if(location.getX() > 100 || location.getX() < -100 || location.getZ() > 100 || location.getZ() < -100) {
+			String playerName = "%luckperms_prefix%" + player.getDisplayName();
+			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+			if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &etried to leave the map."));
+			DamageManager.death(player);
+		}
 	}
 
 

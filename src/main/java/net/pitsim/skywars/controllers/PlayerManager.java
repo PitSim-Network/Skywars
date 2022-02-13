@@ -197,36 +197,24 @@ public class PlayerManager implements Listener {
 		Player player = event.getPlayer();
 		if(!GameManager.alivePlayers.contains(player)) return;
 
-		DamageManager.death(player);
-		GameManager.alivePlayers.remove(player);
 		String playerName = "%luckperms_prefix%" + player.getDisplayName();
-		AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
-
-		Bukkit.getWorld("game").strikeLightningEffect(player.getLocation());
-		Location loc = player.getLocation().clone();
-		Inventory inv = player.getInventory();
-		for (ItemStack item : inv.getContents()) {
-			if (item != null) {
-				loc.getWorld().dropItemNaturally(loc, item.clone());
-			}
-		}
-		inv.clear();
-
-		if(GameManager.alivePlayers.size() <= 1) GameManager.endGame();
+		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+		if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+		DamageManager.death(player);
 	}
 
 	public static List<Player> toggledPlayers = new ArrayList<>();
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
-		if(GameManager.status == GameStatus.QUEUE) {
+		if(GameManager.status == GameStatus.QUEUE || SpectatorManager.spectators.contains(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler
 	public void onBreak(BlockPlaceEvent event) {
-		if(GameManager.status == GameStatus.QUEUE) {
+		if(GameManager.status == GameStatus.QUEUE || SpectatorManager.spectators.contains(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}

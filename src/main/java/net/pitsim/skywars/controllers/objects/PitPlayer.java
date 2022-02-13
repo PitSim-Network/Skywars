@@ -34,6 +34,9 @@ public class PitPlayer {
 	public UUID lastHitUUID = null;
 	public ItemStack confirmedDrop = null;
 
+	public int wins;
+	public int kills;
+
 	public PitPlayer(Player player) {
 		this.player = player;
 
