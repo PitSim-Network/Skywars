@@ -45,6 +45,11 @@ public class FeatherManager implements Listener {
         Player player = event.getPlayer();
 
         if(player.getLocation().getY() < 20) {
+            if(SpectatorManager.spectators.contains(player)) {
+                player.teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+                player.setFlying(true);
+                return;
+            }
             boolean feather = FunkyFeather.useFeather(player, false);
 
             if(VanishAPI.isInvisible(player)) {

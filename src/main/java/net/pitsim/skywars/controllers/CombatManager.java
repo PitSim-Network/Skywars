@@ -24,7 +24,7 @@ import java.util.*;
 
 public class CombatManager implements Listener {
 
-    int combatTime = 15 * 20;
+    int combatTime = 10 * 20;
 
     public static HashMap<UUID, Integer> taggedPlayers = new HashMap<>();
     public static List<UUID> bannedPlayers = new ArrayList<>();

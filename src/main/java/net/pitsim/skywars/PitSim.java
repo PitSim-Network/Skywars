@@ -176,12 +176,8 @@ public class PitSim extends JavaPlugin {
 		adminCommand.registerCommand(new BypassCommand("bypass"));
 		adminCommand.registerCommand(new LockdownCommand("lockdown"));
 
-		getCommand("atest").setExecutor(new ATestCommand());
 
 		getCommand("oof").setExecutor(new OofCommand());
-		getCommand("enchant").setExecutor(new EnchantCommand());
-		getCommand("fresh").setExecutor(new FreshCommand());
-		getCommand("spawn").setExecutor(new SpawnCommand());
 		getCommand("store").setExecutor(new StoreCommand());
 		getCommand("shop").setExecutor(new StoreCommand());
 		getCommand("discord").setExecutor(new DiscordCommand());

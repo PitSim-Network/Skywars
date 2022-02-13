@@ -9,9 +9,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupArrowEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -59,6 +63,31 @@ public class SpectatorManager implements Listener {
 		event.setCancelled(true);
 	}
 
+	@EventHandler
+	public void onInteract(PlayerInteractEvent event) {
+		if(!spectators.contains(event.getPlayer())) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onShoot(EntityShootBowEvent event) {
+		if(!(event.getEntity() instanceof Player)) return;
+		Player player = (Player) event.getEntity();
+		if(!spectators.contains(player)) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onPickup(PlayerPickupItemEvent event) {
+		if(!spectators.contains(event.getPlayer())) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onArrowPickup(PlayerPickupArrowEvent event) {
+		if(!spectators.contains(event.getPlayer())) return;
+		event.setCancelled(true);
+	}
 
 
 }

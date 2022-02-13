@@ -13,9 +13,9 @@ import java.util.List;
 
 public class GameClock {
 	public static BukkitTask countdown;
-	public static int minutes = 5;
+	public static int minutes = 3;
 	public static int seconds = 0;
-	public static List<Integer> countdownAnnouncements = Arrays.asList(5, 3, 2, 1);
+	public static List<Integer> countdownAnnouncements = Arrays.asList(3, 2, 1);
 	public static boolean refill = false;
 
 	public static void countdown() {
@@ -36,6 +36,7 @@ public class GameClock {
 						} else {
 							if(!refill) {
 								ChestManager.refillChests();
+								refill = true;
 								minutes = 5;
 								return;
 							}

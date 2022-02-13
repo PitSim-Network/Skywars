@@ -40,12 +40,6 @@ public class Stereo extends PitEnchant {
 
 			if(StereoManager.playerMusic.containsKey(event.getPlayer())) return;
 
-			if(!event.getPlayer().hasPermission("pitsim.stereo")) {
-				AOutput.error(event.getPlayer(), "&c&lNOPE! &7You must have the &bMiraculous Rank &7or higher to use &9Stereo");
-				Sounds.NO.play(event.getPlayer());
-				return;
-			}
-
 
 			File exampleSong = new File("plugins/NoteBlockAPI/Songs/AllStar.nbs");
 			File dir = new File(exampleSong.getAbsoluteFile().getParent());

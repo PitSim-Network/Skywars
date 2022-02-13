@@ -190,4 +190,11 @@ public class Misc {
 			player.playSound(location, Sound.EXPLODE, 10, (float) (Math.random() * 0.2 + 0.6));
 		}
 	}
+
+	public static void clearArmor(Player dead) {
+		dead.getInventory().setHelmet(new ItemStack(Material.AIR));
+		dead.getInventory().setChestplate(new ItemStack(Material.AIR));
+		dead.getInventory().setLeggings(new ItemStack(Material.AIR));
+		dead.getInventory().setBoots(new ItemStack(Material.AIR));
+	}
 }

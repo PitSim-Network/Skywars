@@ -33,9 +33,9 @@ public class QueueManager implements Listener {
 
 	public static int maxPlayers = 12;
 	public static int minPlayers = 3;
-	public static int quickStartPlayers = 10;
+	public static int quickStartPlayers = 6;
 	public static int timerStartMinutes = 2;
-	public static int quickTimerStartSeconds = 10;
+	public static int quickTimerStartSeconds = 30;
 	public static List<Integer> countdownAnnouncements = Arrays.asList(60, 30, 20, 10, 5, 4, 3, 2, 1);
 
 	public static Map<Player, Integer> playerCages = new HashMap<>();

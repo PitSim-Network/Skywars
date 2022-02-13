@@ -10,6 +10,7 @@ import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,6 +46,11 @@ public class KillManager implements Listener {
 				loc.getWorld().dropItemNaturally(loc, item.clone());
 			}
 		}
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
+		Misc.clearArmor(dead);
 		inv.clear();
 		dead.teleport(MapManager.queueSpawn);
 		SpectatorManager.setSpectator(dead);
@@ -83,6 +89,11 @@ public class KillManager implements Listener {
 				loc.getWorld().dropItemNaturally(loc, item.clone());
 			}
 		}
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
+		loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
+		Misc.clearArmor(dead);
 		inv.clear();
 		dead.teleport(MapManager.queueSpawn);
 		SpectatorManager.setSpectator(dead);
@@ -98,6 +109,7 @@ public class KillManager implements Listener {
 	public void onMove(PlayerMoveEvent event) {
 		if(GameManager.status != GameStatus.ACTIVE) return;
 		Player player = event.getPlayer();
+		if(SpectatorManager.spectators.contains(player)) return;
 		Location location = event.getPlayer().getLocation();
 
 		if(location.getX() > 100 || location.getX() < -100 || location.getZ() > 100 || location.getZ() < -100) {
