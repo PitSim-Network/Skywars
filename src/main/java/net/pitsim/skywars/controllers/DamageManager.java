@@ -271,16 +271,6 @@ public class DamageManager implements Listener {
 			}
 		}.runTaskLater(PitSim.INSTANCE, 1L);
 
-		double finalDamage = 0;
-		for(Map.Entry<UUID, Double> entry : pitDefender.recentDamageMap.entrySet()) {
-
-			finalDamage += entry.getValue();
-
-
-			pitDefender.recentDamageMap.clear();
-
-			String message = "%luckperms_prefix%";
-		}
 	}
 
 	public static void death(Player dead) {
@@ -306,7 +296,7 @@ public class DamageManager implements Listener {
 		dead.setHealth(dead.getMaxHealth());
 		dead.playEffect(EntityEffect.HURT);
 		EntityPlayer nmsPlayer = ((CraftPlayer) dead).getHandle();
-		nmsPlayer.setAbsorptionHearts(0);
+
 		Sounds.DEATH_FALL.play(dead);
 		Sounds.DEATH_FALL.play(dead);
 		Regularity.toReg.remove(dead.getUniqueId());

@@ -1,16 +1,13 @@
 package net.pitsim.skywars.game;
 
 import net.pitsim.skywars.PitSim;
-import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.events.AttackEvent;
-import net.pitsim.skywars.events.KillEvent;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
