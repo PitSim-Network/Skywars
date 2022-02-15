@@ -8,6 +8,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,11 +16,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -52,6 +50,7 @@ public class QueueManager implements Listener {
 			return;
 		}
 		player.getInventory().clear();
+		Misc.clearArmor(player);
 		GameManager.alivePlayers.add(player);
 
 		String name = "%luckperms_prefix%" + player.getDisplayName();
@@ -194,6 +193,7 @@ public class QueueManager implements Listener {
 
 		if(GameManager.status == GameStatus.QUEUE) {
 			player.getInventory().clear();
+			Misc.clearArmor(player);
 			GameManager.alivePlayers.add(player);
 
 			String name = "%luckperms_prefix%" + player.getDisplayName();
