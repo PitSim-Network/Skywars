@@ -19,11 +19,10 @@ public class KillEvent extends Event {
 	private final Map<PitEnchant, Integer> deadEnchantMap;
 
 	public boolean exeDeath;
-	public int xpReward;
-	public int xpCap = 50;
-	public double goldReward = 20;
+	public int xpReward = 50;
+	public double coinReward = 100;
 	public List<Double> xpMultipliers = new ArrayList<>();
-	public List<Double> goldMultipliers = new ArrayList<>();
+	public List<Double> coinMultipliers = new ArrayList<>();
 
 	public boolean isLuckyKill = false;
 	public int playerKillWorth = 1;
@@ -43,16 +42,15 @@ public class KillEvent extends Event {
 		for(Double xpMultiplier : xpMultipliers) {
 			xpReward *= xpMultiplier;
 		}
-		if(xpReward > xpCap) return xpCap;
-		else return (int) xpReward;
+		return (int) xpReward;
 	}
 
-	public double getFinalGold() {
-		double goldReward = this.goldReward;
-		for(Double goldMultiplier : goldMultipliers) {
-			goldReward *= goldMultiplier;
+	public double getFinalcoin() {
+		double coinReward = this.coinReward;
+		for(Double coinMultiplier : coinMultipliers) {
+			coinReward *= coinMultiplier;
 		}
-		return goldReward;
+		return coinReward;
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class GoldBoost extends PitEnchant {
 		int enchantLvl = killEvent.getKillerEnchantLevel(this);
 		if(enchantLvl == 0) return;
 
-		killEvent.goldMultipliers.add((getGoldIncrease(enchantLvl) / 100D) + 1);
+		killEvent.coinMultipliers.add((getGoldIncrease(enchantLvl) / 100D) + 1);
 	}
 
 	@Override
