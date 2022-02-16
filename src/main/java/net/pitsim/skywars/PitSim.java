@@ -8,27 +8,29 @@ import dev.kyro.arcticapi.commands.ABaseCommand;
 import dev.kyro.arcticapi.data.AData;
 import dev.kyro.arcticapi.hooks.AHook;
 import dev.kyro.arcticapi.misc.AOutput;
-import net.pitsim.skywars.controllers.objects.PitEnchant;
-import net.pitsim.skywars.enchants.GoldBoost;
+import me.mrten.mysqlapi.MySQL;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.luckperms.api.LuckPerms;
 import net.milkbowl.vault.economy.Economy;
-import net.pitsim.skywars.commands.*;
+import net.pitsim.skywars.commands.CaptchaCommand;
+import net.pitsim.skywars.commands.DiscordCommand;
+import net.pitsim.skywars.commands.StoreCommand;
 import net.pitsim.skywars.commands.admin.BaseAdminCommand;
 import net.pitsim.skywars.commands.admin.BypassCommand;
 import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.*;
+import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enchants.*;
 import net.pitsim.skywars.game.*;
+import net.pitsim.skywars.game.sql.TableManager;
 import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.misc.YummyBread;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
 import net.pitsim.skywars.placeholders.*;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
@@ -45,14 +47,13 @@ import java.util.Map;
 
 public class PitSim extends JavaPlugin {
 
-	public static double version = 2.0;
-
 	public static LuckPerms LUCKPERMS;
 	public static PitSim INSTANCE;
 	public static Economy VAULT = null;
 	public static ProtocolManager PROTOCOL_MANAGER = null;
 
 	public static AData playerList;
+	public MySQL mysql;
 //	private BukkitAudiences adventure;
 //
 //	public BukkitAudiences adventure() {
@@ -69,6 +70,9 @@ public class PitSim extends JavaPlugin {
 	}
 
 	public void onInit() {
+		mysql = new MySQL();
+		mysql.connect("***REMOVED***", "***REMOVED***", "u1_tNY9ddZqN8", "QOqt208u81.q+i^eRjZ5pJIT", "s1_Skywars");
+		TableManager.createTable();
 
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -176,13 +180,12 @@ public class PitSim extends JavaPlugin {
 		adminCommand.registerCommand(new BypassCommand("bypass"));
 		adminCommand.registerCommand(new LockdownCommand("lockdown"));
 
-
-		getCommand("oof").setExecutor(new OofCommand());
 		getCommand("store").setExecutor(new StoreCommand());
 		getCommand("shop").setExecutor(new StoreCommand());
 		getCommand("discord").setExecutor(new DiscordCommand());
 		getCommand("disc").setExecutor(new DiscordCommand());
 		getCommand("captcha").setExecutor(new CaptchaCommand());
+//		getCommand("oof").setExecutor(new OofCommand());
 //		getCommand("togglestereo").setExecutor(new ToggleStereoCommand());
 	}
 
@@ -201,7 +204,6 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SpectatorManager(), this);
 		getServer().getPluginManager().registerEvents(new YummyBread(), this);
 		getServer().getPluginManager().registerEvents(new FeatherManager(), this);
-
 	}
 
 	private void loadConfig() {

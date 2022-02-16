@@ -57,6 +57,8 @@ public class KillManager implements Listener {
 
 		String killerName = "%luckperms_prefix%" + killer.getDisplayName();
 		String deadName = "%luckperms_prefix%" + dead.getDisplayName();
+		PitPlayer pitKiller = PitPlayer.getPitPlayer(killer);
+		pitKiller.stats.kills++;
 		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead,deadName) + " &ewas killed by &r" + PlaceholderAPI.setPlaceholders(killer,killerName) + "&e.");
 		GameManager.alivePlayers.remove(dead);
 		if(kills.containsKey(killer)) {

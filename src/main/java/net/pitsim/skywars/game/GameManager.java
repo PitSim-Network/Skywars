@@ -4,6 +4,7 @@ import be.maximvdw.featherboard.api.FeatherBoardAPI;
 import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -41,6 +42,13 @@ public class GameManager {
 		Misc.sendSubTitle(winner, "&7You won the game!", 100);
 		Sounds.LEVEL_UP.play(winner);
 		GameClock.countdown.cancel();
+
+		PitPlayer pitWinner = PitPlayer.getPitPlayer(winner);
+		pitWinner.stats.wins++;
+		for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+			PitPlayer pitPlayer = PitPlayer.getPitPlayer(onlinePlayer);
+			pitPlayer.saveSQLData();
+		}
 
 		Player killer1 = null;
 		Player killer2 = null;

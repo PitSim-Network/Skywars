@@ -5,6 +5,7 @@ import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.enchants.Hearts;
 import net.pitsim.skywars.enums.AChatColor;
 import net.pitsim.skywars.events.HealEvent;
+import net.pitsim.skywars.game.sql.PlayerStats;
 import net.pitsim.skywars.perks.NoPerk;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
@@ -34,11 +35,13 @@ public class PitPlayer {
 	public UUID lastHitUUID = null;
 	public ItemStack confirmedDrop = null;
 
-	public int wins;
+	public PlayerStats stats;
+
 	public int kills;
 
 	public PitPlayer(Player player) {
 		this.player = player;
+		stats = new PlayerStats(player);
 
 			String message = "%luckperms_prefix%";
 			prefix = "";
@@ -58,6 +61,10 @@ public class PitPlayer {
 				chatColor = AChatColor.valueOf(chatColorString);
 			}
 
+	}
+
+	public void saveSQLData() {
+		stats.save();
 	}
 
 	public static PitPlayer getPitPlayer(Player player) {

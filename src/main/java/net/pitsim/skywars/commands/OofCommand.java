@@ -1,28 +1,11 @@
 package net.pitsim.skywars.commands;
 
-import dev.kyro.arcticapi.misc.AOutput;
-import dev.kyro.arcticapi.misc.AUtil;
-import net.pitsim.skywars.controllers.CombatManager;
-import net.pitsim.skywars.controllers.DamageManager;
-import net.pitsim.skywars.controllers.SpawnManager;
-import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
-import net.pitsim.skywars.enums.MysticType;
-import net.pitsim.skywars.events.AttackEvent;
-import net.pitsim.skywars.events.OofEvent;
-import net.pitsim.skywars.game.MysticFactory;
-import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class OofCommand implements CommandExecutor {
 
@@ -32,12 +15,12 @@ public class OofCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player player = (Player) sender;
 
-        String itemType = args[0];
-        int tier = Integer.parseInt(args[1]);
-
-        if(itemType.equals("sword")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.SWORD, tier));
-        else if(itemType.equals("bow")) AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.BOW, tier));
-        else AUtil.giveItemSafely(player, MysticFactory.createItem(MysticType.PANTS, tier))
+        PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+        Bukkit.broadcastMessage(pitPlayer.stats.wins + "");
+        Bukkit.broadcastMessage(pitPlayer.stats.kills + "");
+        pitPlayer.stats.wins++;
+        pitPlayer.stats.kills = pitPlayer.stats.kills + 2;
+        pitPlayer.stats.save();
 
 
         ;
