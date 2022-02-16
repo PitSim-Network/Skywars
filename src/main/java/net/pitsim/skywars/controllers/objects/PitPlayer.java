@@ -63,6 +63,10 @@ public class PitPlayer {
 
 	}
 
+	public void saveSQLData() {
+		stats.save();
+	}
+
 	public static PitPlayer getPitPlayer(Player player) {
 
 		PitPlayer pitPlayer = null;

@@ -10,13 +10,11 @@ import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.GameStatus;
-import net.pitsim.skywars.game.MapManager;
 import net.pitsim.skywars.game.SpectatorManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
@@ -28,16 +26,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -193,12 +188,13 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
-		if(!(GameManager.status == GameStatus.ACTIVE)) return;
 		Player player = event.getPlayer();
+		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+		pitPlayer.saveSQLData();
+		if(!(GameManager.status == GameStatus.ACTIVE)) return;
 		if(!GameManager.alivePlayers.contains(player)) return;
 
 		String playerName = "%luckperms_prefix%" + player.getDisplayName();
-		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
 		if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
 		DamageManager.death(player);
 	}
