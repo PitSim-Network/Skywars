@@ -128,6 +128,16 @@ public class GameManager {
 		if(killer2Name != null) AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name) + " &e" + kills2 + " kills");
 		if(killer3Name != null) AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name) + " &e" + kills2 + " kills");
 		AOutput.broadcast("&8&m--------------------------");
+		ExperienceManager.addXP(winner, 200);
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				try {
+					AOutput.send(winner, "&eGame Win: &b+200XP");
+				} catch(Exception ignored) { }
+			}
+		}.runTaskLater(PitSim.INSTANCE, 40L);
+
 
 		new BukkitRunnable() {
 			@Override

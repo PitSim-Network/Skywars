@@ -73,7 +73,6 @@ public class PitSim extends JavaPlugin {
 		mysql = new MySQL();
 		mysql.connect("***REMOVED***", "***REMOVED***", "u1_tNY9ddZqN8", "QOqt208u81.q+i^eRjZ5pJIT", "s1_Skywars");
 		TableManager.createTable();
-
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);

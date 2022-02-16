@@ -22,7 +22,7 @@ public class Moctezuma extends PitEnchant {
 		int enchantLvl = killEvent.getKillerEnchantLevel(this);
 		if(enchantLvl == 0) return;
 
-		killEvent.goldReward += getGoldIncrease(enchantLvl);
+		killEvent.coinReward += getGoldIncrease(enchantLvl);
 	}
 
 	@Override

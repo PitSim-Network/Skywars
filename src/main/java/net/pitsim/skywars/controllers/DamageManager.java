@@ -2,6 +2,8 @@ package net.pitsim.skywars.controllers;
 
 import de.tr7zw.nbtapi.NBTItem;
 import dev.kyro.arcticapi.misc.AOutput;
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
@@ -12,13 +14,11 @@ import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.events.KillEvent;
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.pitsim.skywars.game.ExperienceManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.*;
@@ -256,9 +256,12 @@ public class DamageManager implements Listener {
 			dead.removePotionEffect(potionEffect.getType());
 		}
 
-		String kill = "&a&lKILL!&7 on %luckperms_prefix%" + "%player_name%";
+		String kill = "&a&lKILL!&7 on %luckperms_prefix%" + "%player_name%" + " &b+" + killEvent.getFinalXp() + "XP &6+" + (int) killEvent.getFinalcoin() + " Coins";
 		String death = "&c&lDEATH! &7by %luckperms_prefix%" + "%player_name%";
 		String killActionBar = "&7%luckperms_prefix%" + "%player_name%" + " &a&lKILL!";
+
+		ExperienceManager.addXP(killer, killEvent.getFinalXp());
+		pitAttacker.stats.coins += killEvent.getFinalcoin();
 
 		AOutput.send(killEvent.killer, PlaceholderAPI.setPlaceholders(killEvent.dead, kill));
 		AOutput.send(killEvent.dead, PlaceholderAPI.setPlaceholders(killEvent.killer, death));
