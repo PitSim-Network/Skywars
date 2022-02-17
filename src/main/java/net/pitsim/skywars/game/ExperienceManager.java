@@ -56,11 +56,17 @@ public class ExperienceManager {
 	}
 
 	public static ChatColor getColor(int level) {
-		if(level < 25) return ChatColor.GRAY;
-		if(level < 50) return ChatColor.YELLOW;
-		if(level < 75) return ChatColor.LIGHT_PURPLE;
-		if(level < 100) return ChatColor.DARK_PURPLE;
-		return ChatColor.RED;
+		if(level < 10) return ChatColor.GRAY;
+		if(level < 20) return ChatColor.YELLOW;
+		if(level < 30) return ChatColor.AQUA;
+		if(level < 40) return ChatColor.GREEN;
+		if(level < 50) return ChatColor.RED;
+		if(level < 60) return ChatColor.LIGHT_PURPLE;
+		if(level < 70) return ChatColor.GOLD;
+		if(level < 80) return ChatColor.DARK_BLUE;
+		if(level < 90) return ChatColor.DARK_GREEN;
+		if(level < 100) return ChatColor.DARK_RED;
+		return ChatColor.DARK_PURPLE;
 	}
 
 	public static void setXPBar(Player player) {

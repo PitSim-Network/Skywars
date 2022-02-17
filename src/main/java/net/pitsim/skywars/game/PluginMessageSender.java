@@ -80,4 +80,37 @@ public class PluginMessageSender {
 
 		Bukkit.getServer().sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
+
+	public static void sendQueue(Player player) {
+
+
+		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		out.writeUTF("Forward"); // So BungeeCord knows to forward it
+		out.writeUTF("ALL");
+		out.writeUTF("SkywarsQueue");
+
+		ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
+		DataOutputStream msgout = new DataOutputStream(msgbytes);
+		try {
+			msgout.writeUTF(player.getName());
+		} catch (IOException exception){
+			exception.printStackTrace();
+		}
+
+		out.writeShort(msgbytes.toByteArray().length);
+		out.write(msgbytes.toByteArray());
+
+		Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+		assert p != null;
+		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+	}
+
+	public static void sendToLobby(Player player) {
+
+		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		out.writeUTF("Connect"); // So BungeeCord knows to forward it
+		out.writeUTF("skywars");
+
+		player .sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+	}
 }

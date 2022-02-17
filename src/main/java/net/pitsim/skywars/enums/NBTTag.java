@@ -30,7 +30,9 @@ public enum NBTTag {
 	GHELMET_ABILITY("pr-ghelm-ability"),
 	IS_YUMMY_BREAD("pr-is-yummy-bread"),
 	IS_VERY_YUMMY_BREAD("pr-is-very-yummy-bread"),
-
+	IS_COMPASS("pr-is-compass"),
+	IS_PLAY_AGAIN("pr-is-play-again"),
+	IS_TO_LOBBY("pr-is-to-lobby"),
 	IS_VENOM("pr-isvenom");
 
 	private final String ref;

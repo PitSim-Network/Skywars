@@ -15,6 +15,7 @@ import net.luckperms.api.LuckPerms;
 import net.milkbowl.vault.economy.Economy;
 import net.pitsim.skywars.commands.CaptchaCommand;
 import net.pitsim.skywars.commands.DiscordCommand;
+import net.pitsim.skywars.commands.ShowCommand;
 import net.pitsim.skywars.commands.StoreCommand;
 import net.pitsim.skywars.commands.admin.BaseAdminCommand;
 import net.pitsim.skywars.commands.admin.BypassCommand;
@@ -184,6 +185,7 @@ public class PitSim extends JavaPlugin {
 		getCommand("discord").setExecutor(new DiscordCommand());
 		getCommand("disc").setExecutor(new DiscordCommand());
 		getCommand("captcha").setExecutor(new CaptchaCommand());
+		getCommand("show").setExecutor(new ShowCommand());
 //		getCommand("oof").setExecutor(new OofCommand());
 //		getCommand("togglestereo").setExecutor(new ToggleStereoCommand());
 	}

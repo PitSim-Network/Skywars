@@ -42,6 +42,9 @@ public class QueueManager implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		if(GameManager.status != GameStatus.QUEUE) return;
 		Player player = event.getPlayer();
+		player.getInventory().clear();
+		Misc.clearArmor(player);
+		ExperienceManager.setXPBar(player);
 		if(VanishAPI.isInvisible(player)) {
 			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
 			player.setAllowFlight(true);
@@ -49,8 +52,6 @@ public class QueueManager implements Listener {
 			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
 			return;
 		}
-		player.getInventory().clear();
-		Misc.clearArmor(player);
 		GameManager.alivePlayers.add(player);
 
 		String name = "%luckperms_prefix%" + player.getDisplayName();
