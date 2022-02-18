@@ -36,6 +36,8 @@ public class GameManager {
 	}
 
 	public static void endGame() {
+		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
+		if(id.equalsIgnoreCase("test")) return;
 		status = GameStatus.ENDING;
 		Player winner = alivePlayers.get(0);
 		Misc.sendTitle(winner, "&6&lVICTORY!", 100);

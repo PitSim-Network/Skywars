@@ -8,6 +8,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,12 +36,16 @@ public class QueueManager implements Listener {
 	public static int quickTimerStartSeconds = 30;
 	public static List<Integer> countdownAnnouncements = Arrays.asList(60, 30, 20, 10, 5, 4, 3, 2, 1);
 
+
 	public static Map<Player, Integer> playerCages = new HashMap<>();
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		if(GameManager.status != GameStatus.QUEUE) return;
 		Player player = event.getPlayer();
+		player.getInventory().clear();
+		Misc.clearArmor(player);
+		ExperienceManager.setXPBar(player);
 		if(VanishAPI.isInvisible(player)) {
 			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
 			player.setAllowFlight(true);
@@ -48,7 +53,6 @@ public class QueueManager implements Listener {
 			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
 			return;
 		}
-		player.getInventory().clear();
 		GameManager.alivePlayers.add(player);
 
 		String name = "%luckperms_prefix%" + player.getDisplayName();
@@ -197,6 +201,7 @@ public class QueueManager implements Listener {
 
 		if(GameManager.status == GameStatus.QUEUE) {
 			player.getInventory().clear();
+			Misc.clearArmor(player);
 			GameManager.alivePlayers.add(player);
 
 			String name = "%luckperms_prefix%" + player.getDisplayName();

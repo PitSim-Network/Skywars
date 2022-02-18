@@ -15,6 +15,7 @@ import net.luckperms.api.LuckPerms;
 import net.milkbowl.vault.economy.Economy;
 import net.pitsim.skywars.commands.CaptchaCommand;
 import net.pitsim.skywars.commands.DiscordCommand;
+import net.pitsim.skywars.commands.ShowCommand;
 import net.pitsim.skywars.commands.StoreCommand;
 import net.pitsim.skywars.commands.admin.BaseAdminCommand;
 import net.pitsim.skywars.commands.admin.BypassCommand;
@@ -74,6 +75,12 @@ public class PitSim extends JavaPlugin {
 		mysql.connect("***REMOVED***", "***REMOVED***", "u1_tNY9ddZqN8", "QOqt208u81.q+i^eRjZ5pJIT", "s1_Skywars");
 		TableManager.createTable();
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
+		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
+		if(id.equalsIgnoreCase("test")) {
+			QueueManager.minPlayers = 1;
+			QueueManager.timerStartMinutes = 0;
+		}
 
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 		if(provider != null) {
@@ -182,6 +189,7 @@ public class PitSim extends JavaPlugin {
 		getCommand("discord").setExecutor(new DiscordCommand());
 		getCommand("disc").setExecutor(new DiscordCommand());
 		getCommand("captcha").setExecutor(new CaptchaCommand());
+		getCommand("show").setExecutor(new ShowCommand());
 //		getCommand("oof").setExecutor(new OofCommand());
 //		getCommand("togglestereo").setExecutor(new ToggleStereoCommand());
 	}

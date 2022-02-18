@@ -3,19 +3,18 @@ package net.pitsim.skywars.misc;
 import de.tr7zw.nbtapi.NBTItem;
 import dev.kyro.arcticapi.builders.AItemStackBuilder;
 import dev.kyro.arcticapi.builders.ALoreBuilder;
-import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.HealEvent;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
@@ -34,8 +33,8 @@ public class YummyBread implements Listener {
 		NBTItem nbtItem = new NBTItem(event.getItem());
 		if(nbtItem.hasKey(NBTTag.IS_VERY_YUMMY_BREAD.getRef())) {
 			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-			pitPlayer.heal(12);
 			pitPlayer.heal(4, HealEvent.HealType.ABSORPTION, 20);
+			Misc.applyPotionEffect(player, PotionEffectType.REGENERATION, 5 * 20, 2, false, false);
 		}
 	}
 
