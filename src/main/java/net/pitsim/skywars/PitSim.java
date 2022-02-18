@@ -76,6 +76,12 @@ public class PitSim extends JavaPlugin {
 		TableManager.createTable();
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
+		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
+		if(id.equalsIgnoreCase("test")) {
+			QueueManager.minPlayers = 1;
+			QueueManager.timerStartMinutes = 0;
+		}
+
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 		if (provider != null) {
 			LUCKPERMS = provider.getProvider();

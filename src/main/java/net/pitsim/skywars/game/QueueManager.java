@@ -36,6 +36,7 @@ public class QueueManager implements Listener {
 	public static int quickTimerStartSeconds = 30;
 	public static List<Integer> countdownAnnouncements = Arrays.asList(60, 30, 20, 10, 5, 4, 3, 2, 1);
 
+
 	public static Map<Player, Integer> playerCages = new HashMap<>();
 
 	@EventHandler
