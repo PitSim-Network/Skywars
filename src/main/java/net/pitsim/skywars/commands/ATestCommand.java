@@ -175,13 +175,15 @@ public class ATestCommand implements CommandExecutor {
 			sword = EnchantManager.addEnchant(sword, EnchantManager.getEnchant("bill"), 1, false);
 			sword = EnchantManager.addEnchant(sword, EnchantManager.getEnchant("perun"), 3, false);
 			sword = EnchantManager.addEnchant(sword, EnchantManager.getEnchant("lifesteal"), 3, false);
-		} catch(Exception ignored) { }
+		} catch(Exception ignored) {
+		}
 		ItemStack pants = FreshCommand.getFreshItem(MysticType.PANTS, PantColor.getNormalRandom());
 		try {
 			pants = EnchantManager.addEnchant(pants, EnchantManager.getEnchant("mirror"), 3, false);
 			pants = EnchantManager.addEnchant(pants, EnchantManager.getEnchant("protection"), 8, false);
 			pants = EnchantManager.addEnchant(pants, EnchantManager.getEnchant("peroxide"), 3, false);
-		} catch(Exception ignored) { }
+		} catch(Exception ignored) {
+		}
 
 		equipment.set(Equipment.EquipmentSlot.HAND, sword);
 
@@ -197,6 +199,7 @@ public class ATestCommand implements CommandExecutor {
 		new BukkitRunnable() {
 			int count = 0;
 			boolean dirClockwise = true;
+
 			@Override
 			public void run() {
 				count++;
@@ -210,14 +213,14 @@ public class ATestCommand implements CommandExecutor {
 
 				if(count % 5 == 0) {
 					for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-						if(!onlinePlayer.getWorld().equals(npc.getEntity().getWorld()));
-						PacketPlayOutAnimation attackPacket = new PacketPlayOutAnimation(((CraftEntity)npc.getEntity()).getHandle(), 0);
+						if(!onlinePlayer.getWorld().equals(npc.getEntity().getWorld())) ;
+						PacketPlayOutAnimation attackPacket = new PacketPlayOutAnimation(((CraftEntity) npc.getEntity()).getHandle(), 0);
 						((CraftPlayer) onlinePlayer).getHandle().playerConnection.sendPacket(attackPacket);
 					}
 				}
 				if(count % 5 == 4) {
 					for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-						if(!onlinePlayer.getWorld().equals(npc.getEntity().getWorld()));
+						if(!onlinePlayer.getWorld().equals(npc.getEntity().getWorld())) ;
 
 						PacketContainer packet = PitSim.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.ENTITY_METADATA);
 						packet.getIntegers().write(0, npc.getEntity().getEntityId());
@@ -270,7 +273,7 @@ public class ATestCommand implements CommandExecutor {
 				} else {
 
 					Location rotLoc = entity.getLocation().clone();
-					rotLoc.setYaw(entity.getLocation().getYaw() + (dirClockwise ? - 90 : 90));
+					rotLoc.setYaw(entity.getLocation().getYaw() + (dirClockwise ? -90 : 90));
 					entity.setVelocity(npcVelo.add(rotLoc.getDirection().normalize().setY(0).multiply(0.10)));
 //					entity.setVelocity(npcVelo.add(rotLoc.getDirection().normalize().setY(0).multiply(0.12)));
 				}

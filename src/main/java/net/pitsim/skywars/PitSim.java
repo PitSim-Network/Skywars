@@ -76,7 +76,7 @@ public class PitSim extends JavaPlugin {
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-		if (provider != null) {
+		if(provider != null) {
 			LUCKPERMS = provider.getProvider();
 		}
 
@@ -91,7 +91,7 @@ public class PitSim extends JavaPlugin {
 
 		SpawnNPCs.createNPCs();
 
-		if (!setupEconomy()) {
+		if(!setupEconomy()) {
 			AOutput.log(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
 			return;
@@ -109,7 +109,7 @@ public class PitSim extends JavaPlugin {
 		}
 
 		boolean NoteBlockAPI = true;
-		if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")){
+		if(!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")) {
 			getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
 			NoteBlockAPI = false;
 			return;
@@ -150,8 +150,6 @@ public class PitSim extends JavaPlugin {
 	public void onDisable() {
 
 		SpawnNPCs.removeNPCs();
-
-
 
 
 		for(PitEnchant pitEnchant : EnchantManager.pitEnchants) pitEnchant.onDisable();
@@ -212,11 +210,11 @@ public class PitSim extends JavaPlugin {
 	}
 
 	private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+		if(getServer().getPluginManager().getPlugin("Vault") == null) {
 			return false;
 		}
 		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
+		if(rsp == null) {
 			return false;
 		}
 		VAULT = rsp.getProvider();

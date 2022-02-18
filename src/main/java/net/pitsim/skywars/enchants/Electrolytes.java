@@ -26,7 +26,7 @@ public class Electrolytes extends PitEnchant {
 
 		int enchantLvl = attackEvent.getDefenderEnchantLevel(this);
 		int attackerEnchantLevel = attackEvent.getAttackerEnchantLevel(this);
-		for (PotionEffect effect : attackEvent.attacker.getActivePotionEffects()) {
+		for(PotionEffect effect : attackEvent.attacker.getActivePotionEffects()) {
 			if(effect.getType().equals(PotionEffectType.SPEED) && effect.getAmplifier() == 3 && attackerEnchantLevel == 0 && effect.getDuration() > 85) {
 				attackEvent.attacker.removePotionEffect(PotionEffectType.SPEED);
 			}
@@ -50,21 +50,21 @@ public class Electrolytes extends PitEnchant {
 
 					if(activePotionEffect.getAmplifier() > 0) {
 
-						if(activePotionEffect.getDuration() + (getSeconds(enchantLvl) * 20) / 2> getMaxSeconds(enchantLvl) * 20) {
+						if(activePotionEffect.getDuration() + (getSeconds(enchantLvl) * 20) / 2 > getMaxSeconds(enchantLvl) * 20) {
 
-						Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED,getMaxSeconds(enchantLvl) * 20,
-								activePotionEffect.getAmplifier(), false, false);
+							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED, getMaxSeconds(enchantLvl) * 20,
+									activePotionEffect.getAmplifier(), false, false);
 						} else {
-						Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED,(activePotionEffect.getDuration()
-								+ (getSeconds(enchantLvl) * 20) / 2), activePotionEffect.getAmplifier(), false, false);
+							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED, (activePotionEffect.getDuration()
+									+ (getSeconds(enchantLvl) * 20) / 2), activePotionEffect.getAmplifier(), false, false);
 						}
 					} else {
 						if(activePotionEffect.getDuration() + (getSeconds(enchantLvl) * 20) > getMaxSeconds(enchantLvl) * 20) {
 
-							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED,getMaxSeconds(enchantLvl) * 20,
+							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED, getMaxSeconds(enchantLvl) * 20,
 									activePotionEffect.getAmplifier(), false, false);
 						} else {
-							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED,(int)
+							Misc.applyPotionEffect(killEvent.killer, PotionEffectType.SPEED, (int)
 											activePotionEffect.getDuration() + (getSeconds(enchantLvl) * 20),
 									activePotionEffect.getAmplifier(), false, false);
 						}

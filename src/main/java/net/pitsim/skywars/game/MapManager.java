@@ -57,11 +57,10 @@ public class MapManager {
 	public static void loadSchematic(File file, Location location) {
 		WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 		EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(location.getWorld()), -1);
-		try{
+		try {
 			CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(file).load(file);
 			clipboard.paste(session, new com.sk89q.worldedit.Vector(location.getX(), location.getY(), location.getZ()), false);
-		}
-		catch (MaxChangedBlocksException | DataException | IOException e) {
+		} catch(MaxChangedBlocksException | DataException | IOException e) {
 			e.printStackTrace();
 		}
 	}

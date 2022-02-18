@@ -39,17 +39,19 @@ import java.util.UUID;
 //import net.kyori.adventure.audience.Audience;
 
 public class PlayerManager implements Listener {
-//	public static Map<Player, BossBarManager> bossBars = new HashMap<>();
+	//	public static Map<Player, BossBarManager> bossBars = new HashMap<>();
 	static {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				for(Player onlinePlayer : Bukkit.getOnlinePlayers()) ((CraftPlayer) onlinePlayer).getHandle().getDataWatcher().watch(9, (byte) 0);
+				for(Player onlinePlayer : Bukkit.getOnlinePlayers())
+					((CraftPlayer) onlinePlayer).getHandle().getDataWatcher().watch(9, (byte) 0);
 			}
 		}.runTaskTimer(PitSim.INSTANCE, 0L, 20L);
 	}
 
 	public static List<UUID> pantsSwapCooldown = new ArrayList<>();
+
 	@EventHandler
 	public static void onClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -57,7 +59,9 @@ public class PlayerManager implements Listener {
 		if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if(Misc.isAirOrNull(player.getItemInHand())) return;
 
-		int firstArrow = -1; boolean multipleStacks = false; boolean hasSpace = false;
+		int firstArrow = -1;
+		boolean multipleStacks = false;
+		boolean hasSpace = false;
 		if(player.getItemInHand().getType() == Material.BOW) {
 
 			NBTItem nbtItem = new NBTItem(player.getItemInHand());
@@ -77,7 +81,8 @@ public class PlayerManager implements Listener {
 					continue;
 				}
 				if(itemStack.getType() != Material.ARROW) continue;
-				if(firstArrow == -1) firstArrow = i; else {
+				if(firstArrow == -1) firstArrow = i;
+				else {
 					multipleStacks = true;
 					break;
 				}
@@ -95,7 +100,7 @@ public class PlayerManager implements Listener {
 			}
 		}
 
-		if(player.getItemInHand().getType().toString().contains("LEGGINGS")){
+		if(player.getItemInHand().getType().toString().contains("LEGGINGS")) {
 			if(Misc.isAirOrNull(player.getInventory().getLeggings())) return;
 
 			if(pantsSwapCooldown.contains(player.getUniqueId())) {
@@ -152,7 +157,6 @@ public class PlayerManager implements Listener {
 	}
 
 
-
 	@EventHandler
 	public void onJoin(PlayerSpawnLocationEvent event) {
 		Player player = event.getPlayer();
@@ -162,7 +166,8 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onCraft(InventoryClickEvent event) {
-		if(event.getSlot() == 80 || event.getSlot() == 81 || event.getSlot() == 82 || event.getSlot() == 83) event.setCancelled(true);
+		if(event.getSlot() == 80 || event.getSlot() == 81 || event.getSlot() == 82 || event.getSlot() == 83)
+			event.setCancelled(true);
 	}
 
 	@EventHandler
@@ -195,7 +200,8 @@ public class PlayerManager implements Listener {
 		if(!GameManager.alivePlayers.contains(player)) return;
 
 		String playerName = "%luckperms_prefix%" + player.getDisplayName();
-		if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+		if(pitPlayer.lastHitUUID == null)
+			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
 		DamageManager.death(player);
 	}
 

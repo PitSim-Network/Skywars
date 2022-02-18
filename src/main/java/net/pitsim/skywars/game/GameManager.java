@@ -60,7 +60,7 @@ public class GameManager {
 		int highestValue = 0;
 		Player highestKey = null;
 
-		for (Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
+		for(Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
 			Player player = entry.getKey();
 			int kills = entry.getValue();
 
@@ -77,7 +77,7 @@ public class GameManager {
 		KillManager.kills.remove(highestKey);
 		highestKey = null;
 		highestValue = 0;
-		for (Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
+		for(Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
 			Player player = entry.getKey();
 			int kills = entry.getValue();
 
@@ -94,7 +94,7 @@ public class GameManager {
 		KillManager.kills.remove(highestKey);
 		highestKey = null;
 		highestValue = 0;
-		for (Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
+		for(Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
 			Player player = entry.getKey();
 			int kills = entry.getValue();
 
@@ -124,9 +124,12 @@ public class GameManager {
 		AOutput.broadcast("");
 		AOutput.broadcast("&e&lWinner: &r" + PlaceholderAPI.setPlaceholders(winner, winnerName));
 		AOutput.broadcast("");
-		if(killer1Name != null) AOutput.broadcast("&fFirst Killer: &r" + PlaceholderAPI.setPlaceholders(killer1, killer1Name) + " &e" + kills1 + " kills");
-		if(killer2Name != null) AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name) + " &e" + kills2 + " kills");
-		if(killer3Name != null) AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name) + " &e" + kills2 + " kills");
+		if(killer1Name != null)
+			AOutput.broadcast("&fFirst Killer: &r" + PlaceholderAPI.setPlaceholders(killer1, killer1Name) + " &e" + kills1 + " kills");
+		if(killer2Name != null)
+			AOutput.broadcast("&6Second Killer: &r" + PlaceholderAPI.setPlaceholders(killer2, killer2Name) + " &e" + kills2 + " kills");
+		if(killer3Name != null)
+			AOutput.broadcast("&cThird Killer: &r" + PlaceholderAPI.setPlaceholders(killer3, killer3Name) + " &e" + kills2 + " kills");
 		AOutput.broadcast("&8&m--------------------------");
 		ExperienceManager.addXP(winner, 200);
 		new BukkitRunnable() {
@@ -134,7 +137,8 @@ public class GameManager {
 			public void run() {
 				try {
 					AOutput.send(winner, "&eGame Win: &b+200XP");
-				} catch(Exception ignored) { }
+				} catch(Exception ignored) {
+				}
 			}
 		}.runTaskLater(PitSim.INSTANCE, 40L);
 
@@ -149,7 +153,7 @@ public class GameManager {
 
 	public static void endTieGame() {
 		status = GameStatus.ENDING;
-		for (Player alivePlayer : GameManager.alivePlayers) {
+		for(Player alivePlayer : GameManager.alivePlayers) {
 			Sounds.LEVEL_UP.play(alivePlayer);
 		}
 		AOutput.broadcast("&8&m--------------------------");
@@ -157,7 +161,7 @@ public class GameManager {
 		AOutput.broadcast("");
 		StringBuilder tieString = new StringBuilder();
 		tieString.append(PlaceholderAPI.setPlaceholders(GameManager.alivePlayers.get(0), "%luckperms_prefix%" + GameManager.alivePlayers.get(0).getDisplayName()));
-		for (Player alivePlayer : GameManager.alivePlayers) {
+		for(Player alivePlayer : GameManager.alivePlayers) {
 			if(alivePlayer == GameManager.alivePlayers.get(0)) continue;
 			tieString.append(PlaceholderAPI.setPlaceholders(alivePlayer, " &e, %luckperms_prefix%" + alivePlayer.getDisplayName()));
 		}
@@ -172,7 +176,6 @@ public class GameManager {
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10 * 20L);
 	}
-
 
 
 }

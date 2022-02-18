@@ -52,7 +52,6 @@ public class Stereo extends PitEnchant {
 			File file = files[rand.nextInt(files.length)];
 
 
-
 			Song song = NBSDecoder.parse(file);
 			EntitySongPlayer esp = new EntitySongPlayer(song);
 			esp.setEntity(event.getPlayer());
@@ -76,7 +75,7 @@ public class Stereo extends PitEnchant {
 
 		}
 
-			}
+	}
 
 	static {
 		new BukkitRunnable() {
@@ -85,15 +84,12 @@ public class Stereo extends PitEnchant {
 				for(Player player : Bukkit.getOnlinePlayers()) {
 					if(StereoManager.playerMusic.containsKey(player)) {
 						player.getWorld().spigot().playEffect(player.getLocation(),
-								Effect.NOTE, 0, 2, 0.5F, 0.5F, 0.5F,1, 5, 25);
+								Effect.NOTE, 0, 2, 0.5F, 0.5F, 0.5F, 1, 5, 25);
 					}
 				}
 			}
 		}.runTaskTimer(PitSim.INSTANCE, 0L, 4L);
 	}
-
-
-
 
 
 	@EventHandler

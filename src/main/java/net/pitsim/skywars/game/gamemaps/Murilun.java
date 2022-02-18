@@ -64,7 +64,6 @@ public class Murilun extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), 3, 61, -40), 2, -1);
 
 
-
 		new SkywarsChest(new Location(MapManager.getWorld(), 50, 68, -29), 1, 4);
 		new SkywarsChest(new Location(MapManager.getWorld(), 49, 72, -27), 1, 4);
 		new SkywarsChest(new Location(MapManager.getWorld(), 49, 63, -28), 1, 4);
@@ -82,7 +81,6 @@ public class Murilun extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), 40, 61, 3), 2, -1);
 
 
-
 		new SkywarsChest(new Location(MapManager.getWorld(), 29, 68, 50), 1, 7);
 		new SkywarsChest(new Location(MapManager.getWorld(), 27, 72, 49), 1, 7);
 		new SkywarsChest(new Location(MapManager.getWorld(), 28, 63, 49), 1, 7);
@@ -95,10 +93,9 @@ public class Murilun extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), -27, 72, 53), 1, 9);
 		new SkywarsChest(new Location(MapManager.getWorld(), -28, 63, 53), 1, 9);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), -1, 67, 55), 2,  -1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -1, 67, 55), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), -1, 60, 49), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), -3, 61, 40), 2, -1);
-
 
 
 		new SkywarsChest(new Location(MapManager.getWorld(), -50, 68, 29), 1, 10);
@@ -116,7 +113,6 @@ public class Murilun extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), -55, 67, -1), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), -49, 60, -1), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), -40, 61, -3), 2, -1);
-
 
 
 		new SkywarsChest(new Location(MapManager.getWorld(), 6, 63, -11), 3, -2);

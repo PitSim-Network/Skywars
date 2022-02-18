@@ -30,7 +30,7 @@ public class PlayerStats {
 				save();
 			} else {
 				try {
-					if (resultSet.next()) {
+					if(resultSet.next()) {
 						wins = resultSet.getInt("ms_wins");
 						kills = resultSet.getInt("ms_kills");
 						level = resultSet.getInt("level");
@@ -69,14 +69,11 @@ public class PlayerStats {
 		query.setParameter(6, xp);
 		query.setParameter(7, coins);
 		query.executeUpdateAsync((resultSet, e) -> {
-			if (e != null) {
+			if(e != null) {
 				e.printStackTrace();
 			}
 		});
 	}
-
-
-
 
 
 }

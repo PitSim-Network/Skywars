@@ -39,15 +39,19 @@ public class KillManager implements Listener {
 		Bukkit.getWorld("game").strikeLightningEffect(dead.getLocation());
 		Location loc = dead.getLocation().clone();
 		Inventory inv = dead.getInventory();
-		for (ItemStack item : inv.getContents()) {
-			if (item != null) {
+		for(ItemStack item : inv.getContents()) {
+			if(item != null) {
 				loc.getWorld().dropItemNaturally(loc, item.clone());
 			}
 		}
-		if(!Misc.isAirOrNull(dead.getInventory().getHelmet()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getChestplate()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getLeggings()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getBoots()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getHelmet()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getChestplate()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getLeggings()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getBoots()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
 		Misc.clearArmor(dead);
 		inv.clear();
 		dead.teleport(MapManager.queueSpawn);
@@ -59,7 +63,7 @@ public class KillManager implements Listener {
 		String deadName = "%luckperms_prefix%" + dead.getDisplayName();
 		PitPlayer pitKiller = PitPlayer.getPitPlayer(killer);
 		pitKiller.stats.kills++;
-		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead,deadName) + " &ewas killed by &r" + PlaceholderAPI.setPlaceholders(killer,killerName) + "&e.");
+		AOutput.broadcast(PlaceholderAPI.setPlaceholders(dead, deadName) + " &ewas killed by &r" + PlaceholderAPI.setPlaceholders(killer, killerName) + "&e.");
 		GameManager.alivePlayers.remove(dead);
 		if(kills.containsKey(killer)) {
 			kills.put(killer, kills.get(killer) + 1);
@@ -84,15 +88,19 @@ public class KillManager implements Listener {
 		Bukkit.getWorld("game").strikeLightningEffect(dead.getLocation());
 		Location loc = dead.getLocation().clone();
 		Inventory inv = dead.getInventory();
-		for (ItemStack item : inv.getContents()) {
-			if (item != null) {
+		for(ItemStack item : inv.getContents()) {
+			if(item != null) {
 				loc.getWorld().dropItemNaturally(loc, item.clone());
 			}
 		}
-		if(!Misc.isAirOrNull(dead.getInventory().getHelmet()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getChestplate()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getLeggings()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
-		if(!Misc.isAirOrNull(dead.getInventory().getBoots()))loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getHelmet()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getHelmet().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getChestplate()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getChestplate().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getLeggings()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getLeggings().clone());
+		if(!Misc.isAirOrNull(dead.getInventory().getBoots()))
+			loc.getWorld().dropItemNaturally(loc, dead.getInventory().getBoots().clone());
 		Misc.clearArmor(dead);
 		inv.clear();
 		dead.teleport(MapManager.queueSpawn);
@@ -115,7 +123,8 @@ public class KillManager implements Listener {
 		if(location.getX() > 100 || location.getX() < -100 || location.getZ() > 100 || location.getZ() < -100) {
 			String playerName = "%luckperms_prefix%" + player.getDisplayName();
 			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-			if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &etried to leave the map."));
+			if(pitPlayer.lastHitUUID == null)
+				AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &etried to leave the map."));
 			DamageManager.death(player);
 		}
 	}

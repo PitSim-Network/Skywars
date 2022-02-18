@@ -9,21 +9,21 @@ import org.bukkit.entity.Player;
 
 public class OofCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if(!(sender instanceof Player)) return false;
-        Player player = (Player) sender;
+		if(!(sender instanceof Player)) return false;
+		Player player = (Player) sender;
 
-        PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-        Bukkit.broadcastMessage(pitPlayer.stats.wins + "");
-        Bukkit.broadcastMessage(pitPlayer.stats.kills + "");
-        pitPlayer.stats.wins++;
-        pitPlayer.stats.kills = pitPlayer.stats.kills + 2;
-        pitPlayer.stats.save();
+		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+		Bukkit.broadcastMessage(pitPlayer.stats.wins + "");
+		Bukkit.broadcastMessage(pitPlayer.stats.kills + "");
+		pitPlayer.stats.wins++;
+		pitPlayer.stats.kills = pitPlayer.stats.kills + 2;
+		pitPlayer.stats.save();
 
 
-        ;
+		;
 
 //        if(SpawnManager.isInSpawn(player.getLocation())) {
 //
@@ -57,6 +57,6 @@ public class OofCommand implements CommandExecutor {
 //            OofEvent oofEvent = new OofEvent(player);
 //            Bukkit.getPluginManager().callEvent(oofEvent);
 //        }
-        return false;
-    }
+		return false;
+	}
 }
