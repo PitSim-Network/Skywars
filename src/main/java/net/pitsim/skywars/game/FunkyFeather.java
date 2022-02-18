@@ -1,6 +1,7 @@
 package net.pitsim.skywars.game;
 
 import de.tr7zw.nbtapi.NBTItem;
+import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.PitSim;
@@ -14,6 +15,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -27,10 +30,9 @@ public class FunkyFeather {
 		meta.setDisplayName(ChatColor.DARK_AQUA + "Funky Feather");
 		List<String> lore = new ArrayList<>();
 		lore.add(ChatColor.YELLOW + "Special item");
-		lore.add(ChatColor.GRAY + "teleports you to a safe location,");
-		lore.add(ChatColor.GRAY + "but gets consumed on void death if");
-		lore.add(ChatColor.GRAY + "in your hotbar.");
-		meta.setLore(lore);
+		lore.add(ChatColor.GRAY + "Right-Click to teleport to");
+		lore.add(ChatColor.GRAY + "your location 2 seconds ago");
+		meta.setLore(new ALoreBuilder(lore).getLore());
 		feather.setItemMeta(meta);
 		feather.setAmount(amount);
 
