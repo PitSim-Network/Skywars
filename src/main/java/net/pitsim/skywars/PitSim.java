@@ -115,6 +115,7 @@ public class PitSim extends JavaPlugin {
 			AOutput.log(String.format("Could not find PlaceholderAPI! This plugin is required."));
 			Bukkit.getPluginManager().disablePlugin(this);
 		}
+		new ScoreboardManager().register();
 
 		boolean NoteBlockAPI = true;
 		if(!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")) {
