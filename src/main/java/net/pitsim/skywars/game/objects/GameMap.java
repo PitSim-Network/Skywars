@@ -11,11 +11,13 @@ public abstract class GameMap {
 	public String name;
 	public String refName;
 	public int cageHeight;
+	public int pasteHeight;
 
-	public GameMap(String name, String refName, int cageHeight) {
+	public GameMap(String name, String refName, int cageHeight, int pasteHeight) {
 		this.name = name;
 		this.refName = refName;
 		this.cageHeight = cageHeight;
+		this.pasteHeight = pasteHeight;
 	}
 
 	public abstract File getSchematicFile();

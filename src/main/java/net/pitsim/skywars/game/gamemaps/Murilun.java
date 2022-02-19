@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Murilun extends GameMap {
 	public Murilun() {
-		super("Murilun", "murilun", 73);
+		super("Murilun", "murilun", 73, 76);
 	}
 
 	@Override
