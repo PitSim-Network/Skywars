@@ -7,7 +7,9 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
 import com.sk89q.worldedit.world.DataException;
-import net.pitsim.skywars.game.gamemaps.Murilun;
+import net.pitsim.skywars.game.gamemaps.Countryside;
+import net.pitsim.skywars.game.gamemaps.Frostbite;
+import net.pitsim.skywars.game.gamemaps.Oasis;
 import net.pitsim.skywars.game.objects.GameMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -27,11 +29,14 @@ public class MapManager {
 	}
 
 	public static void onPluginStart() {
-		map = new Murilun();
+		double rand = Math.random();
+		if(rand <= 0.33) map = new Frostbite();
+		else if(rand <= 0.55) map = new Oasis();
+		else if(rand <= 1.0) map = new Countryside();
 
 		File clear = new File("plugins/Skywars/schematics/skywarsClear.schematic");
 		loadSchematic(clear, new Location(getWorld(), 0, 65, 0));
-		loadSchematic(map.getSchematicFile(), new Location(getWorld(), 0, 76, 0));
+		loadSchematic(map.getSchematicFile(), new Location(getWorld(), 0, map.pasteHeight, 0));
 		File cage = new File("plugins/Skywars/schematics/cage.schematic");
 
 		for(Map.Entry<Integer, Location> entry : map.getSpawnLocations().entrySet()) {

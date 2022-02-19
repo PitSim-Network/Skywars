@@ -73,7 +73,7 @@ public class PitSim extends JavaPlugin {
 	public void onInit() {
 		mysql = new MySQL();
 		mysql.connect("***REMOVED***", "***REMOVED***", "u1_tNY9ddZqN8", "QOqt208u81.q+i^eRjZ5pJIT", "s1_Skywars");
-		TableManager.createTable();
+		TableManager.createTable(); 
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");

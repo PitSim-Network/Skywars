@@ -209,6 +209,7 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
+		if(event.getBlock().getType() == Material.CHEST) event.setCancelled(true);
 		if(GameManager.status == GameStatus.QUEUE || SpectatorManager.spectators.contains(event.getPlayer())) {
 			event.setCancelled(true);
 		}

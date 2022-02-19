@@ -1,7 +1,6 @@
 package net.pitsim.skywars.game;
 
 import dev.kyro.arcticapi.misc.AOutput;
-import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.game.objects.GameMap;
 import net.pitsim.skywars.game.objects.SkywarsChest;
@@ -16,7 +15,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
