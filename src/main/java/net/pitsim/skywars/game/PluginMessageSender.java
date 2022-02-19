@@ -31,7 +31,7 @@ public class PluginMessageSender {
 			msgout.writeUTF("GAME_START");
 			msgout.writeUTF("");
 			msgout.writeUTF("");
-		} catch (IOException exception){
+		} catch(IOException exception) {
 			exception.printStackTrace();
 		}
 
@@ -60,7 +60,7 @@ public class PluginMessageSender {
 			msgout.writeUTF("GAME_END");
 			msgout.writeUTF("");
 			msgout.writeUTF("");
-		} catch (IOException exception){
+		} catch(IOException exception) {
 			exception.printStackTrace();
 		}
 

@@ -24,15 +24,15 @@ import java.util.UUID;
 
 public class SkywarsCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if(args.length < 1) return false;
+		if(args.length < 1) return false;
 
-        if(args[0].equals("load")) {
-            PitSim.INSTANCE.onInit();
-        }
+		if(args[0].equals("load")) {
+			PitSim.INSTANCE.onInit();
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

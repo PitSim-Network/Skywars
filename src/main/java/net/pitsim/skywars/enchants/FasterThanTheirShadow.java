@@ -49,7 +49,7 @@ public class FasterThanTheirShadow extends PitEnchant implements Listener {
 				4 * 20, getSpeedAmplifier(enchantLvl) - 1, true, false);
 	}
 
-	@EventHandler (priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onArrowHitBlock(ArrowHitBlockEvent event) {
 		Arrow arrow = event.getArrow();
 		Block block = event.getBlock(); // the block that was hit
@@ -58,7 +58,7 @@ public class FasterThanTheirShadow extends PitEnchant implements Listener {
 		HitCounter.resetCombo((Player) arrow.getShooter(), this);
 	}
 
-	@EventHandler (priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onArrowHitBlockDelete(ArrowHitBlockEvent event) {
 		if(event.getBlock() == null) return;
 		new BukkitRunnable() {
@@ -66,7 +66,8 @@ public class FasterThanTheirShadow extends PitEnchant implements Listener {
 			public void run() {
 				try {
 					event.getArrow().remove();
-				} catch(Exception ignored) { }
+				} catch(Exception ignored) {
+				}
 			}
 		}.runTaskLater(PitSim.INSTANCE, 100L);
 	}
@@ -95,7 +96,7 @@ public class FasterThanTheirShadow extends PitEnchant implements Listener {
 					int y = fieldY.getInt(entityArrow);
 					int z = fieldZ.getInt(entityArrow);
 
-					if (isValidBlock(y)) {
+					if(isValidBlock(y)) {
 						Block block = event.getEntity().getWorld().getBlockAt(x, y, z);
 						Bukkit.getServer()
 								.getPluginManager()
@@ -111,15 +112,16 @@ public class FasterThanTheirShadow extends PitEnchant implements Listener {
 										new ArrowHitBlockEvent((Arrow) event.getEntity(), null));
 					}
 
-				} catch (NoSuchFieldException e1) {
-				} catch (SecurityException e1) {
-				} catch (IllegalArgumentException e1) {
-				} catch (IllegalAccessException e1) {
+				} catch(NoSuchFieldException e1) {
+				} catch(SecurityException e1) {
+				} catch(IllegalArgumentException e1) {
+				} catch(IllegalAccessException e1) {
 				}
 			}
 		});
 
 	}
+
 	private boolean isValidBlock(int y) {
 		return y != -1;
 	}

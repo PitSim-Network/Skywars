@@ -46,9 +46,11 @@ public class ChestManager {
 
 				if(i == 0 || i == 1) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
-				} if(i == 2 || i == 3) {
+				}
+				if(i == 2 || i == 3) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.BOW, tier));
-				} if(i == 4 || i == 5) {
+				}
+				if(i == 4 || i == 5) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.PANTS, tier));
 				}
 
@@ -111,7 +113,7 @@ public class ChestManager {
 		List<SkywarsChest> protChests = new ArrayList<>();
 		protChests.addAll(SkywarsChest.getChests(-1));
 		protChests.addAll(SkywarsChest.getChests(-2));
-		
+
 		List<ItemStack> prot = new ArrayList<>();
 		ItemStack helmet = new ItemStack(Material.DIAMOND_HELMET);
 		helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
@@ -202,13 +204,13 @@ public class ChestManager {
 	}
 
 	public static void refillChests() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
 			Sounds.CHEST_REFILL.play(player);
 		}
 		AOutput.broadcast("&aChests refilled!");
 		GameMap map = MapManager.map;
 
-		for (SkywarsChest chest : map.getChests()) {
+		for(SkywarsChest chest : map.getChests()) {
 			Location location = chest.location;
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
@@ -237,9 +239,11 @@ public class ChestManager {
 
 				if(i == 0 || i == 1) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
-				} if(i == 2 || i == 3) {
+				}
+				if(i == 2 || i == 3) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.BOW, tier));
-				} if(i == 4 || i == 5) {
+				}
+				if(i == 4 || i == 5) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.PANTS, tier));
 				}
 

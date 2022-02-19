@@ -27,68 +27,66 @@ import java.util.List;
 
 public class SpawnManager implements Listener {
 
-    public static List<Arrow> arrowList = new ArrayList<>();
-    public static boolean postMajor = false;
+	public static List<Arrow> arrowList = new ArrayList<>();
+	public static boolean postMajor = false;
 
 
-    @EventHandler
-    public void onShoot(EntityShootBowEvent event) {
-        if(!(event.getEntity() instanceof Player)) return;
-        if(!(event.getProjectile() instanceof Arrow)) return;
+	@EventHandler
+	public void onShoot(EntityShootBowEvent event) {
+		if(!(event.getEntity() instanceof Player)) return;
+		if(!(event.getProjectile() instanceof Arrow)) return;
 
-        Player player = (Player) event.getEntity();
+		Player player = (Player) event.getEntity();
 
-        if(isInSpawn(player.getLocation())) {
-            event.setCancelled(true);
-            Sounds.NO.play(player);
-        }
-    }
+		if(isInSpawn(player.getLocation())) {
+			event.setCancelled(true);
+			Sounds.NO.play(player);
+		}
+	}
 
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent event) {
-        if(!isInSpawn(event.getItemDrop().getLocation())) return;
-        NBTItem nbtItem = new NBTItem(event.getItemDrop().getItemStack());
-        if(nbtItem.hasKey(NBTTag.DROP_CONFIRM.getRef())) return;
-        event.getItemDrop().remove();
-        AOutput.send(event.getPlayer(), "&c&lITEM DELETED! &7Dropped in spawn area.");
-        Sounds.NO.play(event.getPlayer());
-    }
-
-
-    public static Boolean isInSpawn(Location loc) {
-        RegionContainer container = WorldGuardPlugin.inst().getRegionContainer();
-        RegionManager regions = container.get(loc.getWorld());
-        assert regions != null;
-        ApplicableRegionSet set = regions.getApplicableRegions((BukkitUtil.toVector(loc)));
-
-        for(ProtectedRegion region : set) {
-            if(region.getId().equals("spawn") || region.getId().equals("spawn2")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static void clearSpawnStreaks() {
-        if(postMajor) return;
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(isInSpawn(player.getLocation())) {
-                PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-            }
-        }
-
-    }
-
-    static {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                clearSpawnStreaks();
-            }
-        }.runTaskTimer(PitSim.INSTANCE, 20L, 20L);
-    }
+	@EventHandler
+	public void onDrop(PlayerDropItemEvent event) {
+		if(!isInSpawn(event.getItemDrop().getLocation())) return;
+		NBTItem nbtItem = new NBTItem(event.getItemDrop().getItemStack());
+		if(nbtItem.hasKey(NBTTag.DROP_CONFIRM.getRef())) return;
+		event.getItemDrop().remove();
+		AOutput.send(event.getPlayer(), "&c&lITEM DELETED! &7Dropped in spawn area.");
+		Sounds.NO.play(event.getPlayer());
+	}
 
 
+	public static Boolean isInSpawn(Location loc) {
+		RegionContainer container = WorldGuardPlugin.inst().getRegionContainer();
+		RegionManager regions = container.get(loc.getWorld());
+		assert regions != null;
+		ApplicableRegionSet set = regions.getApplicableRegions((BukkitUtil.toVector(loc)));
+
+		for(ProtectedRegion region : set) {
+			if(region.getId().equals("spawn") || region.getId().equals("spawn2")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void clearSpawnStreaks() {
+		if(postMajor) return;
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			if(isInSpawn(player.getLocation())) {
+				PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
+			}
+		}
+
+	}
+
+	static {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				clearSpawnStreaks();
+			}
+		}.runTaskTimer(PitSim.INSTANCE, 20L, 20L);
+	}
 
 
 //    @EventHandler

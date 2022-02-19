@@ -43,23 +43,23 @@ public class PitPlayer {
 		this.player = player;
 		stats = new PlayerStats(player);
 
-			String message = "%luckperms_prefix%";
-			prefix = "";
+		String message = "%luckperms_prefix%";
+		prefix = "";
 
-			FileConfiguration playerData = APlayerData.getPlayerData(player);
+		FileConfiguration playerData = APlayerData.getPlayerData(player);
 
-			for(int i = 0; i < pitPerks.length; i++) {
+		for(int i = 0; i < pitPerks.length; i++) {
 
-				String perkString = playerData.getString("perk-" + i);
-				PitPerk savedPerk = perkString != null ? PitPerk.getPitPerk(perkString) : NoPerk.INSTANCE;
+			String perkString = playerData.getString("perk-" + i);
+			PitPerk savedPerk = perkString != null ? PitPerk.getPitPerk(perkString) : NoPerk.INSTANCE;
 
-				pitPerks[i] = savedPerk != null ? savedPerk : NoPerk.INSTANCE;
-			}
+			pitPerks[i] = savedPerk != null ? savedPerk : NoPerk.INSTANCE;
+		}
 
-			String chatColorString = playerData.getString("chatcolor");
-			if(chatColorString != null) {
-				chatColor = AChatColor.valueOf(chatColorString);
-			}
+		String chatColorString = playerData.getString("chatcolor");
+		if(chatColorString != null) {
+			chatColor = AChatColor.valueOf(chatColorString);
+		}
 
 	}
 
@@ -102,7 +102,8 @@ public class PitPlayer {
 				}
 				recentDamageMap.putIfAbsent(player.getUniqueId(), 0D);
 				if(recentDamageMap.get(player.getUniqueId()) - damage != 0)
-					recentDamageMap.put(player.getUniqueId(), recentDamageMap.get(player.getUniqueId()) - damage); else recentDamageMap.remove(player.getUniqueId());
+					recentDamageMap.put(player.getUniqueId(), recentDamageMap.get(player.getUniqueId()) - damage);
+				else recentDamageMap.remove(player.getUniqueId());
 			}
 		}.runTaskLater(PitSim.INSTANCE, 200L);
 		assistRemove.add(bukkitTask);
@@ -134,7 +135,6 @@ public class PitPlayer {
 		for(PitPerk perk : pitPerks) if(perk == pitPerk) return true;
 		return false;
 	}
-
 
 
 	public void updateMaxHealth() {

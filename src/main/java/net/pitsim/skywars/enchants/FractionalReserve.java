@@ -32,7 +32,7 @@ public class FractionalReserve extends PitEnchant {
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
-		return new ALoreBuilder("&7Receive &9-"+ getReduction(enchantLvl) + "% &7damage per",
+		return new ALoreBuilder("&7Receive &9-" + getReduction(enchantLvl) + "% &7damage per",
 				"&6digit &7in your gold").getLore();
 	}
 

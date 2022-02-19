@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 
 import java.util.List;
 
-public class 	Chipping extends PitEnchant {
+public class Chipping extends PitEnchant {
 
 	public Chipping() {
 		super("Chipping", false, ApplyType.BOWS,

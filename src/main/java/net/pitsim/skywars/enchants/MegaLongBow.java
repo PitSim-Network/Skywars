@@ -46,7 +46,8 @@ public class MegaLongBow extends PitEnchant {
 //		}
 
 		Cooldown cooldown = getCooldown(player, 20);
-		if(cooldown.isOnCooldown()) return; else cooldown.reset();
+		if(cooldown.isOnCooldown()) return;
+		else cooldown.reset();
 
 		critArrow(player, arrow);
 		Misc.applyPotionEffect(player, PotionEffectType.JUMP, 40, getJumpMultiplier(enchantLvl), true, false);

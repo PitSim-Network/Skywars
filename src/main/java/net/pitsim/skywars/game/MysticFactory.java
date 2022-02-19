@@ -37,8 +37,8 @@ public class MysticFactory {
 		int enchants = 0;
 
 		if(enchantRand <= 0.25) enchants = 3;
-		 else if(enchantRand <= 0.8) enchants = 2;
-		 else if(enchantRand <= 1.0) enchants = 1;
+		else if(enchantRand <= 0.8) enchants = 2;
+		else if(enchantRand <= 1.0) enchants = 1;
 
 
 		double tokensRand = Math.random();
@@ -83,7 +83,7 @@ public class MysticFactory {
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
 				applicableEnchants.addAll(EnchantManager.allUncommon);
-			} else if(rarity.equals("COMMON")){
+			} else if(rarity.equals("COMMON")) {
 				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
@@ -158,7 +158,7 @@ public class MysticFactory {
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
 				applicableEnchants.addAll(EnchantManager.allUncommon);
-			} else if(rarity.equals("COMMON")){
+			} else if(rarity.equals("COMMON")) {
 				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
@@ -194,7 +194,7 @@ public class MysticFactory {
 		double tokensRand = Math.random();
 		int tokens = 0;
 
-		 if(enchants == 2) {
+		if(enchants == 2) {
 			if(tokensRand <= 0.2) tokens = 3;
 			else if(tokensRand <= 0.5) tokens = 5;
 			else if(tokens <= 1.0) tokens = 4;
@@ -229,7 +229,7 @@ public class MysticFactory {
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsUncommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowUncommon);
 				applicableEnchants.addAll(EnchantManager.allUncommon);
-			} else if(rarity.equals("COMMON")){
+			} else if(rarity.equals("COMMON")) {
 				if(type.equals("Sword")) applicableEnchants.addAll(EnchantManager.swordCommon);
 				if(type.equals("Pants")) applicableEnchants.addAll(EnchantManager.pantsCommon);
 				if(type.equals("Bow")) applicableEnchants.addAll(EnchantManager.bowCommon);
@@ -275,7 +275,9 @@ public class MysticFactory {
 
 			}
 
-		} catch(Exception e) { e.printStackTrace(); }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return toReturn;
 	}
 

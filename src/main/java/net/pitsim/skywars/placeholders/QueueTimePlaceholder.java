@@ -30,7 +30,7 @@ public class QueueTimePlaceholder implements APAPIPlaceholder {
 
 		if(minutes == 0) {
 			return start + seconds + "s";
- 		} else return start + minutes + "m " + seconds + "s";
+		} else return start + minutes + "m " + seconds + "s";
 
 	}
 }

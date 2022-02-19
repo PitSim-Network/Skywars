@@ -34,7 +34,7 @@ public class SpectatorManager implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				for (Player spectator : spectators) {
+				for(Player spectator : spectators) {
 					Misc.sendActionBar(spectator, "&aYou are currently spectating the game.");
 				}
 			}
@@ -151,7 +151,7 @@ public class SpectatorManager implements Listener {
 	public void onClick(InventoryInteractEvent event) {
 		if(!spectators.contains((Player) event.getWhoClicked())) return;
 		event.setCancelled(true);
- 	}
+	}
 
 	@EventHandler
 	public void onDrop(PlayerDropItemEvent event) {

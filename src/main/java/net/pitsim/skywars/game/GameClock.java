@@ -19,35 +19,37 @@ public class GameClock {
 	public static boolean refill = false;
 
 	public static void countdown() {
-			countdown = new BukkitRunnable() {
-				@Override
-				public void run() {
+		countdown = new BukkitRunnable() {
+			@Override
+			public void run() {
 
-					if(seconds == 0) {
-						if(countdownAnnouncements.contains(minutes)) {
-							if(refill) {
-								AOutput.broadcast("&cThe game is ending in " + minutes + " &cminutes!");
-								for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.ERROR.play(onlinePlayer); }
+				if(seconds == 0) {
+					if(countdownAnnouncements.contains(minutes)) {
+						if(refill) {
+							AOutput.broadcast("&cThe game is ending in " + minutes + " &cminutes!");
+							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+								Sounds.ERROR.play(onlinePlayer);
 							}
-						}
-						if(minutes != 0) {
-							minutes--;
-							seconds = 60;
-						} else {
-							if(!refill) {
-								ChestManager.refillChests();
-								refill = true;
-								minutes = 5;
-								return;
-							}
-							GameManager.endTieGame();
-							this.cancel();
-							countdown = null;
-
 						}
 					}
-					seconds--;
+					if(minutes != 0) {
+						minutes--;
+						seconds = 60;
+					} else {
+						if(!refill) {
+							ChestManager.refillChests();
+							refill = true;
+							minutes = 5;
+							return;
+						}
+						GameManager.endTieGame();
+						this.cancel();
+						countdown = null;
+
+					}
 				}
-			}.runTaskTimer(PitSim.INSTANCE, 20L, 20L);
-		}
+				seconds--;
+			}
+		}.runTaskTimer(PitSim.INSTANCE, 20L, 20L);
+	}
 }

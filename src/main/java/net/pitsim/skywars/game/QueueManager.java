@@ -109,12 +109,16 @@ public class QueueManager implements Listener {
 					if(minutes > 0) {
 						if(seconds == 0) {
 							AOutput.broadcast("&eThe game is starting in &a" + minutes + " &eminutes!");
-							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+								Sounds.HELMET_TICK.play(onlinePlayer);
+							}
 						}
 					} else {
 						if(countdownAnnouncements.contains(seconds)) {
 							AOutput.broadcast("&eThe game is starting in &a" + seconds + " &eseconds!");
-							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.HELMET_TICK.play(onlinePlayer); }
+							for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+								Sounds.HELMET_TICK.play(onlinePlayer);
+							}
 						}
 
 					}
@@ -139,7 +143,9 @@ public class QueueManager implements Listener {
 			}
 			if(GameManager.alivePlayers.size() < minPlayers) {
 				AOutput.broadcast("&cGame start canceled! Too few players!");
-				for(Player onlinePlayer : Bukkit.getOnlinePlayers()) { Sounds.CTF_FLAG_STOLEN.play(onlinePlayer); }
+				for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+					Sounds.CTF_FLAG_STOLEN.play(onlinePlayer);
+				}
 				countdown.cancel();
 				countdown = null;
 			}
@@ -246,7 +252,8 @@ public class QueueManager implements Listener {
 
 			String playerName = "%luckperms_prefix%" + player.getDisplayName();
 			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-			if(pitPlayer.lastHitUUID == null) AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
+			if(pitPlayer.lastHitUUID == null)
+				AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, playerName + " &edisconnected."));
 			DamageManager.death(player);
 			SpectatorManager.spectators.remove(player);
 		}
