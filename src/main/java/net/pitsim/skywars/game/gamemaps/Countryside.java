@@ -109,7 +109,7 @@ public class Countryside extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), -39, 66, -31), 2, -1);
 
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, -21), 3, -2);
-		new SkywarsChest(new Location(MapManager.getWorld(), 19, 68, 1), 3, -2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 19, 68, 0), 3, -2);
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, 20), 3, -2);
 		new SkywarsChest(new Location(MapManager.getWorld(), -18, 68, 0), 3, -2);
 

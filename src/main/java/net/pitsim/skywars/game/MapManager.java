@@ -31,7 +31,7 @@ public class MapManager {
 	public static void onPluginStart() {
 		double rand = Math.random();
 		if(rand <= 0.33) map = new Frostbite();
-		else if(rand <= 0.55) map = new Oasis();
+		else if(rand <= 0.66) map = new Oasis();
 		else if(rand <= 1.0) map = new Countryside();
 
 		File clear = new File("plugins/Skywars/schematics/skywarsClear.schematic");

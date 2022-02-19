@@ -1,11 +1,12 @@
 package net.pitsim.skywars.misc;
 
-import net.pitsim.skywars.PitSim;
 import net.minecraft.server.v1_8_R3.*;
+import net.pitsim.skywars.PitSim;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Chest;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -197,5 +198,12 @@ public class Misc {
 		dead.getInventory().setChestplate(new ItemStack(Material.AIR));
 		dead.getInventory().setLeggings(new ItemStack(Material.AIR));
 		dead.getInventory().setBoots(new ItemStack(Material.AIR));
+	}
+
+	public static boolean isFull(Chest chest) {
+		for(ItemStack itemStack : chest.getInventory()) {
+			if(isAirOrNull(itemStack)) return false;
+		}
+		return true;
 	}
 }

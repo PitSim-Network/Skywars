@@ -25,7 +25,7 @@ public class Frostbite extends GameMap {
 		Map<Integer, Location> spawnLocations = new HashMap<>();
 
 		//North
-		spawnLocations.put(1, new Location(MapManager.getWorld(), -57.5, cageHeight, -45.5, 0, 0));
+		spawnLocations.put(1, new Location(MapManager.getWorld(), -57.5, cageHeight, -55.5, 0, 0));
 		spawnLocations.put(2, new Location(MapManager.getWorld(), -19.5, cageHeight, -77.5, -45, 0));
 		spawnLocations.put(3, new Location(MapManager.getWorld(), 19.5, cageHeight, -77.5, 45, 0));
 //East

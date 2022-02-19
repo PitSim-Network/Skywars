@@ -8,6 +8,7 @@ import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import net.pitsim.skywars.misc.YummyBread;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,6 +16,7 @@ import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class ChestManager {
 
 	public static void onGameStart() {
 		GameMap map = MapManager.map;
-
+		CompassManager.onGameStart();
 
 		for(SkywarsChest chest : map.getChests()) {
 
@@ -36,6 +38,8 @@ public class ChestManager {
 
 			for(int i = 0; i < 6; i++) {
 				int randSlot = getRandomNumber();
+
+				if(Misc.isFull(chestBlock)) continue;
 
 				for(int j = 0; j < 1; j++) {
 					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
@@ -62,6 +66,7 @@ public class ChestManager {
 		distributeProt();
 		distributeFeathers();
 		distributeBlocks();
+		distributeCompasses();
 	}
 
 	public static void distributeArmor() {
@@ -143,6 +148,7 @@ public class ChestManager {
 			Random randChest = new Random();
 			SkywarsChest pickedChest = protChests.get(randChest.nextInt(protChests.size()));
 			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+			if(Misc.isFull(chestBlock)) continue;
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
@@ -161,6 +167,7 @@ public class ChestManager {
 
 		for(SkywarsChest blockChest : blockChests) {
 			Chest chestBlock = (Chest) blockChest.location.getBlock().getState();
+			if(Misc.isFull(chestBlock)) continue;
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
 				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
@@ -190,6 +197,7 @@ public class ChestManager {
 			Random randChest = new Random();
 			SkywarsChest pickedChest = featherChests.get(randChest.nextInt(featherChests.size()));
 			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+			if(Misc.isFull(chestBlock)) continue;
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
@@ -200,6 +208,34 @@ public class ChestManager {
 			}
 			chestBlock.getInventory().setItem(randSlot, feathers.get(0));
 			feathers.remove(0);
+		}
+	}
+
+	public static void distributeCompasses() {
+		for(SkywarsChest chest : SkywarsChest.chests) {
+			if(chest.tier != 3) continue;
+
+			Block block = chest.location.getBlock();
+			Chest chestBlock = (Chest) block.getState();
+
+			if(Misc.isFull((Chest) chest.location.getBlock().getState())) continue;
+			ItemStack compass = new ItemStack(Material.COMPASS);
+			ItemMeta meta = compass.getItemMeta();
+			List<String> compassLore = new ArrayList<>();
+			meta.setDisplayName(ChatColor.GREEN + "Player Tracker");
+			compassLore.add(ChatColor.GRAY + "Displays the location of");
+			compassLore.add(ChatColor.GRAY + "the nearest player.");
+			meta.setLore(compassLore);
+			compass.setItemMeta(meta);
+
+			int randSlot = getRandomNumber();
+			for(int k = 0; k < 1; k++) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					k--;
+					randSlot = getRandomNumber();
+				}
+			}
+			chestBlock.getInventory().setItem(randSlot, compass);
 		}
 	}
 
@@ -228,6 +264,7 @@ public class ChestManager {
 			Chest chestBlock = (Chest) block.getState();
 
 			for(int i = 0; i < 6; i++) {
+				if(Misc.isFull(chestBlock)) continue;
 				int randSlot = getRandomNumber();
 
 				for(int j = 0; j < 1; j++) {
@@ -255,6 +292,7 @@ public class ChestManager {
 		distributeProt();
 		distributeFeathers();
 		distributeBlocks();
+		distributeCompasses();
 	}
 
 

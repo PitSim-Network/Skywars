@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -150,6 +151,12 @@ public class SpectatorManager implements Listener {
 	@EventHandler
 	public void onClick(InventoryInteractEvent event) {
 		if(!spectators.contains((Player) event.getWhoClicked())) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onPlace(BlockPlaceEvent event) {
+		if(!spectators.contains(event.getPlayer())) return;
 		event.setCancelled(true);
 	}
 

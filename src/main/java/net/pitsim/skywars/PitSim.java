@@ -22,6 +22,7 @@ import net.pitsim.skywars.commands.admin.BypassCommand;
 import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.*;
+import net.pitsim.skywars.controllers.CombatManager;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enchants.*;
 import net.pitsim.skywars.game.*;
@@ -209,6 +210,7 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SpectatorManager(), this);
 		getServer().getPluginManager().registerEvents(new YummyBread(), this);
 		getServer().getPluginManager().registerEvents(new FeatherManager(), this);
+		getServer().getPluginManager().registerEvents(new CombatManager(), this);
 	}
 
 	private void loadConfig() {

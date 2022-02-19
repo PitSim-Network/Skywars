@@ -120,7 +120,7 @@ public class KillManager implements Listener {
 		if(SpectatorManager.spectators.contains(player)) return;
 		Location location = event.getPlayer().getLocation();
 
-		if(location.getX() > 100 || location.getX() < -100 || location.getZ() > 100 || location.getZ() < -100) {
+		if(location.getX() > 125 || location.getX() < -125 || location.getZ() > 125 || location.getZ() < -125) {
 			String playerName = "%luckperms_prefix%" + player.getDisplayName();
 			PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
 			if(pitPlayer.lastHitUUID == null)
