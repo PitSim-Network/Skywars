@@ -7,7 +7,8 @@ import org.bukkit.entity.Player;
 public class PerkPurchaseGUI extends AGUI {
 
 	public PerkPurchasePanel perkPurchasePanel;
-	public SkywarsPerk clickedPerk;
+	public PerkPurchaseConfirmPanel purchaseConfirmPanel;
+	public SkywarsPerk clickedPerk = null;
 
 	public int perkSlot = 1;
 
@@ -15,6 +16,7 @@ public class PerkPurchaseGUI extends AGUI {
 		super(player);
 
 		perkPurchasePanel = new PerkPurchasePanel(this);
+		purchaseConfirmPanel = new PerkPurchaseConfirmPanel(this);
 		setHomePanel(perkPurchasePanel);
 
 	}

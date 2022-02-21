@@ -56,8 +56,8 @@ public class PerkPurchasePanel extends AGUIPanel {
 
 			for(Map.Entry<String, Integer> stringIntegerEntry : perkInvSlots.entrySet()) {
 				if(!(stringIntegerEntry.getValue() == slot)) continue;
-
 				SkywarsPerk perk = SkywarsPerk.getPerk(stringIntegerEntry.getKey());
+
 				if(perk == null) {
 					player.closeInventory();
 					return;
@@ -67,14 +67,15 @@ public class PerkPurchasePanel extends AGUIPanel {
 					Sounds.ERROR.play(player);
 					return;
 				}
-				if(SkywarsPerk.hasPerkEquipped(player, perk.refName)) {
-					AOutput.error(player, "&cThis perk is already equipped!");
+				int cost = perk.cost.get(SkywarsPerk.getPerkTier(player, perk.refName));
+				if(pitPlayer.stats.coins < cost) {
+					AOutput.error(player, "&cYou do not have enough coins to unlock this!");
 					Sounds.ERROR.play(player);
 					return;
 				}
 
-				perkPurchaseGUI.clickedPerk = SkywarsPerk.getPerk(stringIntegerEntry.getKey());
-				openPreviousGUI();
+				perkPurchaseGUI.clickedPerk = perk;
+				openPanel(perkPurchaseGUI.purchaseConfirmPanel);
 
 			}
 
@@ -95,20 +96,21 @@ public class PerkPurchasePanel extends AGUIPanel {
 
 			DecimalFormat format = new DecimalFormat("###,###,###");
 
-			if(SkywarsPerk.getPerkTier(player, perk.refName) == 0) {
-				perkLore.add(ChatColor.translateAlternateColorCodes('&', "Cost: &6" + format.format(perk.cost.get(0)) + " Coins"));
-				perkMeta.setDisplayName(ChatColor.RED + perk.name);
-				perkLore.add(ChatColor.RED + "Click to Unlock!");
-			} else if(SkywarsPerk.getPerkTier(player, perk.refName) >= perk.cost.size()) {
+			if(SkywarsPerk.getPerkTier(player, perk.refName) >= perk.cost.size()) {
 				perkMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
 				perkMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 				perkMeta.setDisplayName(ChatColor.GREEN + perk.name);
 				perkLore.add(ChatColor.GREEN + "Max tier Unlocked!");
 			} else {
-				int cost = perk.cost.get(SkywarsPerk.getPerkTier(player, perk.refName) - 1);
+				int cost = perk.cost.get(SkywarsPerk.getPerkTier(player, perk.refName));
 				perkLore.add(ChatColor.translateAlternateColorCodes('&', "Cost: &6" + format.format(cost) + " Coins"));
-				perkMeta.setDisplayName(ChatColor.YELLOW + perk.name);
-				perkLore.add(ChatColor.YELLOW + "Click to Upgrade Perk!");
+				if(cost < pitPlayer.stats.coins) {
+					perkMeta.setDisplayName(ChatColor.RED + perk.name);
+					perkLore.add(ChatColor.RED + "Not enough coins!");
+				} else {
+					perkMeta.setDisplayName(ChatColor.YELLOW + perk.name);
+					perkLore.add(ChatColor.YELLOW + "Click to Upgrade Perk!");
+				}
 			}
 
 			perkMeta.setLore(perkLore);
