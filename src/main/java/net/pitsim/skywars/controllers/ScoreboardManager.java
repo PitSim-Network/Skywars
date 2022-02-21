@@ -1,10 +1,8 @@
 package net.pitsim.skywars.controllers;
 
-import dev.kyro.arcticapi.hooks.APAPIPlaceholder;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.pitsim.skywars.controllers.objects.Scoreboard;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class ScoreboardManager extends PlaceholderExpansion {
 	public static Scoreboard activeScoreboard;
@@ -14,7 +12,7 @@ public class ScoreboardManager extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player player, @NotNull String identifier){
+	public String onPlaceholderRequest(Player player, String identifier){
 		if(player == null || activeScoreboard == null) return "";
 
 		for(int i = 1; i <= 8; i++) {
@@ -44,17 +42,17 @@ public class ScoreboardManager extends PlaceholderExpansion {
 	}
 
 	@Override
-	public @NotNull String getIdentifier() {
+	public String getIdentifier() {
 		return "skywars";
 	}
 
 	@Override
-	public @NotNull String getAuthor() {
+	public String getAuthor() {
 		return "KyroKrypt";
 	}
 
 	@Override
-	public @NotNull String getVersion() {
+	public String getVersion() {
 		return "1.0";
 	}
 }

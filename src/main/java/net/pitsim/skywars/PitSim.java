@@ -21,12 +21,15 @@ import net.pitsim.skywars.commands.admin.BaseAdminCommand;
 import net.pitsim.skywars.commands.admin.BypassCommand;
 import net.pitsim.skywars.commands.admin.LockdownCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
-import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.controllers.CombatManager;
+import net.pitsim.skywars.controllers.*;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
+import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.enchants.*;
 import net.pitsim.skywars.game.*;
+import net.pitsim.skywars.game.skywarsperks.KitPerkChangeManager;
 import net.pitsim.skywars.game.sql.TableManager;
+import net.pitsim.skywars.misc.PreGameScoreboard;
 import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.misc.YummyBread;
 import net.pitsim.skywars.perks.NoPerk;
@@ -74,7 +77,14 @@ public class PitSim extends JavaPlugin {
 	public void onInit() {
 		mysql = new MySQL();
 		mysql.connect("***REMOVED***", "***REMOVED***", "u1_tNY9ddZqN8", "QOqt208u81.q+i^eRjZ5pJIT", "s1_Skywars");
-		TableManager.createTable(); 
+
+		registerSkywarsPerks();
+
+		TableManager.createPurchasedPerks();
+		TableManager.createStatsTable();
+		TableManager.createEquippedPerks();
+
+
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
@@ -87,6 +97,9 @@ public class PitSim extends JavaPlugin {
 		if(provider != null) {
 			LUCKPERMS = provider.getProvider();
 		}
+
+		PreGameScoreboard.INSTANCE = new PreGameScoreboard();
+		ScoreboardManager.setScoreboard(PreGameScoreboard.INSTANCE);
 
 		PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
@@ -138,6 +151,18 @@ public class PitSim extends JavaPlugin {
 		AHook.registerPlaceholder(new GameTimePlaceholder());
 		AHook.registerPlaceholder(new PlayersLeftPlaceholder());
 		AHook.registerPlaceholder(new KillsPlaceholder());
+		AHook.registerPlaceholder(new LevelPlaceholder()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  );
+
+		AHook.registerPlaceholder(new LinePlaceholder1());
+		AHook.registerPlaceholder(new LinePlaceholder2());
+		AHook.registerPlaceholder(new LinePlaceholder3());
+		AHook.registerPlaceholder(new LinePlaceholder4());
+		AHook.registerPlaceholder(new LinePlaceholder5());
+		AHook.registerPlaceholder(new LinePlaceholder6());
+		AHook.registerPlaceholder(new LinePlaceholder7());
+		AHook.registerPlaceholder(new LinePlaceholder8());
+
+
 
 		loadConfig();
 
@@ -196,6 +221,11 @@ public class PitSim extends JavaPlugin {
 //		getCommand("togglestereo").setExecutor(new ToggleStereoCommand());
 	}
 
+	private void registerSkywarsPerks() {
+		SkywarsPerk.registerPerk(new net.pitsim.skywars.game.skywarsperks.Vampire());
+		SkywarsPerk.registerPerk(new net.pitsim.skywars.game.skywarsperks.NoPerk());
+	}
+
 	private void registerListeners() {
 
 		getServer().getPluginManager().registerEvents(new DamageManager(), this);
@@ -212,6 +242,7 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new YummyBread(), this);
 		getServer().getPluginManager().registerEvents(new FeatherManager(), this);
 		getServer().getPluginManager().registerEvents(new CombatManager(), this);
+		getServer().getPluginManager().registerEvents(new KitPerkChangeManager(), this);
 	}
 
 	private void loadConfig() {

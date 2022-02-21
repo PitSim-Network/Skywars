@@ -201,7 +201,8 @@ public class Misc {
 	}
 
 	public static boolean isFull(Chest chest) {
-		for(ItemStack itemStack : chest.getInventory()) {
+		for(int i = 0; i < chest.getInventory().getSize(); i++) {
+			ItemStack itemStack = chest.getInventory().getItem(i);
 			if(isAirOrNull(itemStack)) return false;
 		}
 		return true;

@@ -42,7 +42,7 @@ public class ChestManager {
 				if(Misc.isFull(chestBlock)) continue;
 
 				for(int j = 0; j < 1; j++) {
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getItem(randSlot))) {
 						j--;
 						randSlot = getRandomNumber();
 					}
@@ -100,6 +100,7 @@ public class ChestManager {
 				Random randChest = new Random();
 				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+				if(Misc.isFull(chestBlock)) continue;
 
 				int randSlot = getRandomNumber();
 				for(int k = 0; k < 1; k++) {
@@ -218,7 +219,8 @@ public class ChestManager {
 			Block block = chest.location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
-			if(Misc.isFull((Chest) chest.location.getBlock().getState())) continue;
+			if(Misc.isFull(chestBlock)) continue;
+
 			ItemStack compass = new ItemStack(Material.COMPASS);
 			ItemMeta meta = compass.getItemMeta();
 			List<String> compassLore = new ArrayList<>();
@@ -263,8 +265,9 @@ public class ChestManager {
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
+			if(Misc.isFull(chestBlock)) continue;
+
 			for(int i = 0; i < 6; i++) {
-				if(Misc.isFull(chestBlock)) continue;
 				int randSlot = getRandomNumber();
 
 				for(int j = 0; j < 1; j++) {
@@ -297,8 +300,6 @@ public class ChestManager {
 
 
 	public static int getRandomNumber() {
-		int min = 0;
-		int max = 26;
-		return (int) ((Math.random() * (max - min)) + min);
+		return (int) (Math.random() * 27);
 	}
 }

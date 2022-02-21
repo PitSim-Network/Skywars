@@ -8,6 +8,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.game.skywarsperks.KitPerkChangeManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -53,6 +54,7 @@ public class QueueManager implements Listener {
 			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
 			return;
 		}
+		KitPerkChangeManager.givePerkChange(player);
 		GameManager.alivePlayers.add(player);
 
 		String name = "%luckperms_prefix%" + player.getDisplayName();
@@ -152,7 +154,7 @@ public class QueueManager implements Listener {
 		}
 	}
 
-	public static void assignCage(Player player) {
+	public static void  assignCage(Player player) {
 		for(Map.Entry<Integer, Location> entry : MapManager.map.getSpawnLocations().entrySet()) {
 			int num = entry.getKey();
 			int cage = (num % 4) * 3 + num / 4;
@@ -202,7 +204,9 @@ public class QueueManager implements Listener {
 		if(GameManager.status == GameStatus.QUEUE) {
 			player.getInventory().clear();
 			Misc.clearArmor(player);
+			ExperienceManager.setXPBar(player);
 			GameManager.alivePlayers.add(player);
+			KitPerkChangeManager.givePerkChange(player);
 
 			String name = "%luckperms_prefix%" + player.getDisplayName();
 			AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, name) + " &ehas joined &7(&e" +

@@ -5,7 +5,9 @@ import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.enchants.Hearts;
 import net.pitsim.skywars.enums.AChatColor;
 import net.pitsim.skywars.events.HealEvent;
+import net.pitsim.skywars.game.sql.EquippedPerks;
 import net.pitsim.skywars.game.sql.PlayerStats;
+import net.pitsim.skywars.game.sql.PurchasedPerks;
 import net.pitsim.skywars.perks.NoPerk;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
@@ -36,12 +38,16 @@ public class PitPlayer {
 	public ItemStack confirmedDrop = null;
 
 	public PlayerStats stats;
+	public PurchasedPerks purchasedPerks;
+	public EquippedPerks equippedPerks;
 
 	public int kills;
 
 	public PitPlayer(Player player) {
 		this.player = player;
 		stats = new PlayerStats(player);
+		purchasedPerks = new PurchasedPerks(player);
+		equippedPerks = new EquippedPerks(player);
 
 		String message = "%luckperms_prefix%";
 		prefix = "";

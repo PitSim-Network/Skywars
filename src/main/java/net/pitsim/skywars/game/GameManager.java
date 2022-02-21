@@ -1,10 +1,11 @@
 package net.pitsim.skywars.game;
 
-import be.maximvdw.featherboard.api.FeatherBoardAPI;
 import dev.kyro.arcticapi.misc.AOutput;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
+import net.pitsim.skywars.controllers.ScoreboardManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.misc.GameScoreboard;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -28,9 +29,13 @@ public class GameManager {
 		PluginMessageSender.sendStart();
 		GameClock.countdown();
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			FeatherBoardAPI.showScoreboard(player, "game");
 			Sounds.GAME_START.play(player);
+			player.getInventory().clear();
+			Misc.clearArmor(player);
 		}
+
+		GameScoreboard.INSTANCE = new GameScoreboard();
+		ScoreboardManager.setScoreboard(GameScoreboard.INSTANCE);
 
 		MapManager.onGameStart();
 	}
@@ -111,6 +116,10 @@ public class GameManager {
 		killer3 = highestKey;
 		kills3 = highestValue;
 		KillManager.kills.remove(highestKey);
+
+		if(killer1 != null) KillManager.kills.put(killer1, kills1);
+		if(killer2 != null) KillManager.kills.put(killer2, kills2);
+		if(killer3 != null) KillManager.kills.put(killer3, kills3);
 
 		String winnerName = "%luckperms_prefix%" + winner.getDisplayName();
 		String killer1Name = null;

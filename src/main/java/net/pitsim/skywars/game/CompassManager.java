@@ -43,9 +43,9 @@ public class CompassManager {
  					}
 					if(compassPlayers.containsKey(player)) player.setCompassTarget(compassPlayers.get(player).getLocation());
 
-					if(Misc.isAirOrNull(player.getItemInHand())) return;
-					if(player.getItemInHand().getType() != Material.COMPASS) return;
-					if(!compassPlayers.containsKey(player)) return;
+					if(Misc.isAirOrNull(player.getItemInHand())) continue;
+					if(player.getItemInHand().getType() != Material.COMPASS) continue;
+					if(!compassPlayers.containsKey(player)) continue;
 
 					Misc.sendActionBar(player, PlaceholderAPI.setPlaceholders(compassPlayers.get(player),
 							"%luckperms_prefix%" + compassPlayers.get(player).getDisplayName()) + " &7" +
