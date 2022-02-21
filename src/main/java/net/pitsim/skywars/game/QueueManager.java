@@ -69,12 +69,7 @@ public class QueueManager implements Listener {
 		}
 		Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player));
 
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				player.teleport(spawnLocation);
-			}
-		}.runTaskLater(PitSim.INSTANCE, 1L);
+		player.teleport(spawnLocation);
 
 		countdown();
 	}

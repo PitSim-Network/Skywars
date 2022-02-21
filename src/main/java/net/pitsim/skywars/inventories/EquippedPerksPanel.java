@@ -74,6 +74,7 @@ public class EquippedPerksPanel extends AGUIPanel {
 			perkMeta.setDisplayName(ChatColor.YELLOW + "Perk Slot #" + perkSlot);
 			List<String> perkLore = new ArrayList<>();
 			perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7Selected: &a" + perk.name));
+			perkLore.add("");
 			perkLore.addAll(perk.getEquipLore(player));
 			perkLore.add("");
 			perkLore.add(ChatColor.YELLOW + "Click to change Perk");

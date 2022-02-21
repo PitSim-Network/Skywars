@@ -27,9 +27,10 @@ public class Vampire extends SkywarsPerk {
 	public List<String> getEquipLore(Player player) {
 		List<String> lore = new ArrayList<>();
 		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tier: &a" + AUtil.toRoman(SkywarsPerk.getPerkTier(player, refName))));
+		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + 3 * (SkywarsPerk.getPerkTier(player, refName)) + "%"));
 		lore.add("");
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&f" + 2 * (SkywarsPerk.getPerkTier(player, refName))
-				+ "% &7chance to heal &c0.5\u2764"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&f3% &7chance to heal &c0.5\u2764"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7on hit."));
 		return lore;
 	}
