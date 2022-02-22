@@ -27,7 +27,8 @@ import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.enchants.*;
 import net.pitsim.skywars.game.*;
-import net.pitsim.skywars.game.skywarsperks.KitPerkChangeManager;
+import net.pitsim.skywars.game.skywarsperks.*;
+import net.pitsim.skywars.game.KitPerkChangeManager;
 import net.pitsim.skywars.game.sql.TableManager;
 import net.pitsim.skywars.misc.PreGameScoreboard;
 import net.pitsim.skywars.misc.SpawnNPCs;
@@ -201,6 +202,7 @@ public class PitSim extends JavaPlugin {
 	private void registerPerks() {
 		PerkManager.registerUpgrade(new NoPerk());
 		PerkManager.registerUpgrade(new Vampire());
+
 	}
 
 	private void registerCommands() {
@@ -222,8 +224,13 @@ public class PitSim extends JavaPlugin {
 	}
 
 	private void registerSkywarsPerks() {
-		SkywarsPerk.registerPerk(new net.pitsim.skywars.game.skywarsperks.Vampire());
 		SkywarsPerk.registerPerk(new net.pitsim.skywars.game.skywarsperks.NoPerk());
+		SkywarsPerk.registerPerk(new net.pitsim.skywars.game.skywarsperks.Vampire());
+		SkywarsPerk.registerPerk(new Dirty());
+		SkywarsPerk.registerPerk(new Locksmith());
+		SkywarsPerk.registerPerk(new ComfortFood());
+		SkywarsPerk.registerPerk(new Enderman());
+		SkywarsPerk.registerPerk(new VoidLooter());
 	}
 
 	private void registerListeners() {

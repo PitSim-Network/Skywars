@@ -100,9 +100,9 @@ public class AllPerksPanel extends AGUIPanel {
 				ItemMeta meta = noPerkItem.getItemMeta();
 				meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&cNo Perk"));
 				List<String> lore = new ArrayList<>();
-				lore.add(ChatColor.GRAY + "Are you hardcore enough that you");
-				lore.add(ChatColor.GRAY + "don't need any perk for this");
-				lore.add(ChatColor.GRAY + "slot?");
+				lore.add(ChatColor.GRAY + "Are you hardcore enough that");
+				lore.add(ChatColor.GRAY + "you don't need any perk for");
+				lore.add(ChatColor.GRAY + "this slot?");
 				lore.add("");
 				lore.add(ChatColor.YELLOW + "Click to remove perk!");
 				meta.setLore(lore);
@@ -113,6 +113,7 @@ public class AllPerksPanel extends AGUIPanel {
 			if(perk.refName.equals("no_perk")) continue;
 
 			ItemStack perkItem = new ItemStack(perk.getMaterial());
+			if(SkywarsPerk.getPerkTier(player, perk.refName) == 0) perkItem.setType(Material.BEDROCK);
 			ItemMeta perkMeta = perkItem.getItemMeta();
 			List<String> perkLore = new ArrayList<>(perk.getEquipLore(player));
 			perkLore.add("");

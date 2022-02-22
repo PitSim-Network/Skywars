@@ -10,28 +10,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Vampire extends SkywarsPerk {
+public class ComfortFood extends SkywarsPerk {
 
-	public Vampire() {
-		super("Vampire", "vampire",
-				Arrays.asList(500, 1500, 3000, 4000, 5000, 6000, 7500, 10000, 15000, 25000));
+	public ComfortFood() {
+		super("Comfort Food", "comfort_food",
+				Arrays.asList(500, 1000, 2500, 5000, 10000));
 	}
 
 
 	@Override
 	public Material getMaterial() {
-		return Material.FERMENTED_SPIDER_EYE;
+		return Material.BREAD;
 	}
 
 	@Override
 	public List<String> getEquipLore(Player player) {
 		List<String> lore = new ArrayList<>();
 		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tier: &a" + AUtil.toRoman(SkywarsPerk.getPerkTier(player, refName))));
-		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + 3 * (SkywarsPerk.getPerkTier(player, refName)) + "%"));
+		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + 5 * (SkywarsPerk.getPerkTier(player, refName)) + "%"));
 		lore.add("");
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&f3% &7chance to heal &c0.5\u2764"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&7on hit."));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&f5% &7chance of gaining a"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&6Yummy Bread &7when another"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7player gets a kill."));
 		return lore;
 	}
 

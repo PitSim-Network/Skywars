@@ -1,8 +1,7 @@
-package net.pitsim.skywars.game.skywarsperks;
+package net.pitsim.skywars.game;
 
-import net.pitsim.skywars.game.GameManager;
-import net.pitsim.skywars.game.GameStatus;
 import net.pitsim.skywars.inventories.PerkEquipGUI;
+import net.pitsim.skywars.inventories.PerkPurchaseGUI;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -40,6 +39,19 @@ public class KitPerkChangeManager implements Listener {
 
 		PerkEquipGUI perkEquipGUI = new PerkEquipGUI(player);
 		perkEquipGUI.open();
+	}
+
+	@EventHandler
+	public void onPurchaseInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if(Misc.isAirOrNull(player.getItemInHand())) return;
+		if(event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.LEFT_CLICK_AIR) return;
+		if(player.getItemInHand().getType() != Material.EYE_OF_ENDER) return;
+		if(GameManager.status != GameStatus.QUEUE) return;
+		event.setCancelled(true);
+
+		PerkPurchaseGUI perkPurchaseGUI = new PerkPurchaseGUI(player);
+		perkPurchaseGUI.open();
 	}
 
 	@EventHandler

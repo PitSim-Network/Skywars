@@ -36,7 +36,7 @@ public class PerkPurchasePanel extends AGUIPanel {
 
 	@Override
 	public String getName() {
-		return "Choose a Perk";
+		return "Unlock or Upgrade a Perk";
 	}
 
 	@Override
@@ -103,13 +103,17 @@ public class PerkPurchasePanel extends AGUIPanel {
 				perkLore.add(ChatColor.GREEN + "Max tier Unlocked!");
 			} else {
 				int cost = perk.cost.get(SkywarsPerk.getPerkTier(player, perk.refName));
-				perkLore.add(ChatColor.translateAlternateColorCodes('&', "Cost: &6" + format.format(cost) + " Coins"));
-				if(cost < pitPlayer.stats.coins) {
+				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7Cost: &6" + format.format(cost) + " Coins"));
+				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7You have: &6" + format.format(pitPlayer.stats.coins) + " Coins"));
+				perkLore.add("");
+				if(cost > pitPlayer.stats.coins) {
 					perkMeta.setDisplayName(ChatColor.RED + perk.name);
 					perkLore.add(ChatColor.RED + "Not enough coins!");
 				} else {
 					perkMeta.setDisplayName(ChatColor.YELLOW + perk.name);
-					perkLore.add(ChatColor.YELLOW + "Click to Upgrade Perk!");
+					if(SkywarsPerk.getPerkTier(player, perk.refName) == 0) {
+						perkLore.add(ChatColor.YELLOW + "Click to Unlock Perk!");
+					} else perkLore.add(ChatColor.YELLOW + "Click to Upgrade Perk!");
 				}
 			}
 
@@ -123,16 +127,6 @@ public class PerkPurchasePanel extends AGUIPanel {
 			perkInvSlots.put(perk.refName, slotCount);
 			slotCount++;
 		}
-
-		ItemStack back = new ItemStack(Material.ARROW);
-		ItemMeta meta = back.getItemMeta();
-		meta.setDisplayName(ChatColor.GREEN + "Go Back");
-		List<String> lore = new ArrayList<>();
-		lore.add(ChatColor.GRAY + "To Perks");
-		meta.setLore(lore);
-		back.setItemMeta(meta);
-
-		getInventory().setItem(40, back);
 
 	}
 

@@ -8,7 +8,6 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.DamageManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
-import net.pitsim.skywars.game.skywarsperks.KitPerkChangeManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
