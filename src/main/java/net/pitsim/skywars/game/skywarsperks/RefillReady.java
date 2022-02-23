@@ -10,28 +10,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Locksmith extends SkywarsPerk {
+public class RefillReady extends SkywarsPerk {
 
-	public Locksmith() {
-		super("Locksmith", "locksmith",
-				Arrays.asList(500, 1000, 1500));
+	public RefillReady() {
+		super("Refill-Ready", "refill_ready",
+				Arrays.asList(1000, 2500, 5000, 10000, 25000));
 	}
 
 
 	@Override
 	public Material getMaterial() {
-		return Material.CHEST;
+		return Material.GOLD_SWORD;
 	}
 
 	@Override
 	public List<String> getEquipLore(Player player) {
 		List<String> lore = new ArrayList<>();
 		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tier: &a" + AUtil.toRoman(SkywarsPerk.getPerkTier(player, refName))));
-		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + 5 * (SkywarsPerk.getPerkTier(player, refName)) + "s"));
+		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + SkywarsPerk.getPerkTier(player, refName) + (SkywarsPerk.getPerkTier(player, refName) == 1 ? " Item" : " Items")));
 		lore.add("");
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&eChests &7you open are locked"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&7for other players for &f5s&7."));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&f1 &erandom item &7from a middle"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&echest&7, is placed into your"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7inventory at Chest Refill."));
 		return lore;
 	}
 

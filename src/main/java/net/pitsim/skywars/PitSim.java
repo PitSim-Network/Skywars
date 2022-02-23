@@ -231,6 +231,14 @@ public class PitSim extends JavaPlugin {
 		SkywarsPerk.registerPerk(new ComfortFood());
 		SkywarsPerk.registerPerk(new Enderman());
 		SkywarsPerk.registerPerk(new VoidLooter());
+		SkywarsPerk.registerPerk(new Thick());
+		SkywarsPerk.registerPerk(new Aegis());
+		SkywarsPerk.registerPerk(new Banker());
+		SkywarsPerk.registerPerk(new Tenacity());
+		SkywarsPerk.registerPerk(new Gladiator());
+		SkywarsPerk.registerPerk(new RefillReady());
+		SkywarsPerk.registerPerk(new KillChain());
+		SkywarsPerk.registerPerk(new Chicken());
 	}
 
 	private void registerListeners() {

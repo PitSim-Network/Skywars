@@ -31,7 +31,7 @@ public class Enderman extends SkywarsPerk {
 		if(tier == 1) tier = 20;
 		else if(tier == 2) tier = 45;
 		else tier = 90;
-		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: " + tier + "s"));
+		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f-" + tier + "s"));
 		lore.add("");
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Significantly reduces the"));

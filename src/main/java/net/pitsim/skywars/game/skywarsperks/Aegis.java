@@ -10,28 +10,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Locksmith extends SkywarsPerk {
+public class Aegis extends SkywarsPerk {
 
-	public Locksmith() {
-		super("Locksmith", "locksmith",
-				Arrays.asList(500, 1000, 1500));
+	public Aegis() {
+		super("Aegis", "aegis",
+				Arrays.asList(1000, 2000, 5000, 7000, 10000, 15000, 20000, 25000, 30000));
 	}
 
 
 	@Override
 	public Material getMaterial() {
-		return Material.CHEST;
+		return Material.EMERALD;
 	}
 
 	@Override
 	public List<String> getEquipLore(Player player) {
 		List<String> lore = new ArrayList<>();
 		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tier: &a" + AUtil.toRoman(SkywarsPerk.getPerkTier(player, refName))));
-		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + 5 * (SkywarsPerk.getPerkTier(player, refName)) + "s"));
+		if(SkywarsPerk.getPerkTier(player, refName) != 0) lore.add(ChatColor.translateAlternateColorCodes('&', "&7Current: &f" + (60 - (5 * (SkywarsPerk.getPerkTier(player, refName) - 1))) + "s Cooldown"));
 		lore.add("");
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&eChests &7you open are locked"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&7for other players for &f5s&7."));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Gain a &dmagical shield &7that"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7deflects hits with a &f60s"));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7cooldown. (&f-5s &7per tier)"));
 		return lore;
 	}
 
