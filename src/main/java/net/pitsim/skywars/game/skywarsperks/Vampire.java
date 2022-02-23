@@ -1,10 +1,14 @@
 package net.pitsim.skywars.game.skywarsperks;
 
 import dev.kyro.arcticapi.misc.AUtil;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +37,23 @@ public class Vampire extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&f3% &7chance to heal &c0.5\u2764"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7on hit."));
 		return lore;
+	}
+
+	@EventHandler
+	public void onAttack(AttackEvent.Apply attackEvent) {
+		if(!SkywarsPerk.hasPerkEquipped(attackEvent.attacker, refName)) return;
+		int tier = SkywarsPerk.getPerkTier(attackEvent.attacker, refName);
+		if(tier == 0) return;
+
+		double chance = tier * 0.03;
+		double rand = Math.random();
+		if(rand > chance) return;
+
+		Sounds.SURVIVOR_HEAL.play(attackEvent.attacker);
+		PitPlayer pitAttacker = PitPlayer.getPitPlayer(attackEvent.attacker);
+
+		int healing = 1;
+		pitAttacker.heal(healing);
 	}
 
 	@Override
