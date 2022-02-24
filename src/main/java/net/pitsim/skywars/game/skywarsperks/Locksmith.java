@@ -59,6 +59,8 @@ public class Locksmith extends SkywarsPerk {
 		Chest chest = (Chest) event.getClickedBlock();
 		if(chestMap.containsKey(chest)) return;
 		chestMap.put(chest, player);
+		Sounds.LOCK.play(player);
+		AOutput.send(player, "&c&lLOCKSMITH &7This chest is now locked from other players for &f" + 5 * SkywarsPerk.getPerkTier(player, refName) + "s&7.");
 
 		long duration = 20 * (tier * 5L);
 

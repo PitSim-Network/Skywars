@@ -1,10 +1,15 @@
 package net.pitsim.skywars.game.skywarsperks;
 
 import dev.kyro.arcticapi.misc.AUtil;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.KillManager;
+import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +38,16 @@ public class KillChain extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Deal &c+1% Damage &7per"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7kill in a game."));
 		return lore;
+	}
+
+	@EventHandler
+	public void onAttack(AttackEvent.Apply attackEvent) {
+		if(!SkywarsPerk.hasPerkEquipped(attackEvent.attacker, refName)) return;
+		int tier = SkywarsPerk.getPerkTier(attackEvent.attacker, refName);
+		if(tier == 0) return;
+
+		double damageIncrease = KillManager.kills.get(attackEvent.attacker) * (SkywarsPerk.getPerkTier(attackEvent.attacker, refName));
+		attackEvent.increasePercent += damageIncrease;
 	}
 
 	@Override

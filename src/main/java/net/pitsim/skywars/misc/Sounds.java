@@ -69,6 +69,7 @@ public class Sounds {
 	public static final SoundEffect TELEBOW = new SoundEffect(Sound.ENDERMAN_TELEPORT, 1, 2);
 	public static final SoundEffect VENOM = new SoundEffect(Sound.SPIDER_IDLE, 1, 1);
 	public static final SoundEffect VOLLEY = new SoundEffect(Sound.SHOOT_ARROW, 1, 1);
+	public static final SoundEffect LOCK = new SoundEffect(Sound.CLICK, 1, 0.2);
 
 	//	Megastreaks
 	public static final SoundEffect MEGA_GENERAL = new SoundEffect(Sound.WITHER_SPAWN, 1000, 1);
