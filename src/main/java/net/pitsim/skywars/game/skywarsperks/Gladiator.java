@@ -2,9 +2,12 @@ package net.pitsim.skywars.game.skywarsperks;
 
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.events.AttackEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +36,25 @@ public class Gladiator extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Receive &9-1% Damage &7per"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7player within &f12 Blocks&7."));
 		return lore;
+	}
+
+	@EventHandler
+	public void onHit(AttackEvent.Apply event) {
+		int tier = SkywarsPerk.getPerkTier(event.defender, refName);
+		if(tier == 0 || !SkywarsPerk.hasPerkEquipped(event.defender, refName)) return;
+
+		List<Entity> nearbyPlayers = new ArrayList<>(event.defender.getNearbyEntities(12, 12 , 12));
+		List<Entity> toRemove = new ArrayList<>();
+
+		for (Entity nearbyPlayer : nearbyPlayers) {
+			if(!(nearbyPlayer instanceof Player)) toRemove.add(nearbyPlayer);
+		}
+		for (Entity entity : toRemove) {
+			nearbyPlayers.remove(entity);
+		}
+
+		int reduction = tier * nearbyPlayers.size();
+		event.decreasePercent += reduction;
 	}
 
 	@Override
