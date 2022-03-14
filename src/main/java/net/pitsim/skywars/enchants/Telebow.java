@@ -21,15 +21,20 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Telebow extends PitEnchant {
 
+	public static Telebow INSTANCE;
 	public static List<Arrow> teleShots = new ArrayList<>();
+	public static Map<Player, Cooldown> cooldowns = new HashMap<>();
 
 	public Telebow() {
 		super("Telebow", true, ApplyType.BOWS,
 				"telebow", "tele");
+		INSTANCE = this;
 	}
 
 	@EventHandler
@@ -39,7 +44,17 @@ public class Telebow extends PitEnchant {
 		if(enchantLvl == 0) return;
 		if(attackEvent.arrow == null) return;
 
-		Cooldown cooldown = getCooldown(attackEvent.attacker, getCooldown(enchantLvl) * 20);
+		if(!cooldowns.containsKey(attackEvent.attacker)) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &aReady!");
+				}
+			}.runTaskLater(PitSim.INSTANCE, 1L);
+			return;
+		}
+
+		Cooldown cooldown = cooldowns.get(attackEvent.attacker);
 		cooldown.reduceCooldown(60);
 
 		if(cooldown.isOnCooldown()) {
@@ -83,7 +98,8 @@ public class Telebow extends PitEnchant {
 		if(enchantLvl == 0 || !player.isSneaking()) return;
 
 
-		Cooldown cooldown = getCooldown(player, getCooldown(enchantLvl) * 20);
+		Cooldown cooldown = getCooldown(player, getCooldownTime(enchantLvl) * 20);
+		cooldowns.put(player, cooldown);
 		if(cooldown.isOnCooldown()) {
 
 
@@ -135,10 +151,10 @@ public class Telebow extends PitEnchant {
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
-		return new ALoreBuilder("&7Sneak to shoot a teleportation &f", "&7arrow (" + getCooldown(enchantLvl) + "s cooldown, -3s per bow", "&7hit)").getLore();
+		return new ALoreBuilder("&7Sneak to shoot a teleportation &f", "&7arrow (" + getCooldownTime(enchantLvl) + "s cooldown, -3s per bow", "&7hit)").getLore();
 	}
 
-	public static int getCooldown(int enchantLvl) {
+	public static int getCooldownTime(int enchantLvl) {
 
 		switch(enchantLvl) {
 			case 1:

@@ -148,7 +148,7 @@ public class PitPlayer {
 		int maxHealth = 24;
 		if(Hearts.INSTANCE != null) maxHealth += Hearts.INSTANCE.getExtraHealth(this);
 
-		maxHealth += SkywarsPerk.getPerkTier(player, "thick");
+		if(SkywarsPerk.hasPerkEquipped(player, "thick")) maxHealth += SkywarsPerk.getPerkTier(player, "thick");
 
 
 		if(player.getMaxHealth() == maxHealth) return;

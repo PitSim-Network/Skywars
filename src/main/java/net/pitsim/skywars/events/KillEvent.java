@@ -23,17 +23,19 @@ public class KillEvent extends Event {
 	public double coinReward = 100;
 	public List<Double> xpMultipliers = new ArrayList<>();
 	public List<Double> coinMultipliers = new ArrayList<>();
+	public AttackEvent attackEvent;
 
 	public boolean isLuckyKill = false;
 	public int playerKillWorth = 1;
 
 	public KillEvent(AttackEvent attackEvent, Player killer, Player dead, boolean exeDeath) {
+
 		this.killerEnchantMap = killer == attackEvent.attacker ? attackEvent.getAttackerEnchantMap() : attackEvent.getDefenderEnchantMap();
 		this.deadEnchantMap = killer == attackEvent.attacker ? attackEvent.getDefenderEnchantMap() : attackEvent.getAttackerEnchantMap();
 		this.killer = killer;
 		this.dead = dead;
 		this.exeDeath = exeDeath;
-
+		this.attackEvent = attackEvent;
 	}
 
 	public int getFinalXp() {

@@ -1,10 +1,19 @@
 package net.pitsim.skywars.game.skywarsperks;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
+import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.events.KillEvent;
+import net.pitsim.skywars.game.GameManager;
+import net.pitsim.skywars.misc.Sounds;
+import net.pitsim.skywars.misc.YummyBread;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +43,24 @@ public class ComfortFood extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&6Yummy Bread &7when another"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7player gets a kill."));
 		return lore;
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onKill(KillEvent event) {
+		for (Player alivePlayer : GameManager.alivePlayers) {
+			if(alivePlayer == event.killer) continue;
+
+			if(!SkywarsPerk.hasPerkEquipped(alivePlayer, refName)) continue;
+			int tier = SkywarsPerk.getPerkTier(alivePlayer, refName);
+			if(tier == 0) continue;
+
+			double chance = tier * 0.05;
+			double rand = Math.random();
+			if(rand > chance) continue;
+
+			AUtil.giveItemSafely(alivePlayer, YummyBread.getYummyBread(1));
+			AOutput.send(alivePlayer, "&6&lCOMFORT FOOD &7Gained a &6Yummy Bread&7.");
+		}
 	}
 
 	@Override

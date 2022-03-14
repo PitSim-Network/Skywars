@@ -59,6 +59,8 @@ public class AllPerksPanel extends AGUIPanel {
 				Sounds.SUCCESS.play(player);
 				pitPlayer.equippedPerks.save();
 				openPreviousGUI();
+				pitPlayer.updateMaxHealth();
+				player.setHealth(player.getMaxHealth());
 			}
 
 			for(Map.Entry<String, Integer> stringIntegerEntry : perkInvSlots.entrySet()) {
@@ -84,6 +86,8 @@ public class AllPerksPanel extends AGUIPanel {
 				Sounds.SUCCESS.play(player);
 				pitPlayer.equippedPerks.save();
 				openPreviousGUI();
+				pitPlayer.updateMaxHealth();
+				player.setHealth(player.getMaxHealth());
 
 			}
 

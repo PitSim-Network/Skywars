@@ -56,7 +56,7 @@ public class Locksmith extends SkywarsPerk {
 		if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if(event.getClickedBlock().getType() != Material.CHEST) return;
 
-		Chest chest = (Chest) event.getClickedBlock();
+		Chest chest = (Chest) event.getClickedBlock().getState();
 		if(chestMap.containsKey(chest)) return;
 		chestMap.put(chest, player);
 		Sounds.LOCK.play(player);
@@ -80,7 +80,7 @@ public class Locksmith extends SkywarsPerk {
 		if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if(event.getClickedBlock().getType() != Material.CHEST) return;
 
-		Chest chest = (Chest) event.getClickedBlock();
+		Chest chest = (Chest) event.getClickedBlock().getState();
 		if(!(chestMap.containsKey(chest))) return;
 		if(player == chestMap.get(chest)) return;
 		Player chestPlayer = chestMap.get(chest);

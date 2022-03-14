@@ -90,7 +90,7 @@ public class PitSim extends JavaPlugin {
 
 		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
 		if(id.equalsIgnoreCase("test")) {
-			QueueManager.minPlayers = 1;
+			QueueManager.minPlayers = 2;
 			QueueManager.timerStartMinutes = 0;
 		}
 

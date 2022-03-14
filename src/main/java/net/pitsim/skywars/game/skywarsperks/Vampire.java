@@ -1,5 +1,6 @@
 package net.pitsim.skywars.game.skywarsperks;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
@@ -54,6 +55,7 @@ public class Vampire extends SkywarsPerk {
 
 		int healing = 1;
 		pitAttacker.heal(healing);
+		AOutput.send(attackEvent.attacker, "&c&lVAMPIRE &7+&c0.5\u2764&7.");
 	}
 
 	@Override
