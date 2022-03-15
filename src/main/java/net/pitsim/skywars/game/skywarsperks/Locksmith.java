@@ -5,8 +5,8 @@ import dev.kyro.arcticapi.misc.AUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
-import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -27,7 +27,6 @@ public class Locksmith extends SkywarsPerk {
 				Arrays.asList(500, 1000, 1500));
 	}
 
-
 	@Override
 	public Material getMaterial() {
 		return Material.CHEST;
@@ -45,9 +44,11 @@ public class Locksmith extends SkywarsPerk {
 		return lore;
 	}
 
+
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+
 		if(!SkywarsPerk.hasPerkEquipped(player, refName)) return;
 		int tier = SkywarsPerk.getPerkTier(player, refName);
 		if(tier == 0) return;

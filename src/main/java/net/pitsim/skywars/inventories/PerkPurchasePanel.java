@@ -6,6 +6,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.misc.Sounds;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -47,6 +48,7 @@ public class PerkPurchasePanel extends AGUIPanel {
 	@Override
 	public void onClick(InventoryClickEvent event) {
 		int slot = event.getSlot();
+
 		if(event.getClickedInventory().getHolder() == this) {
 
 			if(slot == 40) {

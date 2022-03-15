@@ -104,7 +104,7 @@ public class ChestManager {
 
 				int randSlot = getRandomNumber();
 				for(int k = 0; k < 1; k++) {
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 						k--;
 						randSlot = getRandomNumber();
 					}
@@ -153,7 +153,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -171,7 +171,7 @@ public class ChestManager {
 			if(Misc.isFull(chestBlock)) continue;
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -202,7 +202,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -232,7 +232,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -271,7 +271,7 @@ public class ChestManager {
 				int randSlot = getRandomNumber();
 
 				for(int j = 0; j < 1; j++) {
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
 						j--;
 						randSlot = getRandomNumber();
 					}
