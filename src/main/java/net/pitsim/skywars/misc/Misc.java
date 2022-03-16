@@ -207,4 +207,12 @@ public class Misc {
 		}
 		return true;
 	}
+
+	public static boolean isEmpty(Chest chest) {
+		for(int i = 0; i < chest.getInventory().getSize(); i++) {
+			ItemStack itemStack = chest.getInventory().getItem(i);
+			if(!isAirOrNull(itemStack)) return false;
+		}
+		return true;
+	}
 }

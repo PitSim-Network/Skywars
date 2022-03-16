@@ -5,6 +5,7 @@ import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.ApplyType;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.event.EventHandler;
 
@@ -13,9 +14,12 @@ import java.util.List;
 
 public class Billionaire extends PitEnchant {
 
+	public static Billionaire INSTANCE;
+
 	public Billionaire() {
 		super("Billionaire", true, ApplyType.SWORDS,
 				"bill", "billionaire");
+		INSTANCE = this;
 	}
 
 	@EventHandler
@@ -27,6 +31,10 @@ public class Billionaire extends PitEnchant {
 
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(attackEvent.attacker);
 
+		int gold = GoldManager.gold.get(attackEvent.attacker);
+		if(gold - getGoldCost(enchantLvl) < 0) return;
+		GoldManager.gold.put(attackEvent.attacker, GoldManager.gold.get(attackEvent.attacker) - getGoldCost(enchantLvl));
+
 		attackEvent.multiplier.add(getDamageMultiplier(enchantLvl));
 //		attackEvent.increasePercent += getDamageIncrease(enchantLvl) / 100.0;
 		Sounds.BILLIONAIRE.play(attackEvent.attacker);
@@ -36,7 +44,7 @@ public class Billionaire extends PitEnchant {
 	public List<String> getDescription(int enchantLvl) {
 		DecimalFormat decimalFormat = new DecimalFormat("0.##");
 		return new ALoreBuilder("&7Hits with this sword deal &c" + getDamageMultiplier(enchantLvl) + "x",
-				"&cdamage &7but cost &6" + getGoldCost(enchantLvl) / 5 + "g &7against", "&7players and &6" + getGoldCost(enchantLvl) + "g &7against", "&7bots").getLore();
+				"&cdamage &7but cost &6" + getGoldCost(enchantLvl) + "g").getLore();
 	}
 
 //	public double getDamageIncrease(int enchantLvl) {
@@ -49,6 +57,7 @@ public class Billionaire extends PitEnchant {
 	}
 
 	public int getGoldCost(int enchantLvl) {
-		return (int) (Math.floor(Math.pow(enchantLvl, 1.75)) * 50 + 50);
+		if(enchantLvl == 1) return 100;
+		return enchantLvl * 450 - 600;
 	}
 }

@@ -258,6 +258,7 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FeatherManager(), this);
 		getServer().getPluginManager().registerEvents(new CombatManager(), this);
 		getServer().getPluginManager().registerEvents(new KitPerkChangeManager(), this);
+		getServer().getPluginManager().registerEvents(new GoldManager(), this);
 	}
 
 	private void loadConfig() {

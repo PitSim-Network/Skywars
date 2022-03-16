@@ -1,7 +1,12 @@
 package net.pitsim.skywars.game.skywarsperks;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.game.FeatherManager;
+import net.pitsim.skywars.game.FunkyFeather;
+import net.pitsim.skywars.misc.Sounds;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,6 +39,22 @@ public class Chicken extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7a &3Funky Feather &7on game"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7start."));
 		return lore;
+	}
+
+	public static void onGameStart() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if(!SkywarsPerk.hasPerkEquipped(player, "chicken")) continue;
+			int tier = SkywarsPerk.getPerkTier(player, "chicken");
+			if(tier == 0) continue;
+
+			double chance = tier * 0.05;
+			double rand = Math.random();
+			if(rand <= chance) {
+				AUtil.giveItemSafely(player, FunkyFeather.getFeather(1));
+				AOutput.send(player, "&3&lCHICKEN &7Gained a &3Funky Feather&7.");
+				Sounds.CHICKEN.play(player);
+			}
+		}
 	}
 
 	@Override

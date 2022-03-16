@@ -5,6 +5,7 @@ import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enums.ApplyType;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.event.EventHandler;
 
@@ -25,7 +26,7 @@ public class FractionalReserve extends PitEnchant {
 		int enchantLvl = attackEvent.getDefenderEnchantLevel(this);
 		if(enchantLvl == 0) return;
 
-		int reduction = Math.max((int) Math.log10(PitSim.VAULT.getBalance(attackEvent.defender)) + 1, 0);
+		int reduction = Math.max((int) Math.log10(GoldManager.gold.get(attackEvent.defender)) + 1, 0);
 		attackEvent.multiplier.add(Misc.getReductionMultiplier(reduction * getReduction(enchantLvl)));
 	}
 
@@ -37,6 +38,6 @@ public class FractionalReserve extends PitEnchant {
 	}
 
 	public static int getReduction(int enchantLvl) {
-		return enchantLvl * 2;
+		return enchantLvl * 10;
 	}
 }

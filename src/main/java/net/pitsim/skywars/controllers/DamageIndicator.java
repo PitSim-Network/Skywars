@@ -1,6 +1,8 @@
 package net.pitsim.skywars.controllers;
 
+import net.pitsim.skywars.enchants.Billionaire;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Misc;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
@@ -8,6 +10,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+
+import java.text.DecimalFormat;
 
 
 public class DamageIndicator implements Listener {
@@ -88,6 +92,8 @@ public class DamageIndicator implements Listener {
 			output.append(ChatColor.YELLOW).append("\u2764");
 		}
 
+		if(attackEvent.getAttackerEnchantLevel(Billionaire.INSTANCE) > 0)
+			output.append(" &6").append(new DecimalFormat("###,###,###").format(GoldManager.gold.get(attacker))).append("g");
 		Misc.sendActionBar(attacker, output.toString());
 	}
 

@@ -5,6 +5,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.ScoreboardManager;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
+import net.pitsim.skywars.game.skywarsperks.Chicken;
 import net.pitsim.skywars.misc.GameScoreboard;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
@@ -32,12 +33,13 @@ public class GameManager {
 			Sounds.GAME_START.play(player);
 			player.getInventory().clear();
 			Misc.clearArmor(player);
+			GoldManager.gold.put(player, 0);
 		}
-
 		GameScoreboard.INSTANCE = new GameScoreboard();
 		ScoreboardManager.setScoreboard(GameScoreboard.INSTANCE);
 
 		MapManager.onGameStart();
+		Chicken.onGameStart();
 	}
 
 	public static void endGame() {

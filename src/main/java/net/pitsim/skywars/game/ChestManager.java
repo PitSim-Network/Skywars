@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import net.pitsim.skywars.enums.MysticType;
 import net.pitsim.skywars.game.objects.GameMap;
 import net.pitsim.skywars.game.objects.SkywarsChest;
+import net.pitsim.skywars.game.skywarsperks.RefillReady;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import net.pitsim.skywars.misc.YummyBread;
@@ -18,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -104,7 +106,7 @@ public class ChestManager {
 
 				int randSlot = getRandomNumber();
 				for(int k = 0; k < 1; k++) {
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 						k--;
 						randSlot = getRandomNumber();
 					}
@@ -153,7 +155,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -171,7 +173,7 @@ public class ChestManager {
 			if(Misc.isFull(chestBlock)) continue;
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -202,7 +204,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -219,6 +221,9 @@ public class ChestManager {
 			Block block = chest.location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
+			double d = Math.random();
+			if(d < 0.5) continue;
+
 			if(Misc.isFull(chestBlock)) continue;
 
 			ItemStack compass = new ItemStack(Material.COMPASS);
@@ -232,7 +237,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
 				}
@@ -246,6 +251,7 @@ public class ChestManager {
 			Sounds.CHEST_REFILL.play(player);
 		}
 		AOutput.broadcast("&aChests refilled!");
+		GoldManager.openedChests.clear();
 		GameMap map = MapManager.map;
 
 		for(SkywarsChest chest : map.getChests()) {
@@ -271,7 +277,7 @@ public class ChestManager {
 				int randSlot = getRandomNumber();
 
 				for(int j = 0; j < 1; j++) {
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot - 1])) {
+					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 						j--;
 						randSlot = getRandomNumber();
 					}
@@ -296,6 +302,7 @@ public class ChestManager {
 		distributeFeathers();
 		distributeBlocks();
 		distributeCompasses();
+		RefillReady.onRefill();
 	}
 
 

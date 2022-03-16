@@ -19,6 +19,12 @@ public class GameClock {
 	public static boolean refill = false;
 
 	public static void countdown() {
+		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
+		if(id.equalsIgnoreCase("test")) {
+			minutes = 0;
+			seconds = 15;
+		}
+
 		countdown = new BukkitRunnable() {
 			@Override
 			public void run() {

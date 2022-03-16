@@ -27,4 +27,11 @@ public class SkywarsChest {
 		}
 		return isChests;
 	}
+
+	public static SkywarsChest getChest(Location location) {
+		for (SkywarsChest chest : chests) {
+			if(location.getBlockX() == chest.location.getBlockX() && location.getBlockY() == chest.location.getBlockY()) return chest;
+		}
+		return null;
+	}
 }

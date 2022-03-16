@@ -1,14 +1,22 @@
 package net.pitsim.skywars.game.skywarsperks;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
+import net.pitsim.skywars.game.ChestManager;
+import net.pitsim.skywars.game.objects.SkywarsChest;
+import net.pitsim.skywars.misc.Misc;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class RefillReady extends SkywarsPerk {
 
@@ -34,6 +42,33 @@ public class RefillReady extends SkywarsPerk {
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&echest&7, is placed into your"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7inventory at Chest Refill."));
 		return lore;
+	}
+
+	public static void onRefill() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if(!SkywarsPerk.hasPerkEquipped(player, "refill_ready")) continue;
+			int tier = SkywarsPerk.getPerkTier(player, "refill_ready");
+			if(tier == 0) continue;
+
+			List<SkywarsChest> chests = SkywarsChest.getChests(-2);
+			for (int i = 0; i < tier; i++) {
+				Random randChest = new Random();
+				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
+				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+				if(Misc.isEmpty(chestBlock)) continue;
+
+				int randSlot = ChestManager.getRandomNumber();
+				for(int k = 0; k < 1; k++) {
+					if(Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
+						k--;
+						randSlot = ChestManager.getRandomNumber();
+					}
+				}
+				AUtil.giveItemSafely(player, chestBlock.getInventory().getItem(randSlot));
+				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.AIR));
+			}
+			AOutput.send(player, "&e&lREFILL READY! &7Gained &f" + tier + " &7items from middle chests.");
+		}
 	}
 
 	@Override
