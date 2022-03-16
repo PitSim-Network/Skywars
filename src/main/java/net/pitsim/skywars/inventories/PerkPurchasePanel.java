@@ -105,8 +105,8 @@ public class PerkPurchasePanel extends AGUIPanel {
 				perkLore.add(ChatColor.GREEN + "Max tier Unlocked!");
 			} else {
 				int cost = perk.cost.get(SkywarsPerk.getPerkTier(player, perk.refName));
-				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7Cost: &6" + format.format(cost) + " Coins"));
-				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7You have: &6" + format.format(pitPlayer.stats.coins) + " Coins"));
+				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7Cost: &e" + format.format(cost) + " Coins"));
+				perkLore.add(ChatColor.translateAlternateColorCodes('&', "&7You have: &e" + format.format(pitPlayer.stats.coins) + " Coins"));
 				perkLore.add("");
 				if(cost > pitPlayer.stats.coins) {
 					perkMeta.setDisplayName(ChatColor.RED + perk.name);

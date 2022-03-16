@@ -39,7 +39,7 @@ public class ShowCommand implements CommandExecutor {
 			return false;
 		} else {
 			pitPlayer.stats.coins-= 50;
-			AOutput.send(player, "&aShowed off item for &650 Coins&a.");
+			AOutput.send(player, "&aShowed off item for &e50 Coins&a.");
 		}
 
 

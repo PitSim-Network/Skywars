@@ -6,6 +6,7 @@ import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.ApplyType;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import net.pitsim.skywars.controllers.Cooldown;
@@ -48,6 +49,7 @@ public class Telebow extends PitEnchant {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
+					GoldManager.pausePlayer(attackEvent.attacker);
 					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &aReady!");
 				}
 			}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -61,6 +63,7 @@ public class Telebow extends PitEnchant {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
+					GoldManager.pausePlayer(attackEvent.attacker);
 					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
 				}
 			}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -68,6 +71,7 @@ public class Telebow extends PitEnchant {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
+					GoldManager.pausePlayer(attackEvent.attacker);
 					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &aReady!");
 				}
 			}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -104,6 +108,7 @@ public class Telebow extends PitEnchant {
 
 
 			if(player.isSneaking())
+				GoldManager.pausePlayer(player);
 				Misc.sendActionBar(player, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
 
 			return;

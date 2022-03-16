@@ -94,6 +94,7 @@ public class DamageIndicator implements Listener {
 
 		if(attackEvent.getAttackerEnchantLevel(Billionaire.INSTANCE) > 0)
 			output.append(" &6").append(new DecimalFormat("###,###,###").format(GoldManager.gold.get(attacker))).append("g");
+		GoldManager.pausePlayer(attacker);
 		Misc.sendActionBar(attacker, output.toString());
 	}
 

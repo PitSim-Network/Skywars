@@ -44,6 +44,7 @@ public class ChestManager {
 				if(Misc.isFull(chestBlock)) continue;
 
 				for(int j = 0; j < 1; j++) {
+					if(Misc.isFull(chestBlock)) break;
 					if(!Misc.isAirOrNull(chestBlock.getInventory().getItem(randSlot))) {
 						j--;
 						randSlot = getRandomNumber();
@@ -106,6 +107,7 @@ public class ChestManager {
 
 				int randSlot = getRandomNumber();
 				for(int k = 0; k < 1; k++) {
+					if(Misc.isFull(chestBlock)) break;
 					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 						k--;
 						randSlot = getRandomNumber();
@@ -155,6 +157,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
+				if(Misc.isFull(chestBlock)) break;
 				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
@@ -173,6 +176,7 @@ public class ChestManager {
 			if(Misc.isFull(chestBlock)) continue;
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
+				if(Misc.isFull(chestBlock)) break;
 				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
@@ -204,6 +208,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
+				if(Misc.isFull(chestBlock)) break;
 				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
@@ -237,6 +242,7 @@ public class ChestManager {
 
 			int randSlot = getRandomNumber();
 			for(int k = 0; k < 1; k++) {
+				if(Misc.isFull(chestBlock)) break;
 				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 					k--;
 					randSlot = getRandomNumber();
@@ -275,8 +281,10 @@ public class ChestManager {
 
 			for(int i = 0; i < 6; i++) {
 				int randSlot = getRandomNumber();
+				if(Misc.isFull(chestBlock)) continue;
 
 				for(int j = 0; j < 1; j++) {
+					if(Misc.isFull(chestBlock)) break;
 					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 						j--;
 						randSlot = getRandomNumber();

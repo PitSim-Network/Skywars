@@ -47,6 +47,7 @@ public class CompassManager {
 					if(player.getItemInHand().getType() != Material.COMPASS) continue;
 					if(!compassPlayers.containsKey(player)) continue;
 
+					GoldManager.pausePlayer(player);
 					Misc.sendActionBar(player, PlaceholderAPI.setPlaceholders(compassPlayers.get(player),
 							"%luckperms_prefix%" + compassPlayers.get(player).getDisplayName()) + " &7" +
 							(int) player.getLocation().distance(compassPlayers.get(player).getLocation()) + "m");

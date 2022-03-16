@@ -8,11 +8,11 @@ import org.bukkit.event.EventHandler;
 
 import java.util.List;
 
-public class GoldBoost extends PitEnchant {
+public class CoinBoost extends PitEnchant {
 
-	public GoldBoost() {
-		super("Gold Boost", false, ApplyType.ALL,
-				"goldboost", "gold-boost", "gboost", "boost");
+	public CoinBoost() {
+		super("Coin Boost", false, ApplyType.ALL,
+				"coinboost", "coin-boost", "cboost", "boost");
 		levelStacks = true;
 	}
 
@@ -28,7 +28,7 @@ public class GoldBoost extends PitEnchant {
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
-		return new ALoreBuilder("&7Earn &6+" + getGoldIncrease(enchantLvl) + "% gold (g) &7from kills").getLore();
+		return new ALoreBuilder("&7Earn &e+" + getGoldIncrease(enchantLvl) + "% Coins &7from kills").getLore();
 	}
 
 	public int getGoldIncrease(int enchantLvl) {

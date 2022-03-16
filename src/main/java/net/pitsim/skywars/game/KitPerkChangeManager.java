@@ -16,6 +16,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class KitPerkChangeManager implements Listener {
 
 
@@ -23,6 +26,12 @@ public class KitPerkChangeManager implements Listener {
 		ItemStack perkItem = new ItemStack(Material.EYE_OF_ENDER);
 		ItemMeta meta = perkItem.getItemMeta();
 		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lChange Perks"));
+		List<String> lore = new ArrayList<>();
+		lore.add(ChatColor.GRAY + "Right-click to equip perks that");
+		lore.add(ChatColor.GRAY + "give you advantages during the");
+		lore.add(ChatColor.GRAY + "game. They can be purchased for");
+		lore.add(ChatColor.GOLD + "coins" + ChatColor.GRAY + " in the Skywars lobby.");
+		meta.setLore(lore);
 		perkItem.setItemMeta(meta);
 
 		player.getInventory().setItem(4, perkItem);
@@ -42,19 +51,6 @@ public class KitPerkChangeManager implements Listener {
 	}
 
 	@EventHandler
-	public void onPurchaseInteract(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		if(Misc.isAirOrNull(player.getItemInHand())) return;
-		if(event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.LEFT_CLICK_AIR) return;
-		if(player.getItemInHand().getType() != Material.EYE_OF_ENDER) return;
-		if(GameManager.status != GameStatus.QUEUE) return;
-		event.setCancelled(true);
-
-		PerkPurchaseGUI perkPurchaseGUI = new PerkPurchaseGUI(player);
-		perkPurchaseGUI.open();
-	}
-
-	@EventHandler
 	public void onDrop(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
 		if(GameManager.status != GameStatus.QUEUE) return;
@@ -69,6 +65,14 @@ public class KitPerkChangeManager implements Listener {
 
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
+		if(GameManager.status != GameStatus.QUEUE) return;
+		if(Misc.isAirOrNull(event.getWhoClicked().getItemInHand())) return;
+		if(event.getWhoClicked().getItemInHand().getType() != Material.EYE_OF_ENDER) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onClick(InventoryInteractEvent event) {
 		if(GameManager.status != GameStatus.QUEUE) return;
 		if(Misc.isAirOrNull(event.getWhoClicked().getItemInHand())) return;
 		if(event.getWhoClicked().getItemInHand().getType() != Material.EYE_OF_ENDER) return;

@@ -200,12 +200,9 @@ public class Misc {
 		dead.getInventory().setBoots(new ItemStack(Material.AIR));
 	}
 
+
 	public static boolean isFull(Chest chest) {
-		for(int i = 0; i < chest.getInventory().getSize(); i++) {
-			ItemStack itemStack = chest.getInventory().getItem(i);
-			if(isAirOrNull(itemStack)) return false;
-		}
-		return true;
+		return chest.getInventory().firstEmpty() == -1;
 	}
 
 	public static boolean isEmpty(Chest chest) {

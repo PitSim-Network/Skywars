@@ -15,6 +15,7 @@ import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.events.KillEvent;
 import net.pitsim.skywars.game.ExperienceManager;
+import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -257,7 +258,7 @@ public class DamageManager implements Listener {
 			dead.removePotionEffect(potionEffect.getType());
 		}
 
-		String kill = "&a&lKILL!&7 on %luckperms_prefix%" + "%player_name%" + " &b+" + killEvent.getFinalXp() + "XP &6+" + (int) killEvent.getFinalcoin() + " Coins";
+		String kill = "&a&lKILL!&7 on %luckperms_prefix%" + "%player_name%" + " &b+" + killEvent.getFinalXp() + "XP &e+" + (int) killEvent.getFinalcoin() + " Coins";
 		String death = "&c&lDEATH! &7by %luckperms_prefix%" + "%player_name%";
 		String killActionBar = "&7%luckperms_prefix%" + "%player_name%" + " &a&lKILL!";
 
@@ -271,6 +272,7 @@ public class DamageManager implements Listener {
 			@Override
 			public void run() {
 
+				GoldManager.pausePlayer(killEvent.killer);
 				Misc.sendActionBar(killEvent.killer, actionBarPlaceholder);
 			}
 		}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -337,6 +339,7 @@ public class DamageManager implements Listener {
 			@Override
 			public void run() {
 
+				GoldManager.pausePlayer(killEvent.killer);
 				Misc.sendActionBar(killEvent.killer, actionBarPlaceholder);
 			}
 		}.runTaskLater(PitSim.INSTANCE, 1L);

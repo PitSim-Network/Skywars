@@ -31,7 +31,7 @@ public class ExperienceManager {
 			AOutput.send(player, formattedLevel(level) + " \u27a4 " + formattedLevel(pitPlayer.stats.level));
 			AOutput.send(player, "");
 			AOutput.send(player, "&eRewards:");
-			AOutput.send(player, "&6+" + new DecimalFormat("###,###,###").format(coinReward(pitPlayer.stats.level)) + " Coins");
+			AOutput.send(player, "&e+" + new DecimalFormat("###,###,###").format(coinReward(pitPlayer.stats.level)) + " Coins");
 			AOutput.send(player, "&8&m--------------------------");
 
 			Misc.sendTitle(player, "&a&lLEVEL UP!", 60);

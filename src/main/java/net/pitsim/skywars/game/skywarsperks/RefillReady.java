@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.game.ChestManager;
+import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.objects.SkywarsChest;
 import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
@@ -49,6 +50,7 @@ public class RefillReady extends SkywarsPerk {
 			if(!SkywarsPerk.hasPerkEquipped(player, "refill_ready")) continue;
 			int tier = SkywarsPerk.getPerkTier(player, "refill_ready");
 			if(tier == 0) continue;
+			if(!GameManager.alivePlayers.contains(player)) continue;
 
 			List<SkywarsChest> chests = SkywarsChest.getChests(-2);
 			for (int i = 0; i < tier; i++) {

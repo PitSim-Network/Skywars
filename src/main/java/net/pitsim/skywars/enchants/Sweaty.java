@@ -4,15 +4,16 @@ import dev.kyro.arcticapi.builders.ALoreBuilder;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.enums.ApplyType;
 import net.pitsim.skywars.events.KillEvent;
+import net.pitsim.skywars.game.KillManager;
 import org.bukkit.event.EventHandler;
 
 import java.util.List;
 
-public class Moctezuma extends PitEnchant {
+public class Sweaty extends PitEnchant {
 
-	public Moctezuma() {
-		super("Moctezuma", false, ApplyType.ALL,
-				"moctezuma", "moct", "moc");
+	public Sweaty() {
+		super("Sweaty", false, ApplyType.ALL,
+				"sweaty", "sw");
 		levelStacks = true;
 	}
 
@@ -22,17 +23,18 @@ public class Moctezuma extends PitEnchant {
 		int enchantLvl = killEvent.getKillerEnchantLevel(this);
 		if(enchantLvl == 0) return;
 
-		killEvent.coinReward += getGoldIncrease(enchantLvl);
+		if(KillManager.kills.containsKey(killEvent.killer))
+			killEvent.xpReward += getXpIncrease(enchantLvl) * KillManager.kills.get(killEvent.killer);
 	}
 
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
-		return new ALoreBuilder("&7Earn &e+" + getGoldIncrease(enchantLvl) + " Coins &7on kill (assists", "&7excluded)").getLore();
+		return new ALoreBuilder("&7On kill, earn &b+" + getXpIncrease(enchantLvl) + " XP &7per", "&7kill this game.").getLore();
 	}
 
-	public int getGoldIncrease(int enchantLvl) {
+	public int getXpIncrease(int enchantLvl) {
 
-		return 5 + (15 * enchantLvl);
+		return enchantLvl * 5;
 	}
 }
