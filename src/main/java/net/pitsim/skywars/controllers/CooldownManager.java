@@ -21,6 +21,7 @@ public class CooldownManager {
 					if(shouldRemove) toRemove.add(cooldownCooldown);
 				}
 				cooldownList.removeAll(toRemove);
+
 			}
 		}.runTaskTimer(PitSim.INSTANCE, 0L, 1L);
 	}

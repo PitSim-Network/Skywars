@@ -2,16 +2,15 @@ package net.pitsim.skywars.enchants;
 
 import dev.kyro.arcticapi.builders.ALoreBuilder;
 import net.pitsim.skywars.PitSim;
+import net.pitsim.skywars.controllers.Cooldown;
+import net.pitsim.skywars.controllers.EnchantManager;
+import net.pitsim.skywars.controllers.SpawnManager;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.ApplyType;
 import net.pitsim.skywars.events.AttackEvent;
-import net.pitsim.skywars.game.GoldManager;
 import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
-import net.pitsim.skywars.controllers.Cooldown;
-import net.pitsim.skywars.controllers.EnchantManager;
-import net.pitsim.skywars.controllers.SpawnManager;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -21,21 +20,16 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Telebow extends PitEnchant {
 
-	public static Telebow INSTANCE;
 	public static List<Arrow> teleShots = new ArrayList<>();
-	public static Map<Player, Cooldown> cooldowns = new HashMap<>();
+	public static Map<UUID, Integer> modifiedCdTimes = new HashMap<>();
 
 	public Telebow() {
 		super("Telebow", true, ApplyType.BOWS,
 				"telebow", "tele");
-		INSTANCE = this;
 	}
 
 	@EventHandler
@@ -45,25 +39,13 @@ public class Telebow extends PitEnchant {
 		if(enchantLvl == 0) return;
 		if(attackEvent.arrow == null) return;
 
-		if(!cooldowns.containsKey(attackEvent.attacker)) {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					GoldManager.pausePlayer(attackEvent.attacker);
-					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &aReady!");
-				}
-			}.runTaskLater(PitSim.INSTANCE, 1L);
-			return;
-		}
-
-		Cooldown cooldown = cooldowns.get(attackEvent.attacker);
+		Cooldown cooldown = getCooldown(attackEvent.attacker, getCooldownTime(attackEvent.attacker, enchantLvl));
 		cooldown.reduceCooldown(60);
 
 		if(cooldown.isOnCooldown()) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					GoldManager.pausePlayer(attackEvent.attacker);
 					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
 				}
 			}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -71,7 +53,6 @@ public class Telebow extends PitEnchant {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					GoldManager.pausePlayer(attackEvent.attacker);
 					Misc.sendActionBar(attackEvent.attacker, "&eTelebow: &aReady!");
 				}
 			}.runTaskLater(PitSim.INSTANCE, 1L);
@@ -102,13 +83,11 @@ public class Telebow extends PitEnchant {
 		if(enchantLvl == 0 || !player.isSneaking()) return;
 
 
-		Cooldown cooldown = getCooldown(player, getCooldownTime(enchantLvl) * 20);
-		cooldowns.put(player, cooldown);
+		Cooldown cooldown = getCooldown(player, getCooldownTime(player, enchantLvl));
 		if(cooldown.isOnCooldown()) {
 
 
 			if(player.isSneaking())
-				GoldManager.pausePlayer(player);
 				Misc.sendActionBar(player, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
 
 			return;
@@ -156,10 +135,15 @@ public class Telebow extends PitEnchant {
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
-		return new ALoreBuilder("&7Sneak to shoot a teleportation &f", "&7arrow (" + getCooldownTime(enchantLvl) + "s cooldown, -3s per bow", "&7hit)").getLore();
+		return new ALoreBuilder("&7Sneak to shoot a teleportation &f", "&7arrow (" + getCooldown(enchantLvl) + "s cooldown, -3s per bow", "&7hit)").getLore();
 	}
 
-	public static int getCooldownTime(int enchantLvl) {
+	public int getCooldownTime(Player player, int enchantLvl) {
+		if(modifiedCdTimes.containsKey(player.getUniqueId())) return modifiedCdTimes.get(player.getUniqueId());
+		else return getCooldown(enchantLvl) * 20;
+	}
+
+	public static int getCooldown(int enchantLvl) {
 
 		switch(enchantLvl) {
 			case 1:
