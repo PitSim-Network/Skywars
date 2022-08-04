@@ -104,12 +104,9 @@ public class Telebow extends PitEnchant {
 
 		Cooldown cooldown = getCooldown(player, getCooldownTime(enchantLvl) * 20);
 		cooldowns.put(player, cooldown);
-		if(cooldown.isOnCooldown()) {
-
-
-			if(player.isSneaking())
-				GoldManager.pausePlayer(player);
-				Misc.sendActionBar(player, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
+		if(cooldown.isOnCooldown() && player.isSneaking()) {
+			GoldManager.pausePlayer(player);
+			Misc.sendActionBar(player, "&eTelebow: &c" + cooldown.getTicksLeft() / 20 + "&cs cooldown!");
 
 			return;
 		}
@@ -149,8 +146,7 @@ public class Telebow extends PitEnchant {
 					}
 				}
 			}
-		} catch(Exception ignored) {
-		}
+		} catch(Exception ignored) { }
 	}
 
 	@Override
@@ -175,7 +171,6 @@ public class Telebow extends PitEnchant {
 			case 6:
 				return 1;
 		}
-
 		return 0;
 	}
 }

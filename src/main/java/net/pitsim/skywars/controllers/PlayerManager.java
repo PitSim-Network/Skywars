@@ -8,6 +8,7 @@ import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.NBTTag;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.GameStatus;
 import net.pitsim.skywars.game.SpectatorManager;
@@ -24,6 +25,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemFlag;
@@ -133,6 +135,14 @@ public class PlayerManager implements Listener {
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10L);
 
+	}
+
+	@EventHandler
+	public void onDamage(EntityDamageEvent event) {
+		if(!(event.getEntity() instanceof Player)) return;
+		if(event.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION && SpectatorManager.spectators.contains((Player) event.getEntity())) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler

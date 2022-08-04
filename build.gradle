@@ -34,7 +34,7 @@ dependencies {
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:6.0'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0";
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.7.3'
-    compileOnly group: 'com.github.koca2000', name: 'NoteBlockAPI', version: '-SNAPSHOT'
+    compileOnly  'com.xxmicloxx:NoteBlockAPI:1.6.2-SNAPSHOT'
     compile 'com.github.ArcticDevelopment:ArcticAPI:fc630bd727'
     compile 'de.tr7zw:item-nbt-api-plugin:2.8.0'// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
