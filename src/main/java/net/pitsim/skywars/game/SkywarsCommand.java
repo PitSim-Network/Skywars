@@ -33,6 +33,18 @@ public class SkywarsCommand implements CommandExecutor {
 			PitSim.INSTANCE.onInit();
 		}
 
+
+		if(!(sender instanceof Player)) return false;
+		Player player = (Player) sender;
+		if(!player.isOp()) return false;
+
+		if(args[0].equals("start")) {
+			QueueManager.override = true;
+			QueueManager.countdown();
+			QueueManager.setSeconds(10);
+			QueueManager.setMinutes(0);
+		}
+
 		return false;
 	}
 }

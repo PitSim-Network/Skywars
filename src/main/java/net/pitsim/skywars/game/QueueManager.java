@@ -29,6 +29,7 @@ import java.util.Map;
 public class QueueManager implements Listener {
 	public static BukkitTask countdown = null;
 
+	public static boolean override = false;
 	public static int maxPlayers = 12;
 	public static int minPlayers = 3;
 	public static int quickStartPlayers = 6;
@@ -92,11 +93,19 @@ public class QueueManager implements Listener {
 
 	private static int minutes;
 	private static int seconds;
-	private boolean isQuickStart = false;
+	private static boolean isQuickStart = false;
 
-	public void countdown() {
+	public static void setSeconds(int set) {
+		seconds = set;
+	}
+
+	public static void setMinutes(int set) {
+		minutes = set;
+	}
+
+	public static void countdown() {
 		if(countdown == null) {
-			if(GameManager.alivePlayers.size() < minPlayers) return;
+			if(!override && GameManager.alivePlayers.size() < minPlayers) return;
 			minutes = timerStartMinutes;
 			seconds = 0;
 			countdown = new BukkitRunnable() {

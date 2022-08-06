@@ -26,6 +26,7 @@ public class GameManager {
 	}
 
 	public static void startGame() {
+		ChestManager.onGameStart();
 		status = GameStatus.ACTIVE;
 		PluginMessageSender.sendStart();
 		GameClock.countdown();

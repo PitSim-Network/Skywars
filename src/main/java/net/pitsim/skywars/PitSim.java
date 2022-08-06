@@ -176,8 +176,6 @@ public class PitSim extends JavaPlugin {
 		registerCommands();
 		registerListeners();
 
-		ChestManager.onGameStart();
-
 		GameManager.init();
 	}
 
