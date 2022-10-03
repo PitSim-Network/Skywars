@@ -46,21 +46,21 @@ public class Aegis extends SkywarsPerk {
 
 	@EventHandler
 	public void onHit(AttackEvent.Pre event) {
-		Player player = event.defender;
-		if(!SkywarsPerk.hasPerkEquipped(player, refName)) return;
-		int tier = SkywarsPerk.getPerkTier(player, refName);
-		if(tier == 0) return;
-
-		int seconds = 65 - (5 * tier);
-
-		Cooldown cooldown = PitEnchant.getCooldown(player, seconds * 20);
-		if(!cooldown.isOnCooldown()) {
-			event.setCancelled(true);
-			cooldown.reset();
-			AOutput.send(event.attacker, PlaceholderAPI.setPlaceholders(player, "&3&lAEGIS &7%luckperms_prefix%" + player.getDisplayName() + " &7blocked your hit."));
-			Sounds.AEGIS.play(player.getLocation());
-			player.getWorld().playEffect(player.getLocation(), Effect.EXPLOSION_LARGE, Effect.EXPLOSION_LARGE.getData(), 100);
-		}
+//		Player player = event.defender;
+//		if(!SkywarsPerk.hasPerkEquipped(player, refName)) return;
+//		int tier = SkywarsPerk.getPerkTier(player, refName);
+//		if(tier == 0) return;
+//
+//		int seconds = 65 - (5 * tier);
+//
+//		Cooldown cooldown = PitEnchant.getCooldown(player, seconds * 20);
+//		if(!cooldown.isOnCooldown()) {
+//			event.setCancelled(true);
+//			cooldown.reset();
+//			AOutput.send(event.attacker, PlaceholderAPI.setPlaceholders(player, "&3&lAEGIS &7%luckperms_prefix%" + player.getDisplayName() + " &7blocked your hit."));
+//			Sounds.AEGIS.play(player.getLocation());
+//			player.getWorld().playEffect(player.getLocation(), Effect.EXPLOSION_LARGE, Effect.EXPLOSION_LARGE.getData(), 100);
+//		}
 	}
 
 	@Override

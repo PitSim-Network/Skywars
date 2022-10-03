@@ -65,7 +65,10 @@ public class GoldManager implements Listener {
             openedChests.put(player, new ArrayList<>(Collections.singletonList(chest)));
         } else playerChests.add(chest);
 
-        int obtainedGold = 50 + (150 * chest.tier);
+        int obtainedGold = (int) ((1000 * chest.tier) * Math.random()) + 100;
+
+
+
         boolean banker = false;
         if(SkywarsPerk.hasPerkEquipped(player, "banker") && SkywarsPerk.getPerkTier(player, "banker") != 0) {
             if(!GameClock.refill && openedChests.get(player).size() <= SkywarsPerk.getPerkTier(player, "banker")) {
