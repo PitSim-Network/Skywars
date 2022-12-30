@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
 //    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
     compileOnly files('libs/ispigot.jar')
-    compileOnly 'net.citizensnpcs:citizens-main:2.0.27-SNAPSHOT'
+    compileOnly 'net.citizensnpcs:citizensapi:2.0.27-20210513.145026-95'
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
     compileOnly "me.clip:placeholderapi:2.10.9"
     compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'

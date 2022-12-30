@@ -20,70 +20,73 @@ import java.util.*;
 
 public class GoldManager implements Listener {
 
-    public static Map<Player, ArrayList<SkywarsChest>> openedChests = new HashMap<>();
-    public static Map<Player, Integer> gold = new HashMap<>();
-    public static List<Player> pausedPlayers = new ArrayList<>();
+	public static Map<Player, ArrayList<SkywarsChest>> openedChests = new HashMap<>();
+	public static Map<Player, Integer> gold = new HashMap<>();
+	public static List<Player> pausedPlayers = new ArrayList<>();
 
-    static {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if(GameManager.status == GameStatus.QUEUE) return;
-                for (Player player : GameManager.alivePlayers) {
-                    if(pausedPlayers.contains(player)) continue;
-                    Misc.sendActionBar(player, "&6" + gold.get(player) + "g");
-                }
-            }
-        }.runTaskTimer(PitSim.INSTANCE, 20, 20);
-    }
+	static {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(GameManager.status == GameStatus.QUEUE) return;
+				for (Player player : GameManager.alivePlayers) {
+					if(pausedPlayers.contains(player)) continue;
+					Misc.sendActionBar(player, "&6" + gold.get(player) + "g");
+				}
+			}
+		}.runTaskTimer(PitSim.INSTANCE, 20, 20);
+	}
 
-    public static void pausePlayer(Player player) {
-        pausedPlayers.add(player);
+	public static void pausePlayer(Player player) {
+		pausedPlayers.add(player);
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                pausedPlayers.remove(player);
-            }
-        }.runTaskLater(PitSim.INSTANCE, 60);
-    }
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				pausedPlayers.remove(player);
+			}
+		}.runTaskLater(PitSim.INSTANCE, 60);
+	}
 
-    @EventHandler(priority = EventPriority.LOW)
-    public void onOpen(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        if(event.getClickedBlock().getType() != Material.CHEST) return;
-        if(!GameManager.alivePlayers.contains(player)) return;
+	@EventHandler(priority = EventPriority.LOW)
+	public void onOpen(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		if(event.getClickedBlock().getType() != Material.CHEST) return;
+		if(!GameManager.alivePlayers.contains(player)) return;
 
-        SkywarsChest chest = SkywarsChest.getChest(event.getClickedBlock().getLocation());
-        if(chest == null) return;
+		SkywarsChest chest = SkywarsChest.getChest(event.getClickedBlock().getLocation());
+		if(chest == null) return;
 
-        ArrayList<SkywarsChest> playerChests = openedChests.get(player);
-        if(openedChests.containsKey(player) && playerChests.contains(chest)) return;
+		ArrayList<SkywarsChest> playerChests = openedChests.get(player);
+		if(openedChests.containsKey(player) && playerChests.contains(chest)) return;
 
-        if(!openedChests.containsKey(player)) {
-            openedChests.put(player, new ArrayList<>(Collections.singletonList(chest)));
-        } else playerChests.add(chest);
-
-        int obtainedGold = 50 + (150 * chest.tier);
-        boolean banker = false;
-        if(SkywarsPerk.hasPerkEquipped(player, "banker") && SkywarsPerk.getPerkTier(player, "banker") != 0) {
-            if(!GameClock.refill && openedChests.get(player).size() <= SkywarsPerk.getPerkTier(player, "banker")) {
-                obtainedGold *= 2;
-                banker = true;
-            }
-        }
-
-        if(!gold.containsKey(player)) {
-            gold.put(player, obtainedGold);
-        } else gold.put(player, gold.get(player) + obtainedGold);
-
-        Sounds.ASSIST.play(player);
-        String message = "&6+" + new DecimalFormat("###,###,###").format(obtainedGold) + "g (" + new DecimalFormat("###,###,###").format(gold.get(player)) + "g)";
-        if(banker) message += " &a&lBANKER &e2x";
-        pausePlayer(player);
-        Misc.sendActionBar(player, message);
+		if(!openedChests.containsKey(player)) {
+			openedChests.put(player, new ArrayList<>(Collections.singletonList(chest)));
+		} else playerChests.add(chest);
 
 
-    }
+		int obtainedGold = new Random().nextInt(500 * chest.tier) + 250 * chest.tier;
+
+
+		boolean banker = false;
+		if(SkywarsPerk.hasPerkEquipped(player, "banker") && SkywarsPerk.getPerkTier(player, "banker") != 0) {
+			if(!GameClock.refill && openedChests.get(player).size() <= SkywarsPerk.getPerkTier(player, "banker")) {
+				obtainedGold *= 2;
+				banker = true;
+			}
+		}
+
+		if(!gold.containsKey(player)) {
+			gold.put(player, obtainedGold);
+		} else gold.put(player, gold.get(player) + obtainedGold);
+
+		Sounds.ASSIST.play(player);
+		String message = "&6+" + new DecimalFormat("###,###,###").format(obtainedGold) + "g (" + new DecimalFormat("###,###,###").format(gold.get(player)) + "g)";
+		if(banker) message += " &a&lBANKER &e2x";
+		pausePlayer(player);
+		Misc.sendActionBar(player, message);
+
+
+	}
 }
