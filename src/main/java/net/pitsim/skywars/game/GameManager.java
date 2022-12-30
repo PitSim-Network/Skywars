@@ -151,8 +151,7 @@ public class GameManager {
 			public void run() {
 				try {
 					AOutput.send(winner, "&eGame Win: &b+200XP");
-				} catch(Exception ignored) {
-				}
+				} catch(Exception ignored) { }
 			}
 		}.runTaskLater(PitSim.INSTANCE, 40L);
 
@@ -160,6 +159,7 @@ public class GameManager {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				PluginMessageSender.sendEnd();
 				PluginMessageSender.sendToLobby();
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10 * 20L);
