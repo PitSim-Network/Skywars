@@ -2,7 +2,6 @@ package net.pitsim.skywars.misc;
 
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.npc.skin.SkinnableEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -119,14 +118,4 @@ public class SpawnNPCs implements Listener {
 //		}
 	}
 
-	public static void skin(NPC npc, String name) {
-		npc.data().set(NPC.PLAYER_SKIN_UUID_METADATA, name);
-		npc.data().set(NPC.PLAYER_SKIN_USE_LATEST, false);
-		if(npc.isSpawned()) {
-			SkinnableEntity skinnable = (SkinnableEntity) npc.getEntity();
-			if(skinnable != null) {
-				skinnable.setSkinName(name);
-			}
-		}
-	}
 }

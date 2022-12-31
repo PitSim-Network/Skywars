@@ -21,7 +21,7 @@ public abstract class PitEnchant implements Listener {
 	public boolean levelStacks = false;
 	public boolean meleOnly = false;
 	public boolean fakeHits = false;
-	public static Map<UUID, Cooldown> cooldowns = new HashMap<>();
+	public Map<UUID, Cooldown> cooldowns = new HashMap<>();
 
 	private String overrideName;
 
@@ -50,7 +50,7 @@ public abstract class PitEnchant implements Listener {
 		return true;
 	}
 
-	public static Cooldown getCooldown(Player player, int time) {
+	public Cooldown getCooldown(Player player, int time) {
 
 		if(cooldowns.containsKey(player.getUniqueId())) {
 			Cooldown cooldown = cooldowns.get(player.getUniqueId());

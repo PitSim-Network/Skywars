@@ -72,6 +72,42 @@ public class PluginMessageSender {
 		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
 	}
 
+	public static void sendPassQuest() {
+		String id = PitSim.INSTANCE.getConfig().getString("server-ID");
+		if(id == null) return;
+
+
+		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		out.writeUTF("Forward"); // So BungeeCord knows to forward it
+		out.writeUTF("ALL");
+		out.writeUTF("Skywars");
+
+		ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
+		DataOutputStream msgout = new DataOutputStream(msgbytes);
+		try {
+			msgout.writeUTF(id);
+			msgout.writeUTF("PASS_QUEST");
+
+			StringBuilder builder = new StringBuilder();
+			for(int i = 0; i < GameManager.questQualified.size(); i++) {
+				builder.append(GameManager.questQualified.get(i));
+				if(i + 1 != GameManager.questQualified.size()) builder.append(",");
+			}
+			msgout.writeUTF(builder.toString());
+
+			msgout.writeUTF("");
+		} catch(IOException exception) {
+			exception.printStackTrace();
+		}
+
+		out.writeShort(msgbytes.toByteArray().length);
+		out.write(msgbytes.toByteArray());
+
+		Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+		assert p != null;
+		p.sendPluginMessage(PitSim.INSTANCE, "BungeeCord", out.toByteArray());
+	}
+
 	public static void sendToLobby() {
 
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();

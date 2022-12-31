@@ -16,10 +16,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class GameManager {
 	public static GameStatus status;
 	public static List<Player> alivePlayers = new ArrayList<>();
+
+	public static List<UUID> questQualified = new ArrayList<>();
 
 	public static void init() {
 		status = GameStatus.QUEUE;
@@ -74,6 +77,8 @@ public class GameManager {
 			Player player = entry.getKey();
 			int kills = entry.getValue();
 
+			if(kills > 0) questQualified.add(player.getUniqueId());
+
 			if(highestKey == null) highestKey = player;
 			if(highestValue == 0) highestValue = kills;
 
@@ -82,6 +87,8 @@ public class GameManager {
 				highestValue = kills;
 			}
 		}
+
+		PluginMessageSender.sendPassQuest();
 		killer1 = highestKey;
 		kills1 = highestValue;
 		KillManager.kills.remove(highestKey);
@@ -151,8 +158,7 @@ public class GameManager {
 			public void run() {
 				try {
 					AOutput.send(winner, "&eGame Win: &b+200XP");
-				} catch(Exception ignored) {
-				}
+				} catch(Exception ignored) { }
 			}
 		}.runTaskLater(PitSim.INSTANCE, 40L);
 
@@ -160,6 +166,7 @@ public class GameManager {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				PluginMessageSender.sendEnd();
 				PluginMessageSender.sendToLobby();
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10 * 20L);
@@ -170,6 +177,13 @@ public class GameManager {
 		for(Player alivePlayer : GameManager.alivePlayers) {
 			Sounds.LEVEL_UP.play(alivePlayer);
 		}
+
+		for(Map.Entry<Player, Integer> entry : KillManager.kills.entrySet()) {
+			if(entry.getValue() > 0) questQualified.add(entry.getKey().getUniqueId());
+		}
+
+		PluginMessageSender.sendPassQuest();
+
 		AOutput.broadcast("&8&m--------------------------");
 		AOutput.broadcast("&6&lTIE GAME");
 		AOutput.broadcast("");

@@ -1,11 +1,9 @@
 package net.pitsim.skywars.game.skywarsperks;
 
 import dev.kyro.arcticapi.misc.AUtil;
-import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.events.AttackEvent;
 import net.pitsim.skywars.game.KillManager;
-import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -46,7 +44,7 @@ public class KillChain extends SkywarsPerk {
 		int tier = SkywarsPerk.getPerkTier(attackEvent.attacker, refName);
 		if(tier == 0) return;
 
-		double damageIncrease = KillManager.kills.get(attackEvent.attacker) * (SkywarsPerk.getPerkTier(attackEvent.attacker, refName));
+		double damageIncrease = KillManager.kills.getOrDefault(attackEvent.attacker, 0) * (SkywarsPerk.getPerkTier(attackEvent.attacker, refName));
 		attackEvent.increasePercent += damageIncrease;
 	}
 

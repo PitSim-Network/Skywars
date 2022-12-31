@@ -12,6 +12,7 @@ import net.pitsim.skywars.misc.Misc;
 import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -207,6 +208,9 @@ public class QueueManager implements Listener {
 		if(GameManager.status == GameStatus.QUEUE) {
 			player.getInventory().clear();
 			Misc.clearArmor(player);
+			player.setGameMode(GameMode.SURVIVAL);
+			player.setFlying(false);
+			player.setAllowFlight(false);
 			ExperienceManager.setXPBar(player);
 			GameManager.alivePlayers.add(player);
 			KitPerkChangeManager.givePerkChange(player);
