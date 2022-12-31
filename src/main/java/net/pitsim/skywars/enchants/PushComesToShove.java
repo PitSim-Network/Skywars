@@ -29,12 +29,11 @@ public class PushComesToShove extends PitEnchant {
 		int enchantLvl = attackEvent.getAttackerEnchantLevel(this);
 		if(enchantLvl == 0) return;
 		PitPlayer pitAttacker = PitPlayer.getPitPlayer(attackEvent.attacker);
-		PitPlayer pitDefender = PitPlayer.getPitPlayer(attackEvent.defender);
 
 		HitCounter.incrementCounter(pitAttacker.player, this);
 		if(!HitCounter.hasReachedThreshold(pitAttacker.player, this, 3)) return;
 
-		Cooldown cooldown = getCooldown(attackEvent.attacker, 200);
+		Cooldown cooldown = getCooldown(attackEvent.attacker, getCooldownSeconds() * 20);
 		if(cooldown.isOnCooldown()) return;
 		else cooldown.reset();
 
@@ -42,23 +41,24 @@ public class PushComesToShove extends PitEnchant {
 		velocity.setY(0);
 
 		attackEvent.defender.setVelocity(velocity);
-
 	}
 
 	@Override
 	public List<String> getDescription(int enchantLvl) {
 
 		return new ALoreBuilder("&7Every 3rd shot on a player has",
-				"&bPunch " + AUtil.toRoman(getPunchLevel(enchantLvl)) + " &7(5s cooldown)").getLore();
+				"&bPunch " + AUtil.toRoman(getPunchLevel(enchantLvl)) + " &7(" + getCooldownSeconds() + "s cooldown)").getLore();
 	}
 
 	public int getPunchMultiplier(int enchantLvl) {
-
-		return (int) Math.floor(Math.pow(enchantLvl, 0.67) * 22) - 10;
+		return enchantLvl * 8;
 	}
 
 	public int getPunchLevel(int enchantLvl) {
-
 		return enchantLvl * 2 + 1;
+	}
+
+	public int getCooldownSeconds() {
+		return 12;
 	}
 }
