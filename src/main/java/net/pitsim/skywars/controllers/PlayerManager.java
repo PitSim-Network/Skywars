@@ -7,8 +7,6 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.pitsim.skywars.PitSim;
 import net.pitsim.skywars.controllers.objects.PitPlayer;
 import net.pitsim.skywars.enums.NBTTag;
-import net.pitsim.skywars.events.AttackEvent;
-import net.pitsim.skywars.events.DeathEvent;
 import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.GameStatus;
 import net.pitsim.skywars.game.SpectatorManager;
@@ -32,7 +30,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,27 +148,14 @@ public class PlayerManager implements Listener {
 	}
 
 	@EventHandler
-	public void onAttack(AttackEvent.Apply attackEvent) {
-
-//		Arch chest
-		attackEvent.multiplier.add(0.85);
-	}
-
-	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
 
+		player.setSaturation(Float.MAX_VALUE);
+
 		FeatherBoardAPI.resetDefaultScoreboard(event.getPlayer());
 		FeatherBoardAPI.showScoreboard(event.getPlayer(), "queue");
-	}
-
-
-	@EventHandler
-	public void onJoin(PlayerSpawnLocationEvent event) {
-		Player player = event.getPlayer();
-		PitPlayer pitPlayer = PitPlayer.getPitPlayer(player);
-
 	}
 
 	@EventHandler
@@ -187,18 +171,6 @@ public class PlayerManager implements Listener {
 		if(player.isOnline()) {
 			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.RED + "You are already online! \nIf you believe this is an error, try re-logging in a few seconds.");
 		}
-	}
-
-	@EventHandler
-	public static void onJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-		if(!player.isOp()) return;
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				Bukkit.dispatchCommand(player, "buzz exempt");
-			}
-		}.runTaskLater(PitSim.INSTANCE, 1L);
 	}
 
 	@EventHandler
