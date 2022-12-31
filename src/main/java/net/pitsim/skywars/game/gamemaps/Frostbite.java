@@ -46,58 +46,53 @@ public class Frostbite extends GameMap {
 
 	@Override
 	public List<SkywarsChest> getChests() {
+		new SkywarsChest(new Location(MapManager.getWorld(), -61, 68, -54), 1, 0);
+		new SkywarsChest(new Location(MapManager.getWorld(), -56, 70, -64), 1, 0);
+		new SkywarsChest(new Location(MapManager.getWorld(), -64, 69, -67), 1, 0);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), -61, 68, -54), 1, 1);
-		new SkywarsChest(new Location(MapManager.getWorld(), -56, 70, -64), 1, 1);
-		new SkywarsChest(new Location(MapManager.getWorld(), -64, 69, -67), 1, 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -17, 68, -80), 1, 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -27, 70, -80), 1, 1);
+		new SkywarsChest(new Location(MapManager.getWorld(), -26, 69, -88), 1, 1);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), -17, 68, -80), 1, 2);
-		new SkywarsChest(new Location(MapManager.getWorld(), -27, 70, -80), 1, 2);
-		new SkywarsChest(new Location(MapManager.getWorld(), -26, 69, -88), 1, 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 16, 68, -80), 1, 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 27, 70, -80), 1, 2);
+		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, -88), 1, 2);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 16, 68, -80), 1, 3);
-		new SkywarsChest(new Location(MapManager.getWorld(), 27, 70, -80), 1, 3);
-		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, -88), 1, 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 61, 68, -55), 1, 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 56, 70, -64), 1, 3);
+		new SkywarsChest(new Location(MapManager.getWorld(), 62, 70, -65), 1, 3);
 
+		new SkywarsChest(new Location(MapManager.getWorld(), 77, 68, -26), 1, 4);
+		new SkywarsChest(new Location(MapManager.getWorld(), 83, 70, -17), 1, 4);
+		new SkywarsChest(new Location(MapManager.getWorld(), 89, 69, -21), 1, 4);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 61, 68, -55), 1, 4);
-		new SkywarsChest(new Location(MapManager.getWorld(), 56, 70, -64), 1, 4);
-		new SkywarsChest(new Location(MapManager.getWorld(), 62, 70, -65), 1, 4);
+		new SkywarsChest(new Location(MapManager.getWorld(), 78, 68, 25), 1, 5);
+		new SkywarsChest(new Location(MapManager.getWorld(), 83, 70, 17), 1, 5);
+		new SkywarsChest(new Location(MapManager.getWorld(), 89, 69, 21), 1, 5);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 77, 68, -26), 1, 5);
-		new SkywarsChest(new Location(MapManager.getWorld(), 83, 70, -17), 1, 5);
-		new SkywarsChest(new Location(MapManager.getWorld(), 89, 69, -21), 1, 5);
+		new SkywarsChest(new Location(MapManager.getWorld(), 61, 68, 54), 1, 6);
+		new SkywarsChest(new Location(MapManager.getWorld(), 56, 70, 64), 1, 6);
+		new SkywarsChest(new Location(MapManager.getWorld(), 63, 69, 67), 1, 6);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 78, 68, 25), 1, 6);
-		new SkywarsChest(new Location(MapManager.getWorld(), 83, 70, 17), 1, 6);
-		new SkywarsChest(new Location(MapManager.getWorld(), 89, 69, 21), 1, 6);
+		new SkywarsChest(new Location(MapManager.getWorld(), 17, 68, 80), 1, 7);
+		new SkywarsChest(new Location(MapManager.getWorld(), 27, 70, 80), 1, 7);
+		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, 88), 1, 7);
 
+		new SkywarsChest(new Location(MapManager.getWorld(), -16, 68, 80), 1, 8);
+		new SkywarsChest(new Location(MapManager.getWorld(), -27, 70, 80), 1, 8);
+		new SkywarsChest(new Location(MapManager.getWorld(), -26, 69, 88), 1, 8);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 61, 68, 54), 1, 7);
-		new SkywarsChest(new Location(MapManager.getWorld(), 56, 70, 64), 1, 7);
-		new SkywarsChest(new Location(MapManager.getWorld(), 63, 69, 67), 1, 7);
+		new SkywarsChest(new Location(MapManager.getWorld(), -61, 68, 55), 1, 9);
+		new SkywarsChest(new Location(MapManager.getWorld(), -56, 70, 64), 1, 9);
+		new SkywarsChest(new Location(MapManager.getWorld(), -62, 70, 65), 1, 9);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), 17, 68, 80), 1, 8);
-		new SkywarsChest(new Location(MapManager.getWorld(), 27, 70, 80), 1, 8);
-		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, 88), 1, 8);
+		new SkywarsChest(new Location(MapManager.getWorld(), -77, 68, 26), 1, 10);
+		new SkywarsChest(new Location(MapManager.getWorld(), -83, 70, 17), 1, 10);
+		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, 88), 1, 10);
 
-		new SkywarsChest(new Location(MapManager.getWorld(), -16, 68, 80), 1, 9);
-		new SkywarsChest(new Location(MapManager.getWorld(), -27, 70, 80), 1, 9);
-		new SkywarsChest(new Location(MapManager.getWorld(), -26, 69, 88), 1, 9);
-
-
-		new SkywarsChest(new Location(MapManager.getWorld(), -61, 68, 55), 1, 10);
-		new SkywarsChest(new Location(MapManager.getWorld(), -56, 70, 64), 1, 10);
-		new SkywarsChest(new Location(MapManager.getWorld(), -62, 70, 65), 1, 10);
-
-		new SkywarsChest(new Location(MapManager.getWorld(), -77, 68, 26), 1, 11);
-		new SkywarsChest(new Location(MapManager.getWorld(), -83, 70, 17), 1, 11);
-		new SkywarsChest(new Location(MapManager.getWorld(), 26, 69, 88), 1, 11);
-
-		new SkywarsChest(new Location(MapManager.getWorld(), -78, 68, -25), 1, 12);
-		new SkywarsChest(new Location(MapManager.getWorld(), -84, 70, -17), 1, 12);
-		new SkywarsChest(new Location(MapManager.getWorld(), -89, 69, -21), 1, 12);
-
+		new SkywarsChest(new Location(MapManager.getWorld(), -78, 68, -25), 1, 11);
+		new SkywarsChest(new Location(MapManager.getWorld(), -84, 70, -17), 1, 11);
+		new SkywarsChest(new Location(MapManager.getWorld(), -89, 69, -21), 1, 11);
 
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, -62), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, -52), 2, -1);
@@ -108,7 +103,6 @@ public class Frostbite extends GameMap {
 		new SkywarsChest(new Location(MapManager.getWorld(), 54, 68, 31), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), 45, 68, 26), 2, -1);
 
-
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, 62), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 68, 52), 2, -1);
 
@@ -117,7 +111,6 @@ public class Frostbite extends GameMap {
 
 		new SkywarsChest(new Location(MapManager.getWorld(), -54, 68, -31), 2, -1);
 		new SkywarsChest(new Location(MapManager.getWorld(), -45, 68, -26), 2, -1);
-
 
 		new SkywarsChest(new Location(MapManager.getWorld(), 0, 70, -17), 3, -2);
 		new SkywarsChest(new Location(MapManager.getWorld(), 15, 70, -9), 3, -2);

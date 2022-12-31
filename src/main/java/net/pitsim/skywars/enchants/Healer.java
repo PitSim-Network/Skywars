@@ -32,7 +32,7 @@ public class Healer extends PitEnchant {
 		if(cooldown.isOnCooldown()) return;
 		else cooldown.reset();
 
-		attackEvent.multiplier.add(0d);
+		attackEvent.multipliers.add(0d);
 		pitAttacker.heal(0.5 + (0.5 * enchantLvl));
 		pitDefender.heal(getHealing(enchantLvl));
 

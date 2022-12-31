@@ -70,7 +70,7 @@ public class ChestManager {
 			Location location = chest.location;
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
-			for(int i = 0; i < chestBlock.getInventory().getSize(); i++) {
+			for(int i = 0; i < 27; i++) {
 				chestBlock.getInventory().setItem(i, new ItemStack(Material.AIR));
 			}
 		}
@@ -104,7 +104,7 @@ public class ChestManager {
 
 	public static void distributeSpawnEssentials() {
 		for(int i = 0; i < 12; i++) {
-			List<SkywarsChest> chests = SkywarsChest.getIslandChests(i + 1);
+			List<SkywarsChest> chests = SkywarsChest.getIslandChests(i);
 
 			List<ItemStack> armor = new ArrayList<>();
 
