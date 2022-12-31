@@ -1,5 +1,6 @@
 package net.pitsim.skywars.game.skywarsperks;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -48,7 +49,7 @@ public class Locksmith extends SkywarsPerk {
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if(SpectatorManager.spectators.contains(player)) return;
+		if(SpectatorManager.spectators.contains(player) || VanishAPI.isInvisible(player)) return;
 
 		if(!SkywarsPerk.hasPerkEquipped(player, refName)) return;
 		int tier = SkywarsPerk.getPerkTier(player, refName);
