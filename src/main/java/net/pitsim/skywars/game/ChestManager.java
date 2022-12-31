@@ -86,8 +86,8 @@ public class ChestManager {
 			if(Misc.isFull(chestBlock)) continue;
 
 			for(int i = 0; i < 6; i++) {
-				if(Misc.isFull(chestBlock)) continue;
-				int randSlot = getRandomSlot(chestBlock);
+				int randSlot = getRandomFullSlot(chestBlock);
+				if(randSlot == -1) continue;
 
 				if(i == 0 || i == 1) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
@@ -139,8 +139,8 @@ public class ChestManager {
 			SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
 
-			if(Misc.isFull(chestBlock)) continue;
-			int randSlot = getRandomSlot(chestBlock);
+			int randSlot = getRandomFullSlot(chestBlock);
+			if(randSlot == -1) continue;
 
 			ItemStack itemStack = items.get(i);
 			chestBlock.getInventory().setItem(randSlot, itemStack);
@@ -186,8 +186,8 @@ public class ChestManager {
 		for(SkywarsChest blockChest : chests) {
 			Chest chestBlock = (Chest) blockChest.location.getBlock().getState();
 
-			if(Misc.isFull(chestBlock)) continue;
-			int randSlot = getRandomSlot(chestBlock);
+			int randSlot = getRandomFullSlot(chestBlock);
+			if(randSlot == -1) continue;
 
 			double blockRand = Math.random();
 			if(blockRand <= 0.5) {
@@ -220,19 +220,29 @@ public class ChestManager {
 			Chest chestBlock = (Chest) block.getState();
 
 			if(Misc.isFull(chestBlock)) continue;
-			int randSlot = getRandomSlot(chestBlock);
+			int randSlot = getRandomFullSlot(chestBlock);
 
 			chestBlock.getInventory().setItem(randSlot, compass);
 		}
 	}
 
-	public static int getRandomSlot(Chest chest) {
+	public static int getRandomEmptySlot(Chest chest) {
+		return getRandomSlots(chest, false);
+	}
+
+	public static int getRandomFullSlot(Chest chest) {
+		return getRandomSlots(chest, true);
+	}
+
+	private static int getRandomSlots(Chest chest, boolean slotsWithItems) {
 		List<Integer> emptySlots = new ArrayList<>();
 		for(int i = 0; i < 27; i++) {
-			if(!Misc.isAirOrNull(chest.getInventory().getItem(i))) continue;
+			boolean isEmpty = Misc.isAirOrNull(chest.getInventory().getItem(i));
+			if(!slotsWithItems && !isEmpty) continue;
+			if(slotsWithItems && isEmpty) continue;
 			emptySlots.add(i);
 		}
-		if(emptySlots.isEmpty()) throw new RuntimeException();
+		if(emptySlots.isEmpty()) return -1;
 		Collections.shuffle(emptySlots);
 		return emptySlots.get(0);
 	}

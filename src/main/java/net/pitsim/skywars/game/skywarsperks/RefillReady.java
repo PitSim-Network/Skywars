@@ -6,7 +6,6 @@ import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.game.ChestManager;
 import net.pitsim.skywars.game.GameManager;
 import net.pitsim.skywars.game.objects.SkywarsChest;
-import net.pitsim.skywars.misc.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -57,15 +56,10 @@ public class RefillReady extends SkywarsPerk {
 				Random randChest = new Random();
 				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
-				if(Misc.isEmpty(chestBlock)) continue;
 
-				int randSlot = ChestManager.getRandomSlot();
-				for(int k = 0; k < 1; k++) {
-					if(Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-						k--;
-						randSlot = ChestManager.getRandomSlot();
-					}
-				}
+				int randSlot = ChestManager.getRandomEmptySlot(chestBlock);
+				if(randSlot == -1) continue;
+
 				AUtil.giveItemSafely(player, chestBlock.getInventory().getItem(randSlot));
 				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.AIR));
 			}
