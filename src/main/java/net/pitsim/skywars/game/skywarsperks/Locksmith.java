@@ -48,7 +48,7 @@ public class Locksmith extends SkywarsPerk {
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if(SpectatorManager.spectators.contains(event.getPlayer())) return;
+		if(SpectatorManager.spectators.contains(player)) return;
 
 		if(!SkywarsPerk.hasPerkEquipped(player, refName)) return;
 		int tier = SkywarsPerk.getPerkTier(player, refName);
