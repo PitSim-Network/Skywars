@@ -40,7 +40,7 @@ public class Locksmith extends SkywarsPerk {
 		lore.add("");
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&7Each tier:"));
 		lore.add(ChatColor.translateAlternateColorCodes('&', "&eChests &7you open are locked"));
-		lore.add(ChatColor.translateAlternateColorCodes('&', "&7for other players for &f5s&7."));
+		lore.add(ChatColor.translateAlternateColorCodes('&', "&7for other players for +&f5s&7."));
 		return lore;
 	}
 
