@@ -28,7 +28,7 @@ public class CompassManager {
 					List<Entity> entities = player.getNearbyEntities(500, 500, 500);
 
 					Player nearestPlayer = null;
-					double distance = 100000;
+					double distance = Double.MAX_VALUE;
 
 					for(Entity entity : entities) {
 						if(!(entity instanceof Player)) continue;

@@ -52,18 +52,18 @@ public class RefillReady extends SkywarsPerk {
 			if(tier == 0) continue;
 			if(!GameManager.alivePlayers.contains(player)) continue;
 
-			List<SkywarsChest> chests = SkywarsChest.getChests(-2);
+			List<SkywarsChest> chests = SkywarsChest.getIslandChests(-2);
 			for (int i = 0; i < tier; i++) {
 				Random randChest = new Random();
 				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
 				if(Misc.isEmpty(chestBlock)) continue;
 
-				int randSlot = ChestManager.getRandomNumber();
+				int randSlot = ChestManager.getRandomSlot();
 				for(int k = 0; k < 1; k++) {
 					if(Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
 						k--;
-						randSlot = ChestManager.getRandomNumber();
+						randSlot = ChestManager.getRandomSlot();
 					}
 				}
 				AUtil.giveItemSafely(player, chestBlock.getInventory().getItem(randSlot));

@@ -20,7 +20,7 @@ public class SkywarsChest {
 		chests.add(this);
 	}
 
-	public static List<SkywarsChest> getChests(int islandNum) {
+	public static List<SkywarsChest> getIslandChests(int islandNum) {
 		List<SkywarsChest> isChests = new ArrayList<>();
 		for(SkywarsChest chest : chests) {
 			if(chest.islandNum == islandNum) isChests.add(chest);

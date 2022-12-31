@@ -19,16 +19,61 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class ChestManager {
+	public static ItemStack compass;
+
+	static {
+		compass = new ItemStack(Material.COMPASS);
+		ItemMeta meta = compass.getItemMeta();
+		List<String> compassLore = new ArrayList<>();
+		meta.setDisplayName(ChatColor.GREEN + "Player Tracker");
+		compassLore.add(ChatColor.GRAY + "Displays the location of");
+		compassLore.add(ChatColor.GRAY + "the nearest player.");
+		meta.setLore(compassLore);
+		compass.setItemMeta(meta);
+	}
 
 	public static void onGameStart() {
-		GameMap map = MapManager.map;
 		CompassManager.onGameStart();
+
+		distributeMystics();
+		distributeSpawnEssentials();
+		distributeProt();
+		distributeFeathers();
+		distributeBlocks();
+		distributeCompasses();
+	}
+
+	public static void refillChests() {
+		distributeMystics();
+		distributeSpawnEssentials();
+		distributeProt();
+		distributeFeathers();
+		distributeBlocks();
+		distributeCompasses();
+		RefillReady.onRefill();
+
+		for(Player player : Bukkit.getOnlinePlayers()) Sounds.CHEST_REFILL.play(player);
+		AOutput.broadcast("&aChests refilled!");
+	}
+
+	public static void distributeMystics() {
+		GoldManager.openedChests.clear();
+		GameMap map = MapManager.map;
+
+		for(SkywarsChest chest : map.getChests()) {
+			Location location = chest.location;
+			Block block = location.getBlock();
+			Chest chestBlock = (Chest) block.getState();
+			for(int i = 0; i < chestBlock.getInventory().getSize(); i++) {
+				chestBlock.getInventory().setItem(i, new ItemStack(Material.AIR));
+			}
+		}
 
 		for(SkywarsChest chest : map.getChests()) {
 
@@ -38,18 +83,11 @@ public class ChestManager {
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
+			if(Misc.isFull(chestBlock)) continue;
+
 			for(int i = 0; i < 6; i++) {
-				int randSlot = getRandomNumber();
-
 				if(Misc.isFull(chestBlock)) continue;
-
-				for(int j = 0; j < 1; j++) {
-					if(Misc.isFull(chestBlock)) break;
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getItem(randSlot))) {
-						j--;
-						randSlot = getRandomNumber();
-					}
-				}
+				int randSlot = getRandomSlot(chestBlock);
 
 				if(i == 0 || i == 1) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
@@ -60,21 +98,13 @@ public class ChestManager {
 				if(i == 4 || i == 5) {
 					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.PANTS, tier));
 				}
-
 			}
-
-
 		}
-		distributeArmor();
-		distributeProt();
-		distributeFeathers();
-		distributeBlocks();
-		distributeCompasses();
 	}
 
-	public static void distributeArmor() {
+	public static void distributeSpawnEssentials() {
 		for(int i = 0; i < 12; i++) {
-			List<SkywarsChest> chests = SkywarsChest.getChests(i + 1);
+			List<SkywarsChest> chests = SkywarsChest.getIslandChests(i + 1);
 
 			List<ItemStack> armor = new ArrayList<>();
 
@@ -99,30 +129,28 @@ public class ChestManager {
 			if(toolRand <= 0.5) armor.add(new ItemStack(Material.DIAMOND_PICKAXE));
 			else armor.add(new ItemStack(Material.DIAMOND_AXE));
 
-			for(int j = 0; j < 6; j++) {
-				Random randChest = new Random();
-				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
-				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
-				if(Misc.isFull(chestBlock)) continue;
+			distributeItems(chests, armor);
+		}
+	}
 
-				int randSlot = getRandomNumber();
-				for(int k = 0; k < 1; k++) {
-					if(Misc.isFull(chestBlock)) break;
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-						k--;
-						randSlot = getRandomNumber();
-					}
-				}
-				chestBlock.getInventory().setItem(randSlot, armor.get(0));
-				armor.remove(0);
-			}
+	public static void distributeItems(List<SkywarsChest> chests, List<ItemStack> items) {
+		for(int i = 0; i < items.size(); i++) {
+			Random randChest = new Random();
+			SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
+			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
+
+			if(Misc.isFull(chestBlock)) continue;
+			int randSlot = getRandomSlot(chestBlock);
+
+			ItemStack itemStack = items.get(i);
+			chestBlock.getInventory().setItem(randSlot, itemStack);
 		}
 	}
 
 	public static void distributeProt() {
-		List<SkywarsChest> protChests = new ArrayList<>();
-		protChests.addAll(SkywarsChest.getChests(-1));
-		protChests.addAll(SkywarsChest.getChests(-2));
+		List<SkywarsChest> chests = new ArrayList<>();
+		chests.addAll(SkywarsChest.getIslandChests(-1));
+		chests.addAll(SkywarsChest.getIslandChests(-2));
 
 		List<ItemStack> prot = new ArrayList<>();
 		ItemStack helmet = new ItemStack(Material.DIAMOND_HELMET);
@@ -149,49 +177,29 @@ public class ChestManager {
 		prot.add(YummyBread.getYummyBread(5));
 		prot.add(YummyBread.getYummyBread(5));
 
-		for(int j = 0; j < 14; j++) {
-			Random randChest = new Random();
-			SkywarsChest pickedChest = protChests.get(randChest.nextInt(protChests.size()));
-			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
-			if(Misc.isFull(chestBlock)) continue;
-
-			int randSlot = getRandomNumber();
-			for(int k = 0; k < 1; k++) {
-				if(Misc.isFull(chestBlock)) break;
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-					k--;
-					randSlot = getRandomNumber();
-				}
-			}
-			chestBlock.getInventory().setItem(randSlot, prot.get(0));
-			prot.remove(0);
-		}
+		distributeItems(chests, prot);
 	}
 
 	public static void distributeBlocks() {
-		List<SkywarsChest> blockChests = new ArrayList<>(SkywarsChest.getChests(-1));
+		List<SkywarsChest> chests = new ArrayList<>(SkywarsChest.getIslandChests(-1));
 
-		for(SkywarsChest blockChest : blockChests) {
+		for(SkywarsChest blockChest : chests) {
 			Chest chestBlock = (Chest) blockChest.location.getBlock().getState();
-			if(Misc.isFull(chestBlock)) continue;
-			int randSlot = getRandomNumber();
-			for(int k = 0; k < 1; k++) {
-				if(Misc.isFull(chestBlock)) break;
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-					k--;
-					randSlot = getRandomNumber();
-				}
-			}
-			double blockTypeRand = Math.random();
-			if(blockTypeRand <= 0.5) {
-				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.STONE, 64));
-			} else chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.WOOD, 64));
 
+			if(Misc.isFull(chestBlock)) continue;
+			int randSlot = getRandomSlot(chestBlock);
+
+			double blockRand = Math.random();
+			if(blockRand <= 0.5) {
+				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.STONE, 64));
+			} else {
+				chestBlock.getInventory().setItem(randSlot, new ItemStack(Material.WOOD, 64));
+			}
 		}
 	}
 
 	public static void distributeFeathers() {
-		List<SkywarsChest> featherChests = new ArrayList<>(SkywarsChest.getChests(-2));
+		List<SkywarsChest> chests = new ArrayList<>(SkywarsChest.getIslandChests(-2));
 
 		List<ItemStack> feathers = new ArrayList<>();
 		feathers.add(FunkyFeather.getFeather(1));
@@ -200,121 +208,32 @@ public class ChestManager {
 		feathers.add(FunkyFeather.getFeather(1));
 		feathers.add(FunkyFeather.getFeather(1));
 
-		for(int j = 0; j < 5; j++) {
-			Random randChest = new Random();
-			SkywarsChest pickedChest = featherChests.get(randChest.nextInt(featherChests.size()));
-			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
-			if(Misc.isFull(chestBlock)) continue;
-
-			int randSlot = getRandomNumber();
-			for(int k = 0; k < 1; k++) {
-				if(Misc.isFull(chestBlock)) break;
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-					k--;
-					randSlot = getRandomNumber();
-				}
-			}
-			chestBlock.getInventory().setItem(randSlot, feathers.get(0));
-			feathers.remove(0);
-		}
+		distributeItems(chests, feathers);
 	}
 
 	public static void distributeCompasses() {
 		for(SkywarsChest chest : SkywarsChest.chests) {
 			if(chest.tier != 3) continue;
+			if(Math.random() < 0.5) continue;
 
 			Block block = chest.location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
-			double d = Math.random();
-			if(d < 0.5) continue;
-
 			if(Misc.isFull(chestBlock)) continue;
+			int randSlot = getRandomSlot(chestBlock);
 
-			ItemStack compass = new ItemStack(Material.COMPASS);
-			ItemMeta meta = compass.getItemMeta();
-			List<String> compassLore = new ArrayList<>();
-			meta.setDisplayName(ChatColor.GREEN + "Player Tracker");
-			compassLore.add(ChatColor.GRAY + "Displays the location of");
-			compassLore.add(ChatColor.GRAY + "the nearest player.");
-			meta.setLore(compassLore);
-			compass.setItemMeta(meta);
-
-			int randSlot = getRandomNumber();
-			for(int k = 0; k < 1; k++) {
-				if(Misc.isFull(chestBlock)) break;
-				if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-					k--;
-					randSlot = getRandomNumber();
-				}
-			}
 			chestBlock.getInventory().setItem(randSlot, compass);
 		}
 	}
 
-	public static void refillChests() {
-		for(Player player : Bukkit.getOnlinePlayers()) {
-			Sounds.CHEST_REFILL.play(player);
+	public static int getRandomSlot(Chest chest) {
+		List<Integer> emptySlots = new ArrayList<>();
+		for(int i = 0; i < 27; i++) {
+			if(!Misc.isAirOrNull(chest.getInventory().getItem(i))) continue;
+			emptySlots.add(i);
 		}
-		AOutput.broadcast("&aChests refilled!");
-		GoldManager.openedChests.clear();
-		GameMap map = MapManager.map;
-
-		for(SkywarsChest chest : map.getChests()) {
-			Location location = chest.location;
-			Block block = location.getBlock();
-			Chest chestBlock = (Chest) block.getState();
-			for(int i = 0; i < chestBlock.getInventory().getSize(); i++) {
-				chestBlock.getInventory().setItem(i, new ItemStack(Material.AIR));
-			}
-		}
-
-		for(SkywarsChest chest : map.getChests()) {
-
-			Location location = chest.location;
-			int tier = chest.tier;
-
-			Block block = location.getBlock();
-			Chest chestBlock = (Chest) block.getState();
-
-			if(Misc.isFull(chestBlock)) continue;
-
-			for(int i = 0; i < 6; i++) {
-				int randSlot = getRandomNumber();
-				if(Misc.isFull(chestBlock)) continue;
-
-				for(int j = 0; j < 1; j++) {
-					if(Misc.isFull(chestBlock)) break;
-					if(!Misc.isAirOrNull(chestBlock.getInventory().getContents()[randSlot])) {
-						j--;
-						randSlot = getRandomNumber();
-					}
-				}
-
-				if(i == 0 || i == 1) {
-					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.SWORD, tier));
-				}
-				if(i == 2 || i == 3) {
-					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.BOW, tier));
-				}
-				if(i == 4 || i == 5) {
-					chestBlock.getInventory().setItem(randSlot, MysticFactory.createItem(MysticType.PANTS, tier));
-				}
-
-			}
-
-
-		}
-		distributeArmor();
-		distributeProt();
-		distributeFeathers();
-		distributeBlocks();
-		distributeCompasses();
-		RefillReady.onRefill();
-	}
-
-
-	public static int getRandomNumber() {
-		return (int) (Math.random() * 27);
+		if(emptySlots.isEmpty()) throw new RuntimeException();
+		Collections.shuffle(emptySlots);
+		return emptySlots.get(0);
 	}
 }
