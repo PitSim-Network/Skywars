@@ -28,7 +28,6 @@ import net.pitsim.skywars.game.*;
 import net.pitsim.skywars.game.skywarsperks.*;
 import net.pitsim.skywars.game.sql.TableManager;
 import net.pitsim.skywars.misc.PreGameScoreboard;
-import net.pitsim.skywars.misc.SpawnNPCs;
 import net.pitsim.skywars.misc.YummyBread;
 import net.pitsim.skywars.perks.NoPerk;
 import net.pitsim.skywars.perks.Vampire;
@@ -108,8 +107,6 @@ public class PitSim extends JavaPlugin {
 			toRemove.remove(0);
 		}
 
-		SpawnNPCs.createNPCs();
-
 		if(!setupEconomy()) {
 			AOutput.log(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
@@ -178,10 +175,6 @@ public class PitSim extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-
-		SpawnNPCs.removeNPCs();
-
-
 		for(PitEnchant pitEnchant : EnchantManager.pitEnchants) pitEnchant.onDisable();
 
 		Iterator<Map.Entry<Player, EntitySongPlayer>> it = StereoManager.playerMusic.entrySet().iterator();
@@ -243,7 +236,6 @@ public class PitSim extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SpawnManager(), this);
 		getServer().getPluginManager().registerEvents(new AFKManager(), this);
 		getServer().getPluginManager().registerEvents(new EnchantManager(), this);
-		getServer().getPluginManager().registerEvents(new SpawnNPCs(), this);
 		getServer().getPluginManager().registerEvents(new QueueManager(), this);
 		getServer().getPluginManager().registerEvents(new KillManager(), this);
 		getServer().getPluginManager().registerEvents(new SpectatorManager(), this);
