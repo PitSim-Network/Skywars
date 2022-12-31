@@ -22,7 +22,7 @@ public class PluginMessageSender {
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		out.writeUTF("Forward"); // So BungeeCord knows to forward it
 		out.writeUTF("ALL");
-		out.writeUTF("Skywars");
+		out.writeUTF("skywars");
 
 		ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
 		DataOutputStream msgout = new DataOutputStream(msgbytes);
@@ -51,7 +51,7 @@ public class PluginMessageSender {
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		out.writeUTF("Forward"); // So BungeeCord knows to forward it
 		out.writeUTF("ALL");
-		out.writeUTF("Skywars");
+		out.writeUTF("skywars");
 
 		ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
 		DataOutputStream msgout = new DataOutputStream(msgbytes);
