@@ -51,9 +51,7 @@ public class ComboPerun extends PitEnchant {
 
 			attackEvent.trueDamage += damage;
 		} else {
-			double damage = 2;
-
-			attackEvent.trueDamage += damage;
+			attackEvent.trueDamage += getTrueDamage(enchantLvl);
 		}
 
 		Misc.strikeLightningForPlayers(attackEvent.defender.getLocation(), 10);
@@ -63,14 +61,12 @@ public class ComboPerun extends PitEnchant {
 	public List<String> getDescription(int enchantLvl) {
 
 		if(enchantLvl == 3) {
-
-			return new ALoreBuilder("&7Every &efourth &7hit strikes", "&elightning &7for &c1\u2764 &7+ &c0.5\u2764",
+			return new ALoreBuilder("&7Every &efourth &7hit strikes", "&elightning &7for &c" + Misc.getHearts(2) + " &7+ &c" + Misc.getHearts(1),
 					"&7per &bdiamond piece &7on your", "&7victim.", "&7(Lightning deals true damage)").getLore();
 		}
 
 		return new ALoreBuilder("&7Every&e" + Misc.ordinalWords(getStrikes(enchantLvl)) + " &7hit strikes",
-				"&elightning &7for &c" + Misc.getHearts(2) + " &7+ &c" + Misc.getHearts(getTrueDamage(enchantLvl)) + " &7if the victim",
-				"&7is a non (Lightning deals true damage)").getLore();
+				"&elightning &7for &c" + Misc.getHearts(getTrueDamage(enchantLvl))).getLore();
 	}
 
 	public double getTrueDamage(int enchantLvl) {
