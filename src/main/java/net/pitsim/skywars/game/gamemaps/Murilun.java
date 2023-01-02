@@ -44,7 +44,7 @@ public class Murilun extends GameMap {
 	}
 
 	@Override
-	public List<SkywarsChest> getChests() {
+	public List<SkywarsChest> initializeChests() {
 		new SkywarsChest(new Location(MapManager.getWorld(), -29, 68, -50), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -27, 72, -49), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -28, 63, -49), 1, 0);

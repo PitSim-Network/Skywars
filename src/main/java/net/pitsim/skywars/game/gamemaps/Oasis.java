@@ -45,7 +45,7 @@ public class Oasis extends GameMap {
 	}
 
 	@Override
-	public List<SkywarsChest> getChests() {
+	public List<SkywarsChest> initializeChests() {
 		new SkywarsChest(new Location(MapManager.getWorld(), 3, 70, -90), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -2, 72, -100), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), 7, 65, -98), 1, 0);

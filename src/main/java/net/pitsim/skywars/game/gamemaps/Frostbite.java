@@ -45,7 +45,7 @@ public class Frostbite extends GameMap {
 	}
 
 	@Override
-	public List<SkywarsChest> getChests() {
+	public List<SkywarsChest> initializeChests() {
 		new SkywarsChest(new Location(MapManager.getWorld(), -61, 68, -54), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -56, 70, -64), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -64, 69, -67), 1, 0);

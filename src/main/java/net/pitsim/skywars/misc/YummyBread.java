@@ -20,7 +20,6 @@ public class YummyBread implements Listener {
 	@EventHandler
 	public void onEat(PlayerItemConsumeEvent event) {
 		Player player = event.getPlayer();
-		event.getPlayer().setFoodLevel(19);
 
 		if(Misc.isAirOrNull(event.getItem())) return;
 		NBTItem nbtItem = new NBTItem(event.getItem());

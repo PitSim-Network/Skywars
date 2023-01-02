@@ -24,6 +24,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemFlag;
@@ -38,7 +39,8 @@ import java.util.UUID;
 //import net.kyori.adventure.audience.Audience;
 
 public class PlayerManager implements Listener {
-	//	public static Map<Player, BossBarManager> bossBars = new HashMap<>();
+	public static List<UUID> pantsSwapCooldown = new ArrayList<>();
+
 	static {
 		new BukkitRunnable() {
 			@Override
@@ -49,7 +51,16 @@ public class PlayerManager implements Listener {
 		}.runTaskTimer(PitSim.INSTANCE, 0L, 20L);
 	}
 
-	public static List<UUID> pantsSwapCooldown = new ArrayList<>();
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		player.setFoodLevel(19);
+	}
+
+	@EventHandler
+	public void onFoodLevelChange(FoodLevelChangeEvent event) {
+		event.setCancelled(true);
+	}
 
 	@EventHandler
 	public static void onClick(PlayerInteractEvent event) {

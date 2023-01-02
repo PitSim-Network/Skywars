@@ -45,7 +45,7 @@ public class Countryside extends GameMap {
 	}
 
 	@Override
-	public List<SkywarsChest> getChests() {
+	public List<SkywarsChest> initializeChests() {
 		new SkywarsChest(new Location(MapManager.getWorld(), 6, 66, -68), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), -6, 66, -82), 1, 0);
 		new SkywarsChest(new Location(MapManager.getWorld(), 3, 66, -84), 1, 0);
