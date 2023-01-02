@@ -3,6 +3,7 @@ package net.pitsim.skywars.game.skywarsperks;
 import dev.kyro.arcticapi.misc.AUtil;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.events.AttackEvent;
+import net.pitsim.skywars.misc.Misc;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -19,7 +20,6 @@ public class Gladiator extends SkywarsPerk {
 		super("Gladiator", "gladiator",
 				Arrays.asList(500, 750, 1000, 5000, 10000));
 	}
-
 
 	@Override
 	public Material getMaterial() {
@@ -39,22 +39,18 @@ public class Gladiator extends SkywarsPerk {
 	}
 
 	@EventHandler
-	public void onHit(AttackEvent.Apply event) {
-		int tier = SkywarsPerk.getPerkTier(event.defender, refName);
-		if(tier == 0 || !SkywarsPerk.hasPerkEquipped(event.defender, refName)) return;
+	public void onHit(AttackEvent.Apply attackEvent) {
+		int tier = SkywarsPerk.getPerkTier(attackEvent.defender, refName);
+		if(tier == 0 || !SkywarsPerk.hasPerkEquipped(attackEvent.defender, refName)) return;
 
-		List<Entity> nearbyPlayers = new ArrayList<>(event.defender.getNearbyEntities(12, 12 , 12));
-		List<Entity> toRemove = new ArrayList<>();
-
-		for (Entity nearbyPlayer : nearbyPlayers) {
-			if(!(nearbyPlayer instanceof Player)) toRemove.add(nearbyPlayer);
-		}
-		for (Entity entity : toRemove) {
-			nearbyPlayers.remove(entity);
+		int nearbyPlayers = 0;
+		for(Entity nearbyEntity : attackEvent.defender.getNearbyEntities(12, 12, 12)) {
+			if(!(nearbyEntity instanceof Player)) continue;
+			nearbyPlayers++;
 		}
 
-		int reduction = tier * nearbyPlayers.size();
-		event.decreasePercent += reduction;
+		int reduction = tier * nearbyPlayers;
+		attackEvent.multipliers.add(Misc.getReductionMultiplier(reduction));
 	}
 
 	@Override
