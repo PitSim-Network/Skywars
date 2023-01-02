@@ -30,8 +30,8 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import java.util.*;
 
 public class EnchantManager implements Listener {
-
 	public static List<PitEnchant> pitEnchants = new ArrayList<>();
+	public static Map<MysticType, List<PitEnchant>> enchantMap = new HashMap<>();
 
 	public static List<PitEnchant> swordCommon = new ArrayList<>();
 	public static List<PitEnchant> swordUncommon = new ArrayList<>();
@@ -49,7 +49,6 @@ public class EnchantManager implements Listener {
 	public static List<PitEnchant> allUncommon = new ArrayList<>();
 	public static List<PitEnchant> allRare = new ArrayList<>();
 
-
 	public static void registerEnchant(PitEnchant pitEnchant) {
 		pitEnchants.add(pitEnchant);
 
@@ -57,15 +56,11 @@ public class EnchantManager implements Listener {
 			if(pitEnchant.isRare) swordRare.add(pitEnchant);
 			else if(pitEnchant.isUncommonEnchant) swordUncommon.add(pitEnchant);
 			else swordCommon.add(pitEnchant);
-		}
-
-		if(pitEnchant.applyType == ApplyType.BOWS) {
+		} else if(pitEnchant.applyType == ApplyType.BOWS) {
 			if(pitEnchant.isRare) bowRare.add(pitEnchant);
 			else if(pitEnchant.isUncommonEnchant) bowUncommon.add(pitEnchant);
 			else bowCommon.add(pitEnchant);
-		}
-
-		if(pitEnchant.applyType == ApplyType.PANTS) {
+		} else if(pitEnchant.applyType == ApplyType.PANTS) {
 			if(pitEnchant.isRare) pantsRare.add(pitEnchant);
 			else if(pitEnchant.isUncommonEnchant) pantsUncommon.add(pitEnchant);
 			else pantsCommon.add(pitEnchant);
@@ -78,6 +73,10 @@ public class EnchantManager implements Listener {
 		}
 
 		PitSim.INSTANCE.getServer().getPluginManager().registerEvents(pitEnchant, PitSim.INSTANCE);
+	}
+
+	public static void populateMap() {
+		for(MysticType mysticType : MysticType.values()) enchantMap.put(mysticType, new ArrayList<>(getEnchants(mysticType)));
 	}
 
 	public static boolean canTypeApply(ItemStack itemStack, PitEnchant pitEnchant) {

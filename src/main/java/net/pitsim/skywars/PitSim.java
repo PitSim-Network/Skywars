@@ -45,8 +45,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-//import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-
 public class PitSim extends JavaPlugin {
 
 	public static LuckPerms LUCKPERMS;
@@ -56,14 +54,6 @@ public class PitSim extends JavaPlugin {
 
 	public static AData playerList;
 	public MySQL mysql;
-//	private BukkitAudiences adventure;
-//
-//	public BukkitAudiences adventure() {
-//		if(this.adventure == null) {
-//			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-//		}
-//		return this.adventure;
-//	}
 
 	@Override
 	public void onEnable() {
@@ -184,17 +174,14 @@ public class PitSim extends JavaPlugin {
 			esp.destroy();
 			it.remove();
 		}
-
 	}
 
 	private void registerPerks() {
 		PerkManager.registerUpgrade(new NoPerk());
 		PerkManager.registerUpgrade(new Vampire());
-
 	}
 
 	private void registerCommands() {
-
 		ABaseCommand adminCommand = new BaseAdminCommand("pitsim");
 		getCommand("ps").setExecutor(adminCommand);
 		adminCommand.registerCommand(new ReloadCommand("reload"));
@@ -340,9 +327,6 @@ public class PitSim extends JavaPlugin {
 		EnchantManager.registerEnchant(new CounterOffensive());
 		EnchantManager.registerEnchant(new LastStand());
 		EnchantManager.registerEnchant(new Stereo());
-//		EnchantManager.registerEnchant(new DiamondAllergy());
-//		EnchantManager.registerEnchant(new PitBlob());
-//		EnchantManager.registerEnchant(new WolfPack());
 
 //		Resource Enchants
 		EnchantManager.registerEnchant(new Moctezuma());
@@ -350,6 +334,6 @@ public class PitSim extends JavaPlugin {
 		EnchantManager.registerEnchant(new CoinBoost());
 
 		EnchantManager.registerEnchant(new Sweaty());
-//		EnchantManager.registerEnchant(new XpBump());
+		EnchantManager.populateMap();
 	}
 }
