@@ -13,8 +13,6 @@ import net.pitsim.skywars.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,7 +23,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FeatherManager implements Listener {
 	public static Map<Player, List<Location>> previousLocationMap = new HashMap<>();
@@ -49,7 +50,6 @@ public class FeatherManager implements Listener {
 
 		List<Location> previousLocations = previousLocationMap.get(player);
 		Location location = null;
-		System.out.println(previousLocations.size());
 		for(int i = 0; i < 40; i++) {
 			if(previousLocations.isEmpty()) break;
 			location = previousLocations.remove(0);
