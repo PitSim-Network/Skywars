@@ -57,7 +57,7 @@ public class RefillReady extends SkywarsPerk {
 				SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 				Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
 
-				int randSlot = ChestManager.getRandomEmptySlot(chestBlock);
+				int randSlot = ChestManager.getRandomFullSlot(chestBlock);
 				if(randSlot == -1) continue;
 
 				AUtil.giveItemSafely(player, chestBlock.getInventory().getItem(randSlot));

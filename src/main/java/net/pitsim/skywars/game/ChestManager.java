@@ -83,10 +83,8 @@ public class ChestManager {
 			Block block = location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
-			if(Misc.isFull(chestBlock)) continue;
-
 			for(int i = 0; i < 6; i++) {
-				int randSlot = getRandomFullSlot(chestBlock);
+				int randSlot = getRandomEmptySlot(chestBlock);
 				if(randSlot == -1) continue;
 
 				if(i == 0 || i == 1) {
@@ -139,7 +137,7 @@ public class ChestManager {
 			SkywarsChest pickedChest = chests.get(randChest.nextInt(chests.size()));
 			Chest chestBlock = (Chest) pickedChest.location.getBlock().getState();
 
-			int randSlot = getRandomFullSlot(chestBlock);
+			int randSlot = getRandomEmptySlot(chestBlock);
 			if(randSlot == -1) continue;
 
 			ItemStack itemStack = items.get(i);
@@ -186,7 +184,7 @@ public class ChestManager {
 		for(SkywarsChest blockChest : chests) {
 			Chest chestBlock = (Chest) blockChest.location.getBlock().getState();
 
-			int randSlot = getRandomFullSlot(chestBlock);
+			int randSlot = getRandomEmptySlot(chestBlock);
 			if(randSlot == -1) continue;
 
 			double blockRand = Math.random();
@@ -219,8 +217,8 @@ public class ChestManager {
 			Block block = chest.location.getBlock();
 			Chest chestBlock = (Chest) block.getState();
 
-			if(Misc.isFull(chestBlock)) continue;
-			int randSlot = getRandomFullSlot(chestBlock);
+			int randSlot = getRandomEmptySlot(chestBlock);
+			if(randSlot == -1) continue;
 
 			chestBlock.getInventory().setItem(randSlot, compass);
 		}
