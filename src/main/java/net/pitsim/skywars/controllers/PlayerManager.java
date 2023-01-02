@@ -55,6 +55,7 @@ public class PlayerManager implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		player.setFoodLevel(19);
+		player.setFireTicks(0);
 	}
 
 	@EventHandler
