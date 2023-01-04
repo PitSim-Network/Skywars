@@ -65,7 +65,6 @@ public class GoldManager implements Listener {
 			openedChests.put(player, new ArrayList<>(Collections.singletonList(chest)));
 		} else playerChests.add(chest);
 
-
 		int obtainedGold = new Random().nextInt(500 * chest.tier) + 250 * chest.tier;
 
 

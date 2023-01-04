@@ -110,7 +110,7 @@ public class FeatherManager implements Listener {
 			}
 
 			if(GameManager.status == GameStatus.QUEUE) {
-				player.teleport(MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(player)));
+				player.teleport(MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(player) - 1));
 				return;
 			}
 
