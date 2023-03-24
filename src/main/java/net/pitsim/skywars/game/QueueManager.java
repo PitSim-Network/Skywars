@@ -49,7 +49,7 @@ public class QueueManager implements Listener {
 		Misc.clearArmor(player);
 		ExperienceManager.setXPBar(player);
 		if(VanishAPI.isInvisible(player)) {
-			event.getPlayer().teleport(new Location(MapManager.getWorld(), 0, 100, 0));
+			player.teleport(new Location(MapManager.getWorld(), 0, 100, 0));
 			player.setAllowFlight(true);
 			player.setFlying(true);
 			AOutput.send(player, "&aYou are currently vanished. Un-vanish to join the game.");
@@ -62,15 +62,20 @@ public class QueueManager implements Listener {
 		AOutput.broadcast(PlaceholderAPI.setPlaceholders(player, name) + " &ehas joined &7(&e" +
 				GameManager.alivePlayers.size() + "&7/&e" + maxPlayers + "&7)");
 
-
 		assignCage(player);
 		if(!playerCages.containsKey(player)) {
 			player.kickPlayer("&cThis game is currently full!");
 			return;
 		}
-		Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player) - 1);
 
+		Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player) - 1);
 		player.teleport(spawnLocation);
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				player.teleport(spawnLocation);
+			}
+		}.runTaskLater(PitSim.INSTANCE, 1L);
 
 		countdown();
 	}
