@@ -68,7 +68,7 @@ public class QueueManager implements Listener {
 			return;
 		}
 
-		Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player) - 1);
+		Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player));
 		player.teleport(spawnLocation);
 		new BukkitRunnable() {
 			@Override
@@ -163,7 +163,7 @@ public class QueueManager implements Listener {
 		}
 	}
 
-	public static void  assignCage(Player player) {
+	public static void assignCage(Player player) {
 		for(Map.Entry<Integer, Location> entry : MapManager.map.getSpawnLocations().entrySet()) {
 			int num = entry.getKey();
 			int cage = (num % 4) * 3 + num / 4;
@@ -200,7 +200,7 @@ public class QueueManager implements Listener {
 						event.getPlayer().kickPlayer(ChatColor.RED + "There was an error while loading your client.");
 						return;
 					}
-					event.getPlayer().teleport(MapManager.map.getSpawnLocations().get(cage - 1));
+					event.getPlayer().teleport(MapManager.map.getSpawnLocations().get(cage));
 				}
 			}
 		}.runTaskLater(PitSim.INSTANCE, 10L);
@@ -230,7 +230,7 @@ public class QueueManager implements Listener {
 				player.kickPlayer("&cThis game is currently full!");
 				return;
 			}
-			Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player) - 1);
+			Location spawnLocation = MapManager.map.getSpawnLocations().get(playerCages.get(player));
 
 			new BukkitRunnable() {
 				@Override

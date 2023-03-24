@@ -14,6 +14,9 @@ public class TableManager {
 				.column("username", "VARCHAR(255) NOT NULL")
 				.column("ms_wins", "INT(11)")
 				.column("ms_kills", "INT(11)")
+				.column("level", "INT(11)")
+				.column("level_xp", "INT(11)")
+				.column("coins", "INT(11)")
 
 				.primaryKey("uuid")
 				.build();

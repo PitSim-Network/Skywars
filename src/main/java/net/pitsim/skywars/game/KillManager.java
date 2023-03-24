@@ -26,7 +26,7 @@ public class KillManager implements Listener {
 	@EventHandler
 	public void onKill(KillEvent event) {
 		if(GameManager.status == GameStatus.QUEUE) {
-			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.dead) - 1);
+			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.dead));
 			event.dead.teleport(loc);
 			return;
 		} else if(GameManager.status == GameStatus.ENDING) {
@@ -76,7 +76,7 @@ public class KillManager implements Listener {
 	@EventHandler
 	public void onDeath(DeathEvent event) {
 		if(GameManager.status == GameStatus.QUEUE) {
-			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.getPlayer()) - 1);
+			Location loc = MapManager.map.getSpawnLocations().get(QueueManager.playerCages.get(event.getPlayer()));
 			event.getPlayer().teleport(loc);
 			return;
 		} else if(GameManager.status == GameStatus.ENDING) {
