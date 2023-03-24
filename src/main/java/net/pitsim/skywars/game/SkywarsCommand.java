@@ -11,7 +11,10 @@ public class SkywarsCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(!(sender instanceof Player)) return false;
+		if(!(sender instanceof Player)) {
+			if(args[0].equals("load")) PitSim.INSTANCE.onInit();
+			return false;
+		}
 		Player player = (Player) sender;
 		if(args.length == 0) return false;
 
@@ -27,13 +30,6 @@ public class SkywarsCommand implements CommandExecutor {
 			QueueManager.setSeconds(10);
 			QueueManager.setMinutes(0);
 		}
-
-		if(!player.isOp()) return false;
-
-		if(command.equals("load")) {
-			PitSim.INSTANCE.onInit();
-		}
-
 		return false;
 	}
 }
