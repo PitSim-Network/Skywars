@@ -25,21 +25,21 @@ public class Countryside extends GameMap {
 		Map<Integer, Location> spawnLocations = new HashMap<>();
 
 		//North
-		spawnLocations.put(1, new Location(MapManager.getWorld(), 0.5, cageHeight, -70.5, 0, 0));
-		spawnLocations.put(2, new Location(MapManager.getWorld(), 36.5, cageHeight, -60.5, 0, 0));
-		spawnLocations.put(3, new Location(MapManager.getWorld(), 61.5, cageHeight, -35.5, 90, 0));
+		spawnLocations.put(0, new Location(MapManager.getWorld(), 0.5, cageHeight, -70.5, 0, 0));
+		spawnLocations.put(1, new Location(MapManager.getWorld(), 36.5, cageHeight, -60.5, 0, 0));
+		spawnLocations.put(2, new Location(MapManager.getWorld(), 61.5, cageHeight, -35.5, 90, 0));
 //East
-		spawnLocations.put(4, new Location(MapManager.getWorld(), 71.5, cageHeight, 0.5, 90, 0));
-		spawnLocations.put(5, new Location(MapManager.getWorld(), 61.5, cageHeight, 36.5, 90, 0));
-		spawnLocations.put(6, new Location(MapManager.getWorld(), 36.5, cageHeight, 61.5, 180, 0));
+		spawnLocations.put(3, new Location(MapManager.getWorld(), 71.5, cageHeight, 0.5, 90, 0));
+		spawnLocations.put(4, new Location(MapManager.getWorld(), 61.5, cageHeight, 36.5, 90, 0));
+		spawnLocations.put(5, new Location(MapManager.getWorld(), 36.5, cageHeight, 61.5, 180, 0));
 //South
-		spawnLocations.put(7, new Location(MapManager.getWorld(), 0.5, cageHeight, 71.5, 180, 0));
-		spawnLocations.put(8, new Location(MapManager.getWorld(), -35.5, cageHeight, 61.5, 180, 0));
-		spawnLocations.put(9, new Location(MapManager.getWorld(), -60.5, cageHeight, 36.5, -90, 0));
+		spawnLocations.put(6, new Location(MapManager.getWorld(), 0.5, cageHeight, 71.5, 180, 0));
+		spawnLocations.put(7, new Location(MapManager.getWorld(), -35.5, cageHeight, 61.5, 180, 0));
+		spawnLocations.put(8, new Location(MapManager.getWorld(), -60.5, cageHeight, 36.5, -90, 0));
 //West
-		spawnLocations.put(10, new Location(MapManager.getWorld(), -70.5, cageHeight, 0.5, -90, 0));
-		spawnLocations.put(11, new Location(MapManager.getWorld(), -60.5, cageHeight, -35.5, -90, 0));
-		spawnLocations.put(12, new Location(MapManager.getWorld(), -35.5, cageHeight, -60.5, 0, 0));
+		spawnLocations.put(9, new Location(MapManager.getWorld(), -70.5, cageHeight, 0.5, -90, 0));
+		spawnLocations.put(10, new Location(MapManager.getWorld(), -60.5, cageHeight, -35.5, -90, 0));
+		spawnLocations.put(11, new Location(MapManager.getWorld(), -35.5, cageHeight, -60.5, 0, 0));
 
 		return spawnLocations;
 	}

@@ -24,22 +24,22 @@ public class Frostbite extends GameMap {
 	public Map<Integer, Location> getSpawnLocations() {
 		Map<Integer, Location> spawnLocations = new HashMap<>();
 
-		//North
-		spawnLocations.put(1, new Location(MapManager.getWorld(), -57.5, cageHeight, -55.5, 0, 0));
-		spawnLocations.put(2, new Location(MapManager.getWorld(), -19.5, cageHeight, -77.5, -45, 0));
-		spawnLocations.put(3, new Location(MapManager.getWorld(), 19.5, cageHeight, -77.5, 45, 0));
+//North
+		spawnLocations.put(0, new Location(MapManager.getWorld(), -57.5, cageHeight, -55.5, 0, 0));
+		spawnLocations.put(1, new Location(MapManager.getWorld(), -19.5, cageHeight, -77.5, -45, 0));
+		spawnLocations.put(2, new Location(MapManager.getWorld(), 19.5, cageHeight, -77.5, 45, 0));
 //East
-		spawnLocations.put(4, new Location(MapManager.getWorld(), 58.5, cageHeight, -54.5, 0, 0));
-		spawnLocations.put(5, new Location(MapManager.getWorld(), 77.5, cageHeight, -22.5, 90, 0));
-		spawnLocations.put(6, new Location(MapManager.getWorld(), 77.5, cageHeight, 22.5, 90, 0));
+		spawnLocations.put(3, new Location(MapManager.getWorld(), 58.5, cageHeight, -54.5, 0, 0));
+		spawnLocations.put(4, new Location(MapManager.getWorld(), 77.5, cageHeight, -22.5, 90, 0));
+		spawnLocations.put(5, new Location(MapManager.getWorld(), 77.5, cageHeight, 22.5, 90, 0));
 //South
-		spawnLocations.put(7, new Location(MapManager.getWorld(), 58.5, cageHeight, 56.5, 180, 0));
-		spawnLocations.put(8, new Location(MapManager.getWorld(), 19.5, cageHeight, 79.5, 135, 0));
-		spawnLocations.put(9, new Location(MapManager.getWorld(), -19.5, cageHeight, 78.5, -135, 0));
+		spawnLocations.put(6, new Location(MapManager.getWorld(), 58.5, cageHeight, 56.5, 180, 0));
+		spawnLocations.put(7, new Location(MapManager.getWorld(), 19.5, cageHeight, 79.5, 135, 0));
+		spawnLocations.put(8, new Location(MapManager.getWorld(), -19.5, cageHeight, 78.5, -135, 0));
 //West
-		spawnLocations.put(10, new Location(MapManager.getWorld(), -57.5, cageHeight, 56.5, 180, 0));
-		spawnLocations.put(11, new Location(MapManager.getWorld(), -76.5, cageHeight, 23.5, -90, 0));
-		spawnLocations.put(12, new Location(MapManager.getWorld(), -76.5, cageHeight, -22.5, 0, 0));
+		spawnLocations.put(9, new Location(MapManager.getWorld(), -57.5, cageHeight, 56.5, 180, 0));
+		spawnLocations.put(10, new Location(MapManager.getWorld(), -76.5, cageHeight, 23.5, -90, 0));
+		spawnLocations.put(11, new Location(MapManager.getWorld(), -76.5, cageHeight, -22.5, 0, 0));
 
 		return spawnLocations;
 	}
