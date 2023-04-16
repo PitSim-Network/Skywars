@@ -20,7 +20,7 @@ public class SkywarsCommand implements CommandExecutor {
 
 		String command = args[0].toLowerCase();
 		if(command.equals("start")) {
-			if(!player.hasPermission("skywars.start")) {
+			if(!player.hasPermission("skywars.start") && !player.hasPermission("pitsim.admin")) {
 				AOutput.send(player, "&c&lERROR!&7 You do not have permission for that");
 				return false;
 			}
