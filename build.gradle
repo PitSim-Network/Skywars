@@ -18,15 +18,11 @@ repositories {
     maven { url "https://maven.enginehub.org/repo/" }
     maven { url "https://repo.inventivetalent.org/content/repositories/snapshots" }
     maven { url "https://repo.dmulloy2.net/repository/public/" }
-    maven { url "http://repo.mrten.nl/content/repositories/releases/" }
     maven { url 'https://maven.enginehub.org/repo' }
 }
 
 dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
-//    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    compileOnly files('libs/ispigot.jar')
-    compileOnly 'net.citizensnpcs:citizensapi:2.0.27-20210513.145026-95'
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
     compileOnly "me.clip:placeholderapi:2.10.9"
     compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
@@ -34,13 +30,12 @@ dependencies {
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0";
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.7.3'
     compileOnly  'com.xxmicloxx:NoteBlockAPI:1.6.2-SNAPSHOT'
-    compile 'com.github.ArcticDevelopment:ArcticAPI:fc630bd727'
     compile 'de.tr7zw:item-nbt-api-plugin:2.8.0'// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile files('libs/MySQLAPI-1.1.1.jar')
-    compileOnly files('libs/FeatherBoard.jar')
+    compile 'com.github.ArcticDevelopment:ArcticAPI:fc630bd727'
 
     compileOnly 'net.luckperms:api:5.3'
+    compileOnly files('libs/PitSimSpigotDependencies-1-all.jar')
 }
 
 shadowJar {
