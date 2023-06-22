@@ -7,7 +7,6 @@ import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 
 public class TableManager {
 	public static void createStatsTable() {
-		// Create a new SQL query
 		String sql = new CreateTableQuery("stats")
 				.ifNotExists()
 				.column("uuid", "VARCHAR(255) NOT NULL UNIQUE")
@@ -22,12 +21,10 @@ public class TableManager {
 				.build();
 
 		Query query = new Query(PitSim.INSTANCE.mysql, sql);
-		// Execute it asynchronously
 		query.executeUpdateAsync();
 	}
 
 	public static void createPurchasedPerks() {
-		// Create a new SQL query
 		CreateTableQuery sql = new CreateTableQuery("purchased_perks");
 		sql.ifNotExists();
 		sql.column("uuid", "VARCHAR(255) NOT NULL UNIQUE");
@@ -37,12 +34,10 @@ public class TableManager {
 		sql.primaryKey("uuid");
 
 		Query query = new Query(PitSim.INSTANCE.mysql, sql.build());
-		// Execute it asynchronously
 		query.executeUpdateAsync();
 	}
 
 	public static void createEquippedPerks() {
-		// Create a new SQL query
 		String sql = new CreateTableQuery("equipped_perks")
 				.ifNotExists()
 				.column("uuid", "VARCHAR(255) NOT NULL UNIQUE")
@@ -55,7 +50,6 @@ public class TableManager {
 				.build();
 
 		Query query = new Query(PitSim.INSTANCE.mysql, sql);
-		// Execute it asynchronously
 		query.executeUpdateAsync();
 	}
 }

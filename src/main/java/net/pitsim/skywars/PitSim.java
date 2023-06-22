@@ -5,6 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.xxmicloxx.NoteBlockAPI.songplayer.EntitySongPlayer;
 import dev.kyro.arcticapi.ArcticAPI;
 import dev.kyro.arcticapi.commands.ABaseCommand;
+import dev.kyro.arcticapi.data.AConfig;
 import dev.kyro.arcticapi.data.AData;
 import dev.kyro.arcticapi.hooks.AHook;
 import dev.kyro.arcticapi.misc.AOutput;
@@ -62,8 +63,17 @@ public class PitSim extends JavaPlugin {
 	}
 
 	public void onInit() {
+		loadConfig();
+
+		ArcticAPI.configInit(this, "prefix", "error-prefix");
+
 		mysql = new MySQL();
-		mysql.connect("***REMOVED***", "***REMOVED***", "***REMOVED***", "***REMOVED***", "***REMOVED***");
+		mysql.connect(
+				AConfig.getString("sw-sql-host"),
+				AConfig.getString("sw-sql-port"),
+				AConfig.getString("sw-sql-username"),
+				AConfig.getString("sw-sql-password"),
+				AConfig.getString("sw-sql-database"));
 
 		registerSkywarsPerks();
 
@@ -147,11 +157,6 @@ public class PitSim extends JavaPlugin {
 		AHook.registerPlaceholder(new LinePlaceholder7());
 		AHook.registerPlaceholder(new LinePlaceholder8());
 
-
-
-		loadConfig();
-
-		ArcticAPI.configInit(this, "prefix", "error-prefix");
 		playerList = new AData("player-list", "", false);
 
 		CooldownManager.init();
