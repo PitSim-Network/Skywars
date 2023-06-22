@@ -22,6 +22,7 @@ import net.pitsim.skywars.commands.admin.BypassCommand;
 import net.pitsim.skywars.commands.admin.ReloadCommand;
 import net.pitsim.skywars.controllers.CombatManager;
 import net.pitsim.skywars.controllers.*;
+import net.pitsim.skywars.controllers.objects.AnticheatManager;
 import net.pitsim.skywars.controllers.objects.PitEnchant;
 import net.pitsim.skywars.controllers.objects.SkywarsPerk;
 import net.pitsim.skywars.enchants.*;
@@ -37,7 +38,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,7 +54,8 @@ public class PitSim extends JavaPlugin {
 	public static ProtocolManager PROTOCOL_MANAGER = null;
 
 	public static AData playerList;
-	public MySQL mysql;
+	public static AnticheatManager anticheat;
+	public static MySQL mysql;
 
 	@Override
 	public void onEnable() {
@@ -64,8 +65,16 @@ public class PitSim extends JavaPlugin {
 
 	public void onInit() {
 		loadConfig();
-
 		ArcticAPI.configInit(this, "prefix", "error-prefix");
+
+		if(Bukkit.getPluginManager().getPlugin("GrimAC") != null) hookIntoAnticheat(new GrimManager());
+		if(Bukkit.getPluginManager().getPlugin("PolarLoader") != null) hookIntoAnticheat(new PolarManager());
+
+		if(anticheat == null) {
+			Bukkit.getLogger().severe("No anticheat found! Shutting down...");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		} else getServer().getPluginManager().registerEvents(anticheat, this);
 
 		mysql = new MySQL();
 		mysql.connect(
@@ -115,12 +124,9 @@ public class PitSim extends JavaPlugin {
 
 		Plugin essentials = Bukkit.getPluginManager().getPlugin("Essentials");
 		EntityDamageEvent.getHandlerList().unregister(essentials);
-		for(RegisteredListener listener : EntityDamageEvent.getHandlerList().getRegisteredListeners()) {
-		}
 
-		if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-		} else {
-			AOutput.log(String.format("Could not find PlaceholderAPI! This plugin is required."));
+		if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
+			AOutput.log("Could not find PlaceholderAPI! This plugin is required.");
 			Bukkit.getPluginManager().disablePlugin(this);
 		}
 		new ScoreboardManager().register();
@@ -340,5 +346,14 @@ public class PitSim extends JavaPlugin {
 
 		EnchantManager.registerEnchant(new Sweaty());
 		EnchantManager.populateMap();
+	}
+
+	public void hookIntoAnticheat(AnticheatManager anticheat) {
+		if(PitSim.anticheat != null) {
+			Bukkit.getLogger().severe("Multiple anticheats found! Shutting down...");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+		PitSim.anticheat = anticheat;
 	}
 }

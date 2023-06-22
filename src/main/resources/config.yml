@@ -1,7 +1,7 @@
 prefix: "&7[&b&lA&7]&f "
 error-prefix: "&8[&c&lA&8]&f "
 sw-sql-host: ""
-sw-sql-port: ***REMOVED***
+sw-sql-port: 3306
 sw-sql-username: ""
 sw-sql-password: ""
 sw-sql-database: ""
